@@ -1,12 +1,13 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Ionicons } from '@expo/vector-icons';
+import { FontAwesome5, Ionicons } from '@expo/vector-icons';
 import globalStyles from '../Styles/Global';
 import { WHITE, YELLOW } from '../constants';
 import Home from '../screens/Home';
 import Map from '../screens/Map';
 import List from '../screens/List';
 import { MainTab } from '../types';
+import NationwideChains from '../screens/NationwideChains';
 
 const Tabs = createBottomTabNavigator();
 
@@ -25,6 +26,14 @@ const availableTabs: MainTab[] = [
     name: 'list',
     component: List,
     title: 'List',
+  },
+  {
+    name: 'nationwide',
+    component: NationwideChains,
+    title: 'Nationwide',
+    icon: ({ color, size }) => (
+      <FontAwesome5 name="hamburger" size={size} color={color} />
+    ),
   },
 ];
 

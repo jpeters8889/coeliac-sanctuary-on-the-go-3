@@ -11,4 +11,11 @@ type MainTab = {
   }) => ReactNode;
 };
 
-export { MainTab };
+type Eatery = {
+  id: number;
+  title: string;
+  description: string;
+  address: string;
+};
+
+export { MainTab, Eatery };
