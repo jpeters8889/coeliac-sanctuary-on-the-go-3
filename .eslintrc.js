@@ -27,5 +27,6 @@ module.exports = {
         namedComponents: "function-declaration",
       },
     ],
+    "import/prefer-default-export": "off",
   },
 };

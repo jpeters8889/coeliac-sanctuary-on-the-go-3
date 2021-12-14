@@ -12,10 +12,71 @@ type MainTab = {
 };
 
 type Eatery = {
+  address: string,
+  average_rating: string,
+  county: {
+    county: string;
+    id: number;
+  };
+  country: {
+    country: string;
+    id: number;
+  };
+  cuisine: {
+    cuisine: string;
+    id: number;
+  }
+  features: [],
+  icon: string;
   id: number;
-  title: string;
-  description: string;
-  address: string;
+  info: string;
+  lat: number;
+  lng: number;
+  name: string;
+  phone: string;
+  ratings: Rating[];
+  restaurants: [];
+  reviews: [];
+  town: {
+    id: number;
+    town: string;
+  };
+  type: {
+    id: number,
+    name: string;
+    type: EateryType;
+  };
+  venue_type: {
+    id: number;
+    venue_type: string;
+  };
+  website: string;
 };
 
-export { MainTab, Eatery };
+type EateryType = 'att' | 'hotel' | 'wte';
+
+type Rating = {
+  average_rating: number;
+  body: string;
+  id: number;
+  name: string;
+  number_of_ratings: number;
+  rating: '1' | '2' | '3' | '4' | '5',
+  wheretoeat_id: number;
+};
+
+type PlacesApiRequest = {
+  searchTerm?: string;
+  lat?: number;
+  lng?: number;
+  range?: 1 | 2 | 5 | 10 | 20;
+  filters?: {
+    venueType: any,
+  }
+  page: number,
+  limit: number,
+};
+
+export {
+  MainTab, Eatery, PlacesApiRequest, Rating, EateryType,
+};
