@@ -9,6 +9,8 @@ const globalStyles = StyleSheet.create({
   bgGreyLight: { backgroundColor: GREY_LIGHT },
   bgYellow: { backgroundColor: YELLOW },
   bgWhite: { backgroundColor: WHITE },
+  bgGreyOff: { backgroundColor: GREY_OFF },
+  bgModal: { backgroundColor: 'rgba(0,0,0,0.8)' },
 
   borderGrey: { borderColor: GREY },
   borderGreyOff: { borderColor: GREY_OFF },
@@ -24,6 +26,10 @@ const globalStyles = StyleSheet.create({
 
   itemsEnd: { alignItems: 'flex-end' },
   itemsCenter: { alignItems: 'center' },
+
+  justifyCenter: { justifyContent: 'center' },
+
+  overflowHidden: { overflow: 'hidden' },
 
   mb2: { marginBottom: 8 },
   mb4: { marginBottom: 16 },
@@ -42,14 +48,20 @@ const globalStyles = StyleSheet.create({
   pt2: { paddingTop: 8 },
 
   px4: { paddingLeft: 16, paddingRight: 16 },
+  px16: { paddingLeft: 64, paddingRight: 64 },
 
   rounded: { borderRadius: 8 },
+  roundedLg: { borderRadius: 16 },
+
+  roundedTopLg: { borderTopRightRadius: 16, borderTopLeftRadius: 16 },
+  roundedBottomLg: { borderBottomRightRadius: 16, borderBottomLeftRadius: 16 },
 
   textLg: { fontSize: 16 },
   textWhite: { color: WHITE },
 
   w20: { width: '20%' },
   w80: { width: '80%' },
+  wFull: { width: '100%' },
 });
 
 export default globalStyles;
