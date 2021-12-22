@@ -69,7 +69,7 @@ type PlacesApiRequest = {
   searchTerm?: string;
   lat?: number;
   lng?: number;
-  range?: 1 | 2 | 5 | 10 | 20;
+  range?: SearchRange;
   filters?: {
     venueType: any,
   }
@@ -77,6 +77,13 @@ type PlacesApiRequest = {
   limit: number,
 };
 
+type SearchRange = 1 | 2 | 5 | 10 | 20;
+
+type ModalProps = {
+  visible?: boolean,
+  onClose: () => void,
+};
+
 export {
-  MainTab, Eatery, PlacesApiRequest, Rating, EateryType,
+  MainTab, Eatery, PlacesApiRequest, Rating, EateryType, SearchRange, ModalProps,
 };

@@ -23,11 +23,14 @@ const globalStyles = StyleSheet.create({
   fontSemibold: { fontWeight: '600' },
 
   hFull: { height: '100%' },
+  h90: { height: '90%' },
 
   itemsEnd: { alignItems: 'flex-end' },
   itemsCenter: { alignItems: 'center' },
 
+  justifyBetween: { justifyContent: 'space-between' },
   justifyCenter: { justifyContent: 'center' },
+  justifyEnd: { justifyContent: 'flex-end' },
 
   overflowHidden: { overflow: 'hidden' },
 
@@ -46,6 +49,7 @@ const globalStyles = StyleSheet.create({
   p4: { padding: 16 },
 
   pt2: { paddingTop: 8 },
+  pb6: { paddingBottom: 24 },
 
   px4: { paddingLeft: 16, paddingRight: 16 },
   px16: { paddingLeft: 64, paddingRight: 64 },

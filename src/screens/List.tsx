@@ -8,6 +8,8 @@ import { Eatery } from '../types';
 import { ApiService } from '../libs/ApiService';
 import EateryList from '../Components/List/EateryList';
 import ItemSeparator from '../Components/UI/ItemSeparator';
+import RangeSelectModal from '../modals/RangeSelectModal';
+import FilterSelectModal from '../modals/FilterSelectModal';
 
 export default function List() {
   const [isLoading, setIsLoading]: [boolean, any] = useState(true);
@@ -20,6 +22,7 @@ export default function List() {
   const [hasMorePages, setHasMorePages]: [boolean, any] = useState(false);
 
   const [showRangeModal, setShowRangeModal]: [boolean, any] = useState(false);
+  const [showFilterModal, setShowFilterModal]: [boolean, any] = useState(false);
 
   const loadEateries = async () => {
     const request = await ApiService.getPlaces({
@@ -133,7 +136,7 @@ export default function List() {
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => setShowFilterModal(true)}>
           <View style={{
             ...Global.p2,
             ...Global.px4,
@@ -165,80 +168,19 @@ export default function List() {
       </View>
 
       {showRangeModal && (
-      <Modal
-        visible={showRangeModal}
-        onRequestClose={() => setShowRangeModal(false)}
-        transparent
-      >
-        <View style={{
-          ...Global.flex1,
-          ...Global.bgModal,
-          ...Global.wFull,
-          ...Global.hFull,
-          ...Global.itemsCenter,
-          ...Global.justifyCenter,
-        }}
-        >
-          <View style={{
-            ...Global.bgWhite,
-            ...Global.itemsCenter,
-            ...Global.justifyCenter,
-          }}
-          >
-            <TouchableOpacity onPress={() => selectRange(1)}>
-              <Text style={{
-                ...rangeSelectStyles,
-                ...Global.roundedTopLg,
-                ...(range === 1 ? Global.bgGreyOff : ''),
-              }}
-              >
-                1 Mile
-              </Text>
-            </TouchableOpacity>
+      <RangeSelectModal props={{
+        currentRange: range,
+        setRange,
+        onClose: () => setShowRangeModal(false),
+      }}
+      />
+      )}
 
-            <TouchableOpacity onPress={() => selectRange(2)}>
-              <Text style={{
-                ...rangeSelectStyles,
-                ...(range === 2 ? Global.bgGreyOff : ''),
-              }}
-              >
-                2 Miles
-              </Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity onPress={() => selectRange(5)}>
-              <Text style={{
-                ...rangeSelectStyles,
-                ...(range === 5 ? Global.bgGreyOff : ''),
-              }}
-              >
-                5 Miles
-              </Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity onPress={() => selectRange(10)}>
-              <Text style={{
-                ...rangeSelectStyles,
-                ...(range === 10 ? Global.bgGreyOff : ''),
-              }}
-              >
-                10 Miles
-              </Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity onPress={() => selectRange(20)}>
-              <Text style={{
-                ...rangeSelectStyles,
-                ...Global.roundedBottomLg,
-                ...(range === 20 ? Global.bgGreyOff : ''),
-              }}
-              >
-                20 Miles
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </Modal>
+      {showFilterModal && (
+      <FilterSelectModal props={{
+        onClose: () => setShowFilterModal(false),
+      }}
+      />
       )}
     </View>
   );
