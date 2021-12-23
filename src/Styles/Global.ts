@@ -66,6 +66,7 @@ const globalStyles = StyleSheet.create({
   w20: { width: '20%' },
   w80: { width: '80%' },
   wFull: { width: '100%' },
+  wAuto: { width: 'auto' },
 });
 
 export default globalStyles;

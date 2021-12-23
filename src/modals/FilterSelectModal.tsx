@@ -3,6 +3,7 @@ import { Modal, Text, View } from 'react-native';
 import Global from '../Styles/Global';
 import { ModalProps } from '../types';
 import Accordion from '../Components/UI/Accordion';
+import ModalContainer from '../Components/UI/ModalContainer';
 
 type Props = {
   props: ModalProps & {
@@ -16,37 +17,20 @@ export default function FilterSelectModal({ props }: Props) {
   };
 
   return (
-    <Modal
-      visible={props.visible}
-      onRequestClose={() => closeModal()}
-      transparent
+    <ModalContainer props={{
+      title: 'Filters',
+      fullScreen: true,
+      onClose: closeModal,
+    }}
     >
-      <View style={{
-        ...Global.flex1,
-        ...Global.bgModal,
-        ...Global.wFull,
-        ...Global.hFull,
-        ...Global.itemsEnd,
-        ...Global.justifyEnd,
+      <Accordion props={{
+        title: 'Hello',
+        bottomBorder: true,
       }}
       >
-        <View style={{
-          ...Global.h90,
-          ...Global.wFull,
-          ...Global.bgWhite,
-          ...Global.pb6,
-          ...Global.roundedTopLg,
-        }}
-        >
-          <Accordion props={{
-            title: 'Hello',
-          }}
-          >
-            <Text>Foo</Text>
-            <Text>Bar</Text>
-          </Accordion>
-        </View>
-      </View>
-    </Modal>
+        <Text>Foo</Text>
+        <Text>Bar</Text>
+      </Accordion>
+    </ModalContainer>
   );
 }
