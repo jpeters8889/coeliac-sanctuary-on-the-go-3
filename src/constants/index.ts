@@ -1,6 +1,7 @@
 const BLUE = '#80ccfc';
 const BLUE_LIGHT = '#addaf9';
 const YELLOW = '#dbbc25';
+const YELLOW_FADED = 'rgba(219,188,37,0.2)';
 const WHITE = '#ffffff';
 const BLACK = '#000000';
 
@@ -11,5 +12,5 @@ const GREY = '#666';
 const BASE_URL = 'https://www.coeliacsanctuary.co.uk';
 
 export {
-  BLUE, BLUE_LIGHT, YELLOW, WHITE, BLACK, GREY_LIGHT, GREY_OFF, GREY, BASE_URL,
+  BLUE, BLUE_LIGHT, YELLOW, YELLOW_FADED, WHITE, BLACK, GREY_LIGHT, GREY_OFF, GREY, BASE_URL,
 };

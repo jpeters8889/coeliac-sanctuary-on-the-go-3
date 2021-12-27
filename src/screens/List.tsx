@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import {
-  ActivityIndicator, FlatList, Modal, Text, TextInput, TouchableOpacity, View,
+  ActivityIndicator, FlatList, Text, TextInput, TouchableOpacity, View,
 } from 'react-native';
 import { AntDesign, MaterialIcons } from '@expo/vector-icons';
 import Global from '../Styles/Global';
-import { Eatery } from '../types';
+import { Eatery, SearchRange } from '../types';
 import { ApiService } from '../libs/ApiService';
 import EateryList from '../Components/List/EateryList';
 import ItemSeparator from '../Components/UI/ItemSeparator';
 import RangeSelectModal from '../modals/RangeSelectModal';
 import FilterSelectModal from '../modals/FilterSelectModal';
+import { FilterService } from '../libs/FilterService';
 
 export default function List() {
   const [isLoading, setIsLoading]: [boolean, any] = useState(true);
@@ -17,66 +18,60 @@ export default function List() {
   const [searchTerm, setSearchTerm]: [string, any] = useState('');
   const [lat, setLat]: [number, any] = useState(0);
   const [lng, setLng]: [number, any] = useState(0);
-  const [range, setRange]: [1 | 2 | 5 | 10 | 20, any] = useState(5);
+  const [range, setRange]: [SearchRange, any] = useState(5);
   const [currentPage, setCurrentPage]: [number, any] = useState(1);
   const [hasMorePages, setHasMorePages]: [boolean, any] = useState(false);
+
+  const [filterService, setFilterService]: [FilterService, any] = useState(() => new FilterService());
 
   const [showRangeModal, setShowRangeModal]: [boolean, any] = useState(false);
   const [showFilterModal, setShowFilterModal]: [boolean, any] = useState(false);
 
-  const loadEateries = async () => {
-    const request = await ApiService.getPlaces({
+  const loadEateries = () => {
+    ApiService.getPlaces({
       searchTerm: searchTerm !== '' ? searchTerm : 'london',
       lat,
       lng,
       range,
+      filters: {
+        venueType: filterService.selectedFilters(),
+      },
       page: currentPage,
       limit: 20,
+    }).then((response) => {
+      setPlaces(
+        currentPage === 1
+          ? response.data.data.data
+          : [...places, ...response.data.data.data],
+      );
+      setHasMorePages(!!response.data.data.next_page_url);
+      setIsLoading(false);
     });
-
-    setPlaces(currentPage === 1 ? request.data.data.data : [...places, ...request.data.data.data]);
-    setHasMorePages(!!request.data.data.next_page_url);
-    setIsLoading(false);
   };
 
   const updateList = () => {
     setCurrentPage(currentPage + 1);
   };
 
-  const runSearch = async () => {
+  const runSearch = () => {
     setCurrentPage(1);
     setIsLoading(true);
     setHasMorePages(true);
     setPlaces([]);
 
-    await loadEateries();
+    loadEateries();
   };
 
-  // const openRangeSelectModal = () => {
-  //   navigation.navigate('RangeSelectModal', {
-  //     currentRange: range,
-  //   });
-  // };
+  const updateFilters = (filters: FilterService) => {
+    setFilterService(filters);
+    setShowFilterModal(false);
+
+    runSearch();
+  };
 
   useEffect(() => {
-    (async () => {
-      await loadEateries();
-    })();
+    loadEateries();
   }, [currentPage, range]);
-
-  const selectRange = async (selectedRange: 1 | 2 | 5 | 10 | 20) => {
-    await setRange(selectedRange);
-    setShowRangeModal(false);
-  };
-
-  const rangeSelectStyles = {
-    ...Global.p4,
-    ...Global.px16,
-    ...Global.borderBottom,
-    ...Global.borderGreyOff,
-    ...Global.textLg,
-    ...Global.overflowHidden,
-  };
 
   return (
     <View style={{ ...Global.bgWhite, ...Global.flex1 }}>
@@ -102,7 +97,7 @@ export default function List() {
           value={searchTerm}
           style={{ ...Global.p2, ...Global.flex1 }}
           onChangeText={setSearchTerm}
-          onSubmitEditing={runSearch}
+          onSubmitEditing={() => runSearch()}
         />
       </View>
 
@@ -114,7 +109,7 @@ export default function List() {
           renderItem={EateryList}
           keyExtractor={(item) => item.id.toString()}
           ItemSeparatorComponent={ItemSeparator}
-          onEndReached={updateList}
+          onEndReached={() => updateList()}
           ListFooterComponent={hasMorePages ? <ActivityIndicator size="large" style={Global.my4} /> : null}
           style={Global.flex1}
         />
@@ -178,7 +173,8 @@ export default function List() {
 
       {showFilterModal && (
       <FilterSelectModal props={{
-        onClose: () => setShowFilterModal(false),
+        onClose: (filters: FilterService) => updateFilters(filters),
+        filterService,
       }}
       />
       )}

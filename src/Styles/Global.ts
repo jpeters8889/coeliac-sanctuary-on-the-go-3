@@ -51,8 +51,11 @@ const globalStyles = StyleSheet.create({
   pt2: { paddingTop: 8 },
   pb6: { paddingBottom: 24 },
 
+  px2: { paddingLeft: 8, paddingRight: 2 },
   px4: { paddingLeft: 16, paddingRight: 16 },
   px16: { paddingLeft: 64, paddingRight: 64 },
+
+  py4: { paddingTop: 16, paddingBottom: 16 },
 
   rounded: { borderRadius: 8 },
   roundedLg: { borderRadius: 16 },
@@ -60,7 +63,10 @@ const globalStyles = StyleSheet.create({
   roundedTopLg: { borderTopRightRadius: 16, borderTopLeftRadius: 16 },
   roundedBottomLg: { borderBottomRightRadius: 16, borderBottomLeftRadius: 16 },
 
+  scale80: { transform: [{ scale: 0.8 }] },
+
   textLg: { fontSize: 16 },
+  textXl: { fontSize: 20 },
   textWhite: { color: WHITE },
 
   w20: { width: '20%' },

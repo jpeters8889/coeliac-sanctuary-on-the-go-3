@@ -71,7 +71,7 @@ type PlacesApiRequest = {
   lng?: number;
   range?: SearchRange;
   filters?: {
-    venueType: any,
+    venueType: string,
   }
   page: number,
   limit: number,
@@ -84,6 +84,26 @@ type ModalProps = {
   onClose: () => void,
 };
 
+type VenueTypeFilterGroup = {
+  label: string;
+  id: number;
+  filters: VenueTypeFilter[];
+};
+
+type VenueTypeFilter = {
+  id: number;
+  label: string;
+  selected: boolean,
+};
+
+type VenueTypeResponse = {
+  id: number;
+  type_id: number;
+  label: string;
+  count: number;
+};
+
 export {
   MainTab, Eatery, PlacesApiRequest, Rating, EateryType, SearchRange, ModalProps,
+  VenueTypeFilterGroup, VenueTypeFilter, VenueTypeResponse,
 };

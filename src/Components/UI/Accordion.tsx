@@ -11,7 +11,7 @@ type Props = {
     title: String,
     bottomBorder?: boolean,
   },
-  children: Element[] | ReactElement[],
+  children: Element | ReactElement | Element[] | ReactElement[],
 };
 
 export default function Accordion({ props, children }: Props) {
@@ -31,7 +31,8 @@ export default function Accordion({ props, children }: Props) {
           ...Global.itemsCenter,
           ...Global.justifyBetween,
           ...Global.wFull,
-          ...Global.p4,
+          ...Global.px2,
+          ...Global.py4,
           ...(props?.bottomBorder ? {
             ...Global.borderBottom,
             ...Global.borderGreyOff,
@@ -41,7 +42,7 @@ export default function Accordion({ props, children }: Props) {
         }}
         onPress={() => toggleExpand()}
       >
-        <Text style={Global.textLg}>{props.title}</Text>
+        <Text style={{ ...Global.textXl, ...Global.fontSemibold }}>{props.title}</Text>
 
         <AntDesign
           name={expanded ? 'caretup' : 'caretdown'}
