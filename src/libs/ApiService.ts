@@ -27,7 +27,7 @@ export class ApiService {
 
     console.log(url.href);
 
-    return axios.get(encodeURI(url.href));
+    return axios.get(encodeURI(url.href), { validateStatus: () => true });
   }
 
   static async getVenueTypes() {

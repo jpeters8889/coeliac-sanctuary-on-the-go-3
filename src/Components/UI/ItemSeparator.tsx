@@ -1,7 +1,7 @@
 import { View } from 'react-native';
 import React from 'react';
-import Global from '../../Styles/Global';
+import Style from '../../Styles/Styles';
 
 export default function ItemSeparator() {
-  return <View style={{ ...Global.borderBottom, ...Global.borderGreyOff }} />;
+  return <View style={{ ...Style.borderBottom, ...Style.borderGreyOff }} />;
 }

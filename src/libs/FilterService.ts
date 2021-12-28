@@ -30,7 +30,6 @@ export class FilterService {
     }
 
     ApiService.getVenueTypes().then((response) => {
-      console.log('here');
       response.data.forEach((venueType: VenueTypeResponse) => {
         const result = this.venueTypes.find((data) => data.id === venueType.type_id);
         const index = this.venueTypes.indexOf(result as VenueTypeFilterGroup);
@@ -60,7 +59,9 @@ export class FilterService {
     const filter = (<VenueTypeFilterGroup>group).filters.find((data) => data.id === filterId);
     const filterIndex = (<VenueTypeFilterGroup>group).filters.indexOf(filter as VenueTypeFilter);
 
-    this.venueTypes[groupIndex].filters[filterIndex].selected = !this.venueTypes[groupIndex].filters[filterIndex].selected;
+    this.venueTypes[groupIndex].filters[filterIndex].selected = !this.venueTypes[groupIndex]
+      .filters[filterIndex]
+      .selected;
   }
 
   isGroupFullySelected(groupId: number): boolean {
@@ -78,11 +79,13 @@ export class FilterService {
 
     const newValue = !this.isGroupFullySelected(groupId);
 
-    this.venueTypes[groupIndex].filters = this.venueTypes[groupIndex].filters.map((filter) => {
-      filter.selected = newValue;
+    this.venueTypes[groupIndex].filters = this.venueTypes[groupIndex]
+      .filters
+      .map((filter) => {
+        filter.selected = newValue;
 
-      return filter;
-    });
+        return filter;
+      });
   }
 
   getVenueTypes(): VenueTypeFilterGroup[] {

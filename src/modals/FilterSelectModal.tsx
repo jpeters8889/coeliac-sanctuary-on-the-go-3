@@ -2,8 +2,8 @@ import React, { useCallback, useState } from 'react';
 import {
   ScrollView, Switch, Text, View,
 } from 'react-native';
-import Global from '../Styles/Global';
-import { ModalProps, VenueTypeFilterGroup } from '../types';
+import Style from '../Styles/Styles';
+import { VenueTypeFilterGroup } from '../types';
 import Accordion from '../Components/UI/Accordion';
 import ModalContainer from '../Components/UI/ModalContainer';
 import { FilterService } from '../libs/FilterService';
@@ -62,17 +62,17 @@ export default function FilterSelectModal({ props }: Props) {
           >
             <>
               <View style={{
-                ...Global.flexRow,
-                ...Global.justifyBetween,
-                ...Global.itemsCenter,
-                ...Global.p2,
-                ...Global.borderBottom,
-                ...Global.borderGreyOff,
+                ...Style.flexRow,
+                ...Style.justifyBetween,
+                ...Style.itemsCenter,
+                ...Style.p2,
+                ...Style.borderBottom,
+                ...Style.borderGreyOff,
               }}
               >
-                <Text style={Global.fontSemibold}>Select All</Text>
+                <Text style={Style.fontSemibold}>Select All</Text>
                 <Switch
-                  style={Global.scale80}
+                  style={Style.scale80}
                   trackColor={{ false: YELLOW_FADED, true: YELLOW_FADED }}
                   thumbColor={YELLOW}
                   onValueChange={() => selectGroup(venueType.id)}
@@ -83,18 +83,18 @@ export default function FilterSelectModal({ props }: Props) {
                 <View
                   key={`${venueType.id}-${filter.id}`}
                   style={{
-                    ...Global.flexRow,
-                    ...Global.justifyBetween,
-                    ...Global.itemsCenter,
-                    ...Global.p2,
-                    ...Global.borderBottom,
-                    ...Global.borderGreyOff,
+                    ...Style.flexRow,
+                    ...Style.justifyBetween,
+                    ...Style.itemsCenter,
+                    ...Style.p2,
+                    ...Style.borderBottom,
+                    ...Style.borderGreyOff,
                   }}
                 >
                   <Text>{filter.label}</Text>
 
                   <Switch
-                    style={Global.scale80}
+                    style={Style.scale80}
                     trackColor={{ false: BLUE_LIGHT, true: BLUE_LIGHT }}
                     thumbColor={BLUE}
                     onValueChange={() => selectFilter(venueType.id, filter.id)}

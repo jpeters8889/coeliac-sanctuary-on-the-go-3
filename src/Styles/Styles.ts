@@ -56,6 +56,7 @@ const globalStyles = StyleSheet.create({
   px16: { paddingLeft: 64, paddingRight: 64 },
 
   py4: { paddingTop: 16, paddingBottom: 16 },
+  py8: { paddingTop: 32, paddingBottom: 32 },
 
   rounded: { borderRadius: 8 },
   roundedLg: { borderRadius: 16 },
@@ -64,6 +65,8 @@ const globalStyles = StyleSheet.create({
   roundedBottomLg: { borderBottomRightRadius: 16, borderBottomLeftRadius: 16 },
 
   scale80: { transform: [{ scale: 0.8 }] },
+
+  textCenter: { textAlign: 'center' },
 
   textLg: { fontSize: 16 },
   textXl: { fontSize: 20 },

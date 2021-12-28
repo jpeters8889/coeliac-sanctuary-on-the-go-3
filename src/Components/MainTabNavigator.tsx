@@ -1,7 +1,7 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { FontAwesome5, Ionicons } from '@expo/vector-icons';
-import globalStyles from '../Styles/Global';
+import globalStyles from '../Styles/Styles';
 import { WHITE, YELLOW } from '../constants';
 import Home from '../screens/Home';
 import Map from '../screens/Map';

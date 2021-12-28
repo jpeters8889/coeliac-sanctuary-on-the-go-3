@@ -28,6 +28,9 @@ module.exports = {
       },
     ],
     "import/prefer-default-export": "off",
-    "react/prop-types": "off"
+    "react/prop-types": "off",
+    "max-len": ["error", { "code": 120 }],
+    "class-methods-use-this": "off",
+    "no-param-reassign": ["error", { "props": false }]
   },
 };
