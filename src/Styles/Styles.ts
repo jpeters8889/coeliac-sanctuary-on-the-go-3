@@ -4,32 +4,38 @@ import {
 } from '../constants';
 
 const globalStyles = StyleSheet.create({
+  absolute: { position: 'absolute' },
+
   bgBlue: { backgroundColor: BLUE },
   bgBlueLight: { backgroundColor: BLUE_LIGHT },
   bgGreyLight: { backgroundColor: GREY_LIGHT },
   bgYellow: { backgroundColor: YELLOW },
   bgWhite: { backgroundColor: WHITE },
   bgGreyOff: { backgroundColor: GREY_OFF },
-  bgModal: { backgroundColor: 'rgba(0,0,0,0.8)' },
 
+  bgModal: { backgroundColor: 'rgba(0,0,0,0.8)' },
   borderGrey: { borderColor: GREY },
   borderGreyOff: { borderColor: GREY_OFF },
+  borderBlueLight: { borderColor: BLUE_LIGHT },
   borderBottom: { borderBottomWidth: 1 },
-  borderTop: { borderTopWidth: 1 },
 
+  borderTop: { borderTopWidth: 1 },
   flex1: { flex: 1 },
+
   flexRow: { flexDirection: 'row' },
 
   fontSemibold: { fontWeight: '600' },
-
   hFull: { height: '100%' },
+
+  h4: { height: 16 },
   h90: { height: '90%' },
 
   itemsEnd: { alignItems: 'flex-end' },
-  itemsCenter: { alignItems: 'center' },
 
+  itemsCenter: { alignItems: 'center' },
   justifyBetween: { justifyContent: 'space-between' },
   justifyCenter: { justifyContent: 'center' },
+
   justifyEnd: { justifyContent: 'flex-end' },
 
   overflowHidden: { overflow: 'hidden' },
@@ -40,6 +46,7 @@ const globalStyles = StyleSheet.create({
   mr2: { marginRight: 8 },
   mt2: { marginTop: 8 },
   mt4: { marginTop: 16 },
+  mt10: { marginTop: 40 },
 
   mx1: { marginRight: 4, marginLeft: 4 },
 
@@ -71,6 +78,8 @@ const globalStyles = StyleSheet.create({
   textLg: { fontSize: 16 },
   textXl: { fontSize: 20 },
   textWhite: { color: WHITE },
+
+  top0: { top: 0 },
 
   w20: { width: '20%' },
   w80: { width: '80%' },

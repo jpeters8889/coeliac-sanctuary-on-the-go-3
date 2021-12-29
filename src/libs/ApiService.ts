@@ -30,6 +30,10 @@ export class ApiService {
     return axios.get(encodeURI(url.href), { validateStatus: () => true });
   }
 
+  static async getPlaceDetails(id: number) {
+    return axios.get(`${BASE_URL}/api/wheretoeat/${id.toString()}`);
+  }
+
   static async getVenueTypes() {
     return axios.get(`${BASE_URL}/api/wheretoeat/venueTypes`);
   }

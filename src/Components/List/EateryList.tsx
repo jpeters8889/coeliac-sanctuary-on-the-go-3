@@ -1,12 +1,19 @@
 import { Text, TouchableOpacity, View } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import React from 'react';
+import { StackNavigationProp } from '@react-navigation/stack';
 import { YELLOW } from '../../constants';
 import Style from '../../Styles/Styles';
 import { Eatery } from '../../types';
 import { formatAddress, placeIcon } from '../../helpers';
 
-export default function EateryList({ item, index }: { item: Eatery, index: number }) {
+export default function EateryList(item: Eatery, index: number, navigation: StackNavigationProp<any>) {
+  const viewDetails = (id: number) => {
+    navigation.navigate('details', {
+      id,
+    });
+  };
+
   return (
     <View style={{
       ...Style.p2,
@@ -38,7 +45,7 @@ export default function EateryList({ item, index }: { item: Eatery, index: numbe
             <Text>(4 Ratings)</Text>
           </View>
         ) : null }
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => viewDetails(item.id)}>
           <View style={{
             ...Style.bgYellow, ...Style.p2, ...Style.rounded, ...Style.itemsEnd,
           }}

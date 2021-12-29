@@ -63,6 +63,7 @@ type Rating = {
   number_of_ratings: number;
   rating: '1' | '2' | '3' | '4' | '5',
   wheretoeat_id: number;
+  created_at: string;
 };
 
 type PlacesApiRequest = {
