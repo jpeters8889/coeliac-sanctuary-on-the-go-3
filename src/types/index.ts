@@ -36,7 +36,7 @@ type Eatery = {
   phone: string;
   ratings: Rating[];
   restaurants: [];
-  reviews: [];
+  reviews: Review[];
   town: {
     id: number;
     town: string;
@@ -59,11 +59,17 @@ type Rating = {
   average_rating: number;
   body: string;
   id: number;
-  name: string;
+  name?: string;
   number_of_ratings: number;
   rating: '1' | '2' | '3' | '4' | '5',
   wheretoeat_id: number;
   created_at: string;
+};
+
+type Review = {
+  id: number,
+  created_at: string,
+  link: string,
 };
 
 type PlacesApiRequest = {
@@ -106,5 +112,5 @@ type VenueTypeResponse = {
 
 export {
   MainTab, Eatery, PlacesApiRequest, Rating, EateryType, SearchRange, ModalProps,
-  VenueTypeFilterGroup, VenueTypeFilter, VenueTypeResponse,
+  VenueTypeFilterGroup, VenueTypeFilter, VenueTypeResponse, Review,
 };

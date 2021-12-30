@@ -16,4 +16,28 @@ const placeIcon = (icon: EateryType) => {
   }
 };
 
-export { formatAddress, placeIcon };
+const notEmpty = (check: any): Boolean => {
+  if (check instanceof Array) {
+    return check.length > 0;
+  }
+
+  if (check instanceof Object) {
+    return check !== {};
+  }
+
+  if (check instanceof String) {
+    return check !== '';
+  }
+
+  if (check instanceof Boolean) {
+    return check;
+  }
+
+  if (check === null) {
+    return false;
+  }
+
+  return !!check;
+};
+
+export { formatAddress, placeIcon, notEmpty };

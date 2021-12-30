@@ -6,6 +6,7 @@ import advancedFormat from 'dayjs/plugin/advancedFormat';
 import { Rating } from '../../types';
 import { YELLOW } from '../../constants';
 import Global from '../../Styles/Styles';
+import { notEmpty } from '../../helpers';
 
 dayjs.extend(advancedFormat);
 
@@ -18,25 +19,19 @@ export default function EateryReview({ item }: { item: Rating }) {
 
   return (
     <View style={{ ...Global.bgBlueLight, ...Global.rounded, ...Global.p2 }}>
-      <View style={{ ...Global.flexRow, ...Global.mb4 }}>
+      <View style={{ ...Global.flexRow, ...Global.mb4, ...Global.itemsCenter }}>
+        <Text style={Global.mr2}>
+          {dayjs(item.created_at).format('MMM Do YYYY')}
+        </Text>
+
         {stars.map((index) => <FontAwesome name="star" size={20} color={YELLOW} key={index} />)}
       </View>
 
-      <Text style={Global.mb4}>
-        {item.body ? item.body : 'Reviewer left no text with their rating'}
-      </Text>
-
-      <View style={Global.flexRow}>
-        {item.name ? (
-          <Text>
-            {item.name}
-            ,
-            {' '}
-          </Text>
-        ) : null}
-
-        <Text>{dayjs(item.created_at).format('MMM Do YYYY')}</Text>
+      <View style={Global.mb4}>
+        <Text>{notEmpty(item.body) ? item.body : 'Reviewer left no text with their rating'}</Text>
       </View>
+
+      {notEmpty(item.name) && <Text>{item.name}</Text>}
     </View>
   );
 }

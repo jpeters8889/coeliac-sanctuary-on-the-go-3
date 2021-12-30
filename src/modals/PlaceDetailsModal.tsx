@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import {
-  View, Text, TouchableOpacity, ActivityIndicator, Alert, Linking, FlatList,
+  View, Text, TouchableOpacity, ActivityIndicator, Alert, Linking, FlatList, ScrollView,
 } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 import { AntDesign, FontAwesome } from '@expo/vector-icons';
+import dayjs from 'dayjs';
 import Global from '../Styles/Styles';
 import { Eatery } from '../types';
 import { ApiService } from '../libs/ApiService';
 import EateryReview from '../Components/UI/EateryReview';
 import ItemSeparatorBlank from '../Components/UI/ItemSeparatorBlank';
-import { BLACK, YELLOW } from '../constants';
+import { BASE_URL, BLACK, YELLOW } from '../constants';
 
 type Props = {
   route: RouteProp<{
@@ -65,7 +66,7 @@ export default function PlaceDetailsModal({ route, navigation }: Props) {
       )}
 
       {!isLoading && (
-      <View style={Global.mt10}>
+      <ScrollView style={Global.mt10}>
         <View style={{ ...Global.p2, ...Global.borderBottom, ...Global.borderBlueLight }}>
           <Text style={Global.mb4}>
             {eatery.info}
@@ -83,6 +84,29 @@ export default function PlaceDetailsModal({ route, navigation }: Props) {
           </Text>
           )}
         </View>
+
+        {eatery.reviews.length > 0 && (
+        <View style={{ ...Global.p2, ...Global.borderBottom, ...Global.borderBlueLight }}>
+          <Text style={{ ...Global.textLg, ...Global.fontSemibold, ...Global.mb4 }}>
+            Our Reviews
+          </Text>
+
+          {eatery.reviews.map((review, index) => (
+            <Text
+              onPress={() => Linking.openURL(`${BASE_URL}${review.link}`)}
+              key={review.id}
+              style={{
+                ...Global.fontSemibold,
+                ...(index < eatery.reviews.length - 1 ? Global.mb1 : null),
+              }}
+            >
+              Our review from
+              {' '}
+              {dayjs(review.created_at).format('MMM Do YYYY')}
+            </Text>
+          ))}
+        </View>
+        )}
 
         <View style={Global.p2}>
           <Text style={{ ...Global.textLg, ...Global.fontSemibold }}>
@@ -109,16 +133,18 @@ export default function PlaceDetailsModal({ route, navigation }: Props) {
               </Text>
             </View>
 
-            <FlatList
-              data={eatery.ratings}
-              keyExtractor={(item) => item.id.toString()}
-              renderItem={EateryReview}
-              ItemSeparatorComponent={ItemSeparatorBlank}
-            />
+            <View>
+              {eatery.ratings.map((rating, index) => (
+                <>
+                  <EateryReview item={rating} key={rating.id.toString()} />
+                  {index < eatery.ratings.length - 1 && <ItemSeparatorBlank />}
+                </>
+              ))}
+            </View>
           </View>
           )}
         </View>
-      </View>
+      </ScrollView>
       )}
     </View>
   );

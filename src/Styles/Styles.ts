@@ -40,6 +40,7 @@ const globalStyles = StyleSheet.create({
 
   overflowHidden: { overflow: 'hidden' },
 
+  mb1: { marginBottom: 4 },
   mb2: { marginBottom: 8 },
   mb4: { marginBottom: 16 },
   mr1: { marginRight: 4 },
