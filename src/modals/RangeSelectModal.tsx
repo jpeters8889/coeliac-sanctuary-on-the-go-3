@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, TouchableOpacity } from 'react-native';
-import Style from '../Styles/Styles';
+import Styles from '../Styles/Styles';
 import { ModalProps, SearchRange } from '../types';
 import ModalContainer from '../Components/UI/ModalContainer';
 
@@ -22,12 +22,12 @@ export default function RangeSelectModal({ props }: Props) {
   };
 
   const rangeSelectStyles = {
-    ...Style.p4,
-    ...Style.px16,
-    ...Style.borderBottom,
-    ...Style.borderGreyOff,
-    ...Style.textLg,
-    ...Style.overflowHidden,
+    ...Styles.p4,
+    ...Styles.px16,
+    ...Styles.borderBottom,
+    ...Styles.borderGreyOff,
+    ...Styles.textLg,
+    ...Styles.overflowHidden,
     width: 200,
   };
 
@@ -40,7 +40,7 @@ export default function RangeSelectModal({ props }: Props) {
       <TouchableOpacity onPress={() => selectRange(1)}>
         <Text style={{
           ...rangeSelectStyles,
-          ...(props.currentRange === 1 ? Style.bgGreyOff : ''),
+          ...(props.currentRange === 1 ? Styles.bgGreyOff : ''),
         }}
         >
           1 Mile
@@ -50,7 +50,7 @@ export default function RangeSelectModal({ props }: Props) {
       <TouchableOpacity onPress={() => selectRange(2)}>
         <Text style={{
           ...rangeSelectStyles,
-          ...(props.currentRange === 2 ? Style.bgGreyOff : ''),
+          ...(props.currentRange === 2 ? Styles.bgGreyOff : ''),
         }}
         >
           2 Miles
@@ -60,7 +60,7 @@ export default function RangeSelectModal({ props }: Props) {
       <TouchableOpacity onPress={() => selectRange(5)}>
         <Text style={{
           ...rangeSelectStyles,
-          ...(props.currentRange === 5 ? Style.bgGreyOff : ''),
+          ...(props.currentRange === 5 ? Styles.bgGreyOff : ''),
         }}
         >
           5 Miles
@@ -70,7 +70,7 @@ export default function RangeSelectModal({ props }: Props) {
       <TouchableOpacity onPress={() => selectRange(10)}>
         <Text style={{
           ...rangeSelectStyles,
-          ...(props.currentRange === 10 ? Style.bgGreyOff : ''),
+          ...(props.currentRange === 10 ? Styles.bgGreyOff : ''),
         }}
         >
           10 Miles
@@ -80,7 +80,7 @@ export default function RangeSelectModal({ props }: Props) {
       <TouchableOpacity onPress={() => selectRange(20)}>
         <Text style={{
           ...rangeSelectStyles,
-          ...(props.currentRange === 20 ? Style.bgGreyOff : ''),
+          ...(props.currentRange === 20 ? Styles.bgGreyOff : ''),
         }}
         >
           20 Miles

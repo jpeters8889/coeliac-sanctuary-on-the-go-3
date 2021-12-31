@@ -5,7 +5,7 @@ import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
 import { Rating } from '../../types';
 import { YELLOW } from '../../constants';
-import Global from '../../Styles/Styles';
+import Styles from '../../Styles/Styles';
 import { notEmpty } from '../../helpers';
 
 dayjs.extend(advancedFormat);
@@ -18,20 +18,30 @@ export default function EateryReview({ item }: { item: Rating }) {
   }
 
   return (
-    <View style={{ ...Global.bgBlueLight, ...Global.rounded, ...Global.p2 }}>
-      <View style={{ ...Global.flexRow, ...Global.mb4, ...Global.itemsCenter }}>
-        <Text style={Global.mr2}>
+    <View style={{ ...Styles.bgBlueLight, ...Styles.rounded }}>
+      <View style={{
+        ...Styles.flexRow,
+        ...Styles.itemsCenter,
+        ...Styles.justifyBetween,
+        ...Styles.bgBlue,
+        ...Styles.p2,
+        ...Styles.roundedTop,
+      }}
+      >
+        <View style={{ ...Styles.flexRow }}>
+          {stars.map((index) => <FontAwesome name="star" size={20} color={YELLOW} key={index} style={Styles.mr1} />)}
+        </View>
+
+        <Text style={Styles.mr2}>
           {dayjs(item.created_at).format('MMM Do YYYY')}
         </Text>
-
-        {stars.map((index) => <FontAwesome name="star" size={20} color={YELLOW} key={index} />)}
       </View>
 
-      <View style={Global.mb4}>
+      <View style={Styles.p2}>
         <Text>{notEmpty(item.body) ? item.body : 'Reviewer left no text with their rating'}</Text>
-      </View>
 
-      {notEmpty(item.name) && <Text>{item.name}</Text>}
+        {notEmpty(item.name) && <Text style={{ ...Styles.mt2, ...Styles.italic }}>{item.name}</Text>}
+      </View>
     </View>
   );
 }

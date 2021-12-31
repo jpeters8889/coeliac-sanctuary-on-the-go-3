@@ -3,7 +3,7 @@ import React, { ReactElement } from 'react';
 import {
   Modal, Text, TouchableOpacity, View,
 } from 'react-native';
-import Style from '../../Styles/Styles';
+import Styles from '../../Styles/Styles';
 import { ModalProps } from '../../types';
 
 type Props = {
@@ -38,44 +38,44 @@ export default function ModalContainer({ props, children }: Props) {
   };
 
   const backgroundStyles = {
-    ...Style.flex1,
-    ...Style.bgModal,
-    ...Style.wFull,
-    ...Style.hFull,
+    ...Styles.flex1,
+    ...Styles.bgModal,
+    ...Styles.wFull,
+    ...Styles.hFull,
     ...(isFullscreen() ? {
-      ...Style.itemsEnd,
-      ...Style.justifyEnd,
+      ...Styles.itemsEnd,
+      ...Styles.justifyEnd,
     } : {
-      ...Style.itemsCenter,
-      ...Style.justifyCenter,
+      ...Styles.itemsCenter,
+      ...Styles.justifyCenter,
     }),
   };
 
   const wrapperStyles = {
-    ...Style.bgWhite,
+    ...Styles.bgWhite,
     ...(isFullscreen() ? {
-      ...Style.h90,
-      ...Style.wFull,
-      ...Style.pb6,
-      ...Style.roundedTopLg,
+      ...Styles.h90,
+      ...Styles.wFull,
+      ...Styles.pb6,
+      ...Styles.roundedTopLg,
     } : {
-      ...Style.wAuto,
-      ...Style.itemsCenter,
-      ...Style.justifyCenter,
+      ...Styles.itemsCenter,
+      ...Styles.justifyCenter,
+      width: 300,
     }),
   };
 
   const headerStyles = {
-    ...Style.p4,
-    ...Style.bgBlue,
-    ...Style.flexRow,
-    ...Style.justifyBetween,
-    ...Style.itemsCenter,
+    ...Styles.p4,
+    ...Styles.bgBlue,
+    ...Styles.flexRow,
+    ...Styles.justifyBetween,
+    ...Styles.itemsCenter,
     ...(isFullscreen() ? {
-      ...Style.wFull,
-      ...Style.roundedTopLg,
+      ...Styles.wFull,
+      ...Styles.roundedTopLg,
     } : {
-      width: 200,
+      width: 300,
     }),
   };
 
@@ -90,7 +90,7 @@ export default function ModalContainer({ props, children }: Props) {
         <View style={wrapperStyles}>
           {showHeader() && (
             <View style={headerStyles}>
-              <Text style={{ ...Style.textLg }}>{props.title}</Text>
+              <Text style={{ ...Styles.textLg }}>{props.title}</Text>
               {isClosable() && (
               <TouchableOpacity onPress={() => closeModal()}>
                 <AntDesign name="close" size={24} color="black" />

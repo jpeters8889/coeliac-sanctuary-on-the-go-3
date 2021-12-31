@@ -4,7 +4,7 @@ import {
 import React, { ReactElement, useState } from 'react';
 import { AntDesign } from '@expo/vector-icons';
 import { YELLOW } from '../../constants';
-import Style from '../../Styles/Styles';
+import Styles from '../../Styles/Styles';
 
 type Props = {
   props: {
@@ -27,22 +27,22 @@ export default function Accordion({ props, children }: Props) {
     <View>
       <TouchableOpacity
         style={{
-          ...Style.flexRow,
-          ...Style.itemsCenter,
-          ...Style.justifyBetween,
-          ...Style.wFull,
-          ...Style.px2,
-          ...Style.py4,
+          ...Styles.flexRow,
+          ...Styles.itemsCenter,
+          ...Styles.justifyBetween,
+          ...Styles.wFull,
+          ...Styles.px2,
+          ...Styles.py4,
           ...(props?.bottomBorder ? {
-            ...Style.borderBottom,
-            ...Style.borderGreyOff,
+            ...Styles.borderBottom,
+            ...Styles.borderGreyOff,
           } : {
             //
           }),
         }}
         onPress={() => toggleExpand()}
       >
-        <Text style={{ ...Style.textXl, ...Style.fontSemibold }}>{props.title}</Text>
+        <Text style={{ ...Styles.textXl, ...Styles.fontSemibold }}>{props.title}</Text>
 
         <AntDesign
           name={expanded ? 'caretup' : 'caretdown'}
@@ -50,7 +50,7 @@ export default function Accordion({ props, children }: Props) {
           color={YELLOW}
         />
       </TouchableOpacity>
-      <View style={{ ...Style.bgGreyLight }}>
+      <View style={{ ...Styles.bgGreyLight }}>
         {expanded && (<View>{children}</View>)}
       </View>
 

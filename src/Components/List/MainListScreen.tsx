@@ -4,7 +4,7 @@ import {
 } from 'react-native';
 import { AntDesign, MaterialIcons } from '@expo/vector-icons';
 import { StackNavigationProp } from '@react-navigation/stack';
-import Style from '../../Styles/Styles';
+import Styles from '../../Styles/Styles';
 import EateryList from './EateryList';
 import ItemSeparator from '../UI/ItemSeparator';
 import RangeSelectModal from '../../modals/RangeSelectModal';
@@ -171,20 +171,20 @@ export default function MainListScreen({ navigation }: { navigation: StackNaviga
   useEffect(() => loadEateries(), [reloadList]);
 
   return (
-    <View style={{ ...Style.bgWhite, ...Style.flex1 }}>
+    <View style={{ ...Styles.bgWhite, ...Styles.flex1 }}>
       <View style={{
-        ...Style.flexRow,
-        ...Style.itemsCenter,
-        ...Style.p2,
-        ...Style.borderBottom,
-        ...Style.borderGrey,
+        ...Styles.flexRow,
+        ...Styles.itemsCenter,
+        ...Styles.p2,
+        ...Styles.borderBottom,
+        ...Styles.borderGrey,
       }}
       >
         <AntDesign
           name="search1"
           size={18}
           color="black"
-          style={Style.mx1}
+          style={Styles.mx1}
         />
 
         <TextInput
@@ -192,16 +192,16 @@ export default function MainListScreen({ navigation }: { navigation: StackNaviga
           clearButtonMode="always"
           returnKeyType="search"
           value={searchTerm}
-          style={{ ...Style.p2, ...Style.flex1 }}
+          style={{ ...Styles.p2, ...Styles.flex1 }}
           onChangeText={setSearchTerm}
           onSubmitEditing={() => runSearch()}
         />
       </View>
 
-      {isLoading && (<ActivityIndicator size="large" style={Style.mt4} />)}
+      {isLoading && (<ActivityIndicator size="large" style={Styles.mt4} />)}
 
       {!isLoading && (places.length > 0 ? (
-        <View style={Style.flex1}>
+        <View style={Styles.flex1}>
           <FlatList
             data={places}
             renderItem={({ item, index }) => EateryList(item, index, navigation)}
@@ -209,18 +209,18 @@ export default function MainListScreen({ navigation }: { navigation: StackNaviga
             ItemSeparatorComponent={ItemSeparator}
             onEndReached={() => updateList()}
             onEndReachedThreshold={0.9}
-            ListFooterComponent={hasMorePages ? <ActivityIndicator size="large" style={Style.my4} /> : null}
-            style={Style.flex1}
+            ListFooterComponent={hasMorePages ? <ActivityIndicator size="large" style={Styles.my4} /> : null}
+            style={Styles.flex1}
           />
         </View>
       ) : (
         <Text style={{
-          ...Style.textXl,
-          ...Style.py8,
-          ...Style.itemsCenter,
-          ...Style.justifyCenter,
-          ...Style.flex1,
-          ...Style.textCenter,
+          ...Styles.textXl,
+          ...Styles.py8,
+          ...Styles.itemsCenter,
+          ...Styles.justifyCenter,
+          ...Styles.flex1,
+          ...Styles.textCenter,
         }}
         >
           No eateries found...
@@ -228,15 +228,15 @@ export default function MainListScreen({ navigation }: { navigation: StackNaviga
       ))}
 
       <View style={{
-        ...Style.flexRow, ...Style.p2, ...Style.borderTop, ...Style.borderGrey,
+        ...Styles.flexRow, ...Styles.p2, ...Styles.borderTop, ...Styles.borderGrey,
       }}
       >
         <TouchableOpacity onPress={() => goToCurrentLocation()}>
           <View style={{
-            ...Style.p2,
-            ...Style.bgYellow,
-            ...Style.rounded,
-            ...Style.mr2,
+            ...Styles.p2,
+            ...Styles.bgYellow,
+            ...Styles.rounded,
+            ...Styles.mr2,
           }}
           >
             <MaterialIcons name="gps-fixed" size={17} color="black" />
@@ -245,11 +245,11 @@ export default function MainListScreen({ navigation }: { navigation: StackNaviga
 
         <TouchableOpacity onPress={() => setShowFilterModal(true)}>
           <View style={{
-            ...Style.p2,
-            ...Style.px4,
-            ...Style.bgYellow,
-            ...Style.rounded,
-            ...Style.mr2,
+            ...Styles.p2,
+            ...Styles.px4,
+            ...Styles.bgYellow,
+            ...Styles.rounded,
+            ...Styles.mr2,
           }}
           >
             <Text>Filters</Text>
@@ -258,10 +258,10 @@ export default function MainListScreen({ navigation }: { navigation: StackNaviga
 
         <TouchableOpacity onPress={() => setShowRangeModal(true)}>
           <View style={{
-            ...Style.p2,
-            ...Style.px4,
-            ...Style.bgYellow,
-            ...Style.rounded,
+            ...Styles.p2,
+            ...Styles.px4,
+            ...Styles.bgYellow,
+            ...Styles.rounded,
           }}
           >
             <Text>

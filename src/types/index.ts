@@ -110,7 +110,15 @@ type VenueTypeResponse = {
   count: number;
 };
 
+type SubmitRatingSignature = {
+  eateryId: number;
+  rating: 1 | 2 | 3 | 4 | 5;
+  name?: string;
+  email?: string;
+  comment?: string,
+};
+
 export {
   MainTab, Eatery, PlacesApiRequest, Rating, EateryType, SearchRange, ModalProps,
-  VenueTypeFilterGroup, VenueTypeFilter, VenueTypeResponse, Review,
+  VenueTypeFilterGroup, VenueTypeFilter, VenueTypeResponse, Review, SubmitRatingSignature,
 };

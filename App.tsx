@@ -2,7 +2,7 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import Settings from './src/screens/Settings';
-import globalStyles from './src/Styles/Styles';
+import Styles from './src/Styles/Styles';
 import { BLACK, BLUE_LIGHT, WHITE } from './src/constants';
 import MainTabNavigator from './src/Components/MainTabNavigator';
 
@@ -14,7 +14,7 @@ export default function App() {
       <Drawer.Navigator
         initialRouteName="landing"
         screenOptions={{
-          headerStyle: globalStyles.bgBlueLight,
+          headerStyle: Styles.bgBlueLight,
           headerTintColor: BLACK,
           drawerInactiveBackgroundColor: WHITE,
           drawerActiveBackgroundColor: BLUE_LIGHT,

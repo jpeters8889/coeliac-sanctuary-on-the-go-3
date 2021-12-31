@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 import {
-  BLUE, BLUE_LIGHT, GREY_LIGHT, GREY_OFF, WHITE, YELLOW, GREY,
+  BLUE, BLUE_LIGHT, GREY_LIGHT, GREY_OFF, WHITE, YELLOW, GREY, BLUE_LIGHT_FADED,
 } from '../constants';
 
 const globalStyles = StyleSheet.create({
@@ -8,6 +8,7 @@ const globalStyles = StyleSheet.create({
 
   bgBlue: { backgroundColor: BLUE },
   bgBlueLight: { backgroundColor: BLUE_LIGHT },
+  bgBlueLightFaded: { backgroundColor: BLUE_LIGHT_FADED },
   bgGreyLight: { backgroundColor: GREY_LIGHT },
   bgYellow: { backgroundColor: YELLOW },
   bgWhite: { backgroundColor: WHITE },
@@ -16,9 +17,11 @@ const globalStyles = StyleSheet.create({
   bgModal: { backgroundColor: 'rgba(0,0,0,0.8)' },
   borderGrey: { borderColor: GREY },
   borderGreyOff: { borderColor: GREY_OFF },
+  borderBlue: { borderColor: BLUE },
   borderBlueLight: { borderColor: BLUE_LIGHT },
   borderBottom: { borderBottomWidth: 1 },
 
+  border: { borderWidth: 1 },
   borderTop: { borderTopWidth: 1 },
   flex1: { flex: 1 },
 
@@ -30,9 +33,12 @@ const globalStyles = StyleSheet.create({
   h4: { height: 16 },
   h90: { height: '90%' },
 
+  italic: { fontStyle: 'italic' },
+
   itemsEnd: { alignItems: 'flex-end' },
 
   itemsCenter: { alignItems: 'center' },
+  justifyAround: { justifyContent: 'space-around' },
   justifyBetween: { justifyContent: 'space-between' },
   justifyCenter: { justifyContent: 'center' },
 
@@ -66,9 +72,11 @@ const globalStyles = StyleSheet.create({
   py4: { paddingTop: 16, paddingBottom: 16 },
   py8: { paddingTop: 32, paddingBottom: 32 },
 
+  roundedSm: { borderRadius: 6 },
   rounded: { borderRadius: 8 },
   roundedLg: { borderRadius: 16 },
 
+  roundedTop: { borderTopRightRadius: 8, borderTopLeftRadius: 8 },
   roundedTopLg: { borderTopRightRadius: 16, borderTopLeftRadius: 16 },
   roundedBottomLg: { borderBottomRightRadius: 16, borderBottomLeftRadius: 16 },
 
@@ -76,6 +84,7 @@ const globalStyles = StyleSheet.create({
 
   textCenter: { textAlign: 'center' },
 
+  textSm: { fontSize: 12 },
   textLg: { fontSize: 16 },
   textXl: { fontSize: 20 },
   textWhite: { color: WHITE },

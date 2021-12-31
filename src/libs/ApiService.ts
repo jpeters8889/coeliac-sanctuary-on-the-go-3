@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { BASE_URL } from '../constants';
-import { PlacesApiRequest } from '../types';
+import { PlacesApiRequest, SubmitRatingSignature } from '../types';
 
 export class ApiService {
   static getPlaces(request: PlacesApiRequest) {
@@ -36,5 +36,32 @@ export class ApiService {
 
   static async getVenueTypes() {
     return axios.get(`${BASE_URL}/api/wheretoeat/venueTypes`);
+  }
+
+  static async submitRating(request: SubmitRatingSignature) {
+    let promise = null;
+
+    await this.apiGetToken((token) => {
+      promise = axios.post(`${BASE_URL}/api/wheretoeat/${request.eateryId}/reviews`, {
+        rating: request.rating,
+        name: request.name,
+        email: request.email,
+        comment: request.comment,
+        method: 'app',
+      }, {
+        headers: {
+          'X-CSRF-TOKEN': token,
+        },
+      });
+
+      return promise;
+    });
+  }
+
+  protected static apiGetToken(callback: (token: string) => any) {
+    axios.get(`${BASE_URL}/api/app-request-token`)
+      .then((response) => {
+        callback(response.data.token);
+      });
   }
 }
