@@ -72,6 +72,8 @@ const globalStyles = StyleSheet.create({
   py4: { paddingTop: 16, paddingBottom: 16 },
   py8: { paddingTop: 32, paddingBottom: 32 },
 
+  right0: { right: 0 },
+
   roundedSm: { borderRadius: 6 },
   rounded: { borderRadius: 8 },
   roundedLg: { borderRadius: 16 },
@@ -95,6 +97,8 @@ const globalStyles = StyleSheet.create({
   w80: { width: '80%' },
   wFull: { width: '100%' },
   wAuto: { width: 'auto' },
+
+  zMax: { zIndex: 999 },
 });
 
 export default globalStyles;
