@@ -12,8 +12,9 @@ type MainTab = {
 };
 
 type Eatery = {
-  address: string,
-  average_rating: string,
+  address: string;
+  average_rating: string;
+  created_at: string;
   county: {
     county: string;
     id: number;

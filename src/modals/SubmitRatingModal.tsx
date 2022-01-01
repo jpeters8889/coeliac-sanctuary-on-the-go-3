@@ -124,8 +124,6 @@ export default function SubmitRatingModal({ props }: Props) {
             placeholder="Your Review..."
             placeholderTextColor={BLUE}
             value={review}
-            autoCompleteType="email"
-            keyboardType="email-address"
             style={{
               ...Styles.p2,
               ...Styles.border,

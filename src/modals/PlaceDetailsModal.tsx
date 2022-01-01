@@ -13,6 +13,7 @@ import EateryReview from '../Components/UI/EateryReview';
 import ItemSeparatorBlank from '../Components/UI/ItemSeparatorBlank';
 import { BASE_URL, BLACK } from '../constants';
 import SubmitRatingModal from './SubmitRatingModal';
+import ReportEateryModal from './ReportEateryModal';
 
 type Props = {
   route: RouteProp<{
@@ -27,13 +28,7 @@ export default function PlaceDetailsModal({ route, navigation }: Props) {
   const [isLoading, setIsLoading]: [boolean, any] = useState(true);
   const [eatery, setEatery]: [Eatery, any] = useState({} as Eatery);
   const [showSubmitRatingModal, setShowSubmitRatingModal]: [boolean, any] = useState(false);
-  const [reloadPage, setReloadPage]: [any, any] = useState();
-
-  const closeSubmitRatingModal = () => {
-    setReloadPage({});
-
-    setShowSubmitRatingModal(false);
-  };
+  const [showReportProblemModal, setShowReportProblemModal]: [boolean, any] = useState(false);
 
   const loadEatery = () => {
     ApiService.getPlaceDetails(route.params.id)
@@ -47,9 +42,12 @@ export default function PlaceDetailsModal({ route, navigation }: Props) {
       });
   };
 
-  useEffect(() => loadEatery(), []);
+  const closeSubmitRatingModal = () => {
+    loadEatery();
+    setShowSubmitRatingModal(false);
+  };
 
-  useEffect(() => loadEatery(), [reloadPage]);
+  useEffect(() => loadEatery(), []);
 
   return (
     <View>
@@ -122,7 +120,7 @@ export default function PlaceDetailsModal({ route, navigation }: Props) {
           </View>
           )}
 
-          <View style={Styles.p2}>
+          <View style={{ ...Styles.p2, ...Styles.borderBottom, ...Styles.borderBlueLight }}>
             <Text style={{ ...Styles.textLg, ...Styles.fontSemibold }}>
               Visitor Ratings
             </Text>
@@ -183,6 +181,17 @@ export default function PlaceDetailsModal({ route, navigation }: Props) {
             </View>
             )}
           </View>
+
+          <View style={Styles.p2}>
+            <Text style={Styles.italic}>
+              This location was added to our database on
+              {' '}
+              {dayjs(eatery.created_at).format('DD/MM/YYYY')}
+            </Text>
+            <Text style={{ ...Styles.fontSemibold, ...Styles.pt2 }} onPress={() => setShowReportProblemModal(true)}>
+              Report a problem with this location.
+            </Text>
+          </View>
         </ScrollView>
 
         {showSubmitRatingModal && (
@@ -193,6 +202,16 @@ export default function PlaceDetailsModal({ route, navigation }: Props) {
         }}
         />
         )}
+
+        {showReportProblemModal && (
+        <ReportEateryModal props={{
+          id: eatery.id,
+          title: eatery.name,
+          onClose: () => setShowReportProblemModal(false),
+        }}
+        />
+        )}
+
       </>
       )}
     </View>

@@ -58,6 +58,24 @@ export class ApiService {
     });
   }
 
+  static async apiSubmitPlaceRequest(body: string, type: 'add' | 'remove' = 'add') {
+    let promise = null;
+
+    await this.apiGetToken((token) => {
+      promise = axios.post(`${BASE_URL}/api/wheretoeat/place-request`, {
+        name: 'Through App',
+        state: type,
+        comment: body,
+      }, {
+        headers: {
+          'X-CSRF-TOKEN': token,
+        },
+      });
+    });
+
+    return promise;
+  }
+
   protected static apiGetToken(callback: (token: string) => any) {
     axios.get(`${BASE_URL}/api/app-request-token`)
       .then((response) => {
