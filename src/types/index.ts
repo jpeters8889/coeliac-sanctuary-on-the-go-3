@@ -77,7 +77,7 @@ type PlacesApiRequest = {
   searchTerm?: string;
   lat?: number;
   lng?: number;
-  range?: SearchRange;
+  range?: SearchRange | number;
   filters?: {
     venueType: string,
   }
