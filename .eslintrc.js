@@ -32,6 +32,7 @@ module.exports = {
     "max-len": ["error", { "code": 120 }],
     "class-methods-use-this": "off",
     "no-param-reassign": ["error", { "props": false }],
-    "no-plusplus": "off"
+    "no-plusplus": "off",
+    "react/destructuring-assignment": "off"
   },
 };

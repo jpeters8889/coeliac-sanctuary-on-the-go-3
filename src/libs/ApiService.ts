@@ -25,13 +25,15 @@ export class ApiService {
     url.searchParams.append('page', request.page.toString());
     url.searchParams.append('limit', request.limit.toString());
 
-    console.log(url.href);
-
     return axios.get(encodeURI(url.href), { validateStatus: () => true });
   }
 
   static async getPlaceDetails(id: number) {
     return axios.get(`${BASE_URL}/api/wheretoeat/${id.toString()}`);
+  }
+
+  static getNationwideEateries(page: number = 1) {
+    return axios.get(`${BASE_URL}/api/wheretoeat?page=${page}&filter[county]=1`);
   }
 
   static async getVenueTypes() {
