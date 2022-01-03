@@ -32,11 +32,20 @@ export default function MapScreen({ navigation }: { navigation: StackNavigationP
 
   const map: MutableRefObject<MapView> = useRef({} as MapView);
 
+  const navigateToLocation = (latitude: number, longitude: number) => {
+    map.current.animateToRegion({
+      latitude,
+      longitude,
+      latitudeDelta: 0.092,
+      longitudeDelta: 0.092 * (Dimensions.get('window').width / Dimensions.get('window').height),
+    });
+  };
+
   const loadEateries = () => {
     ApiService.getPlaces({
       searchTerm,
-      lat: latLng.latitude,
-      lng: latLng.longitude,
+      lat: searchTerm === '' ? latLng.latitude : 0,
+      lng: searchTerm === '' ? latLng.longitude : 0,
       range,
       filters: {
         venueType: filterService.selectedFilters(),
@@ -44,6 +53,12 @@ export default function MapScreen({ navigation }: { navigation: StackNavigationP
       page: 1,
       limit: 50,
     }).then((response) => {
+      if (searchTerm !== '' && response.data.data.appends.latlng) {
+        navigateToLocation(response.data.data.appends.latlng.lat, response.data.data.appends.latlng.lng);
+
+        setSearchTerm('');
+      }
+
       setPlaces(response.data.data.data);
     }).catch(() => {
       //
@@ -62,12 +77,20 @@ export default function MapScreen({ navigation }: { navigation: StackNavigationP
       latitude: region.latitude,
       longitude: region.longitude,
     });
+
+    setRange((region.latitudeDelta * 111) * 2);
   };
 
   const openDetails = (eatery: Eatery) => {
     navigation.navigate('details', {
       id: eatery.id,
     });
+  };
+
+  const runSearch = () => {
+    // setLatLng({ latitude: 0, longitude: 0 });
+
+    loadEateries();
   };
 
   useEffect(() => {
@@ -79,12 +102,7 @@ export default function MapScreen({ navigation }: { navigation: StackNavigationP
 
         locationService.getLocation()
           .then((location) => {
-            map.current.animateToRegion({
-              latitude: location.coords.latitude,
-              longitude: location.coords.longitude,
-              latitudeDelta: 0.092,
-              longitudeDelta: 0.092 * (Dimensions.get('window').width / Dimensions.get('window').height),
-            });
+            navigateToLocation(location.coords.latitude, location.coords.longitude);
           });
       })
       .catch(() => {
@@ -133,6 +151,7 @@ export default function MapScreen({ navigation }: { navigation: StackNavigationP
             value={searchTerm}
             style={Styles.flex1}
             onChangeText={setSearchTerm}
+            onSubmitEditing={() => runSearch()}
           />
         </View>
 
@@ -154,6 +173,7 @@ export default function MapScreen({ navigation }: { navigation: StackNavigationP
         ref={map}
         zoomEnabled
         zoomControlEnabled
+        showsUserLocation
         showsMyLocationButton
         provider="google"
         initialRegion={{
