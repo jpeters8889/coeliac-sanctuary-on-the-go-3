@@ -26,7 +26,29 @@ export default function EateryList(item: Eatery, index: number, navigation: Stac
           {item.name}
         </Text>
 
+        {item.type.type !== 'att' && (
         <Text style={Styles.mb4}>{item.info}</Text>
+        )}
+
+        {item.type.type === 'att' && item.restaurants.length === 1 && (
+        <View style={Styles.mb4}>
+          <Text style={{ ...Styles.fontSemibold, ...Styles.mb1 }}>
+            {item.restaurants[0].restaurant_name}
+          </Text>
+
+          <Text style={Styles.mb4}>{item.restaurants[0].info}</Text>
+        </View>
+        )}
+
+        {item.type.type === 'att' && item.restaurants.length > 1 && (
+        <Text style={Styles.mb4}>
+          There are
+          {' '}
+          {item.restaurants.length}
+          {' '}
+          eateries in this attraction that offer gluten free.
+        </Text>
+        )}
 
         <Text>{formatAddress(item.address)}</Text>
       </View>

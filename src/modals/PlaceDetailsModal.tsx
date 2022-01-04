@@ -80,9 +80,28 @@ export default function PlaceDetailsModal({ route, navigation }: Props) {
       <>
         <ScrollView style={Styles.mt10}>
           <View style={{ ...Styles.p2, ...Styles.borderBottom, ...Styles.borderBlueLight }}>
+            {eatery.type.type !== 'att' && (
             <Text style={Styles.mb4}>
               {eatery.info}
             </Text>
+            )}
+
+            {eatery.type.type === 'att' && (
+            <View>
+              {eatery.restaurants.map((restaurant) => (
+                <View key={restaurant.id} style={Styles.mb2}>
+                  <Text style={{
+                    ...Styles.fontSemibold,
+                    ...Styles.textLg,
+                  }}
+                  >
+                    {restaurant.restaurant_name}
+                  </Text>
+                  <Text>{restaurant.info}</Text>
+                </View>
+              ))}
+            </View>
+            )}
 
             <Text style={Styles.mb4}>
               {eatery.address.replaceAll('<br />', '\n')}

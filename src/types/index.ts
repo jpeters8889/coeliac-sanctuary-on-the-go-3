@@ -36,7 +36,7 @@ type Eatery = {
   name: string;
   phone: string;
   ratings: Rating[];
-  restaurants: [];
+  restaurants: AttractionRestaurant[];
   reviews: Review[];
   town: {
     id: number;
@@ -55,6 +55,12 @@ type Eatery = {
 };
 
 type EateryType = 'att' | 'hotel' | 'wte';
+
+type AttractionRestaurant = {
+  id: number,
+  restaurant_name: string,
+  info: string,
+};
 
 type Rating = {
   average_rating: number;
