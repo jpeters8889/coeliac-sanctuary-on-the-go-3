@@ -91,6 +91,15 @@ type PlacesApiRequest = {
   limit: number,
 };
 
+type PlacesMapApiRequest = {
+  lat: number;
+  lng: number;
+  range: number;
+  filters?: {
+    venueType: string,
+  }
+};
+
 type SearchRange = 1 | 2 | 5 | 10 | 20;
 
 type ModalProps = {
@@ -128,4 +137,5 @@ type SubmitRatingSignature = {
 export {
   MainTab, Eatery, PlacesApiRequest, Rating, EateryType, SearchRange, ModalProps,
   VenueTypeFilterGroup, VenueTypeFilter, VenueTypeResponse, Review, SubmitRatingSignature,
+  PlacesMapApiRequest,
 };

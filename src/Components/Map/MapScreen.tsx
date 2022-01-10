@@ -4,12 +4,13 @@ import React, {
 import {
   Dimensions, TextInput, TouchableOpacity, View,
 } from 'react-native';
-import MapView, { Marker, Region } from 'react-native-maps';
+import { Marker, Region } from 'react-native-maps';
+import MapView from 'react-native-map-clustering';
 import { AntDesign, Ionicons } from '@expo/vector-icons';
 import { StackNavigationProp } from '@react-navigation/stack';
 import Styles from '../../Styles/Styles';
 import LocationService from '../../libs/LocationService';
-import { BLACK, BLUE } from '../../constants';
+import { BLACK, BLUE, YELLOW } from '../../constants';
 import { FilterService } from '../../libs/FilterService';
 import FilterSelectModal from '../../modals/FilterSelectModal';
 import { Eatery } from '../../types';
@@ -32,37 +33,31 @@ export default function MapScreen({ navigation }: { navigation: StackNavigationP
 
   const map: MutableRefObject<MapView> = useRef({} as MapView);
 
+  const loadEateries = () => {
+    ApiService.getMapPlaces({
+      lat: latLng.latitude,
+      lng: latLng.longitude,
+      range,
+      filters: {
+        venueType: filterService.selectedFilters(),
+      },
+    }).then((response) => {
+      setPlaces(response.data.data);
+    }).catch(() => {
+      //
+    });
+  };
+
   const navigateToLocation = (latitude: number, longitude: number) => {
+    // @ts-ignore
     map.current.animateToRegion({
       latitude,
       longitude,
       latitudeDelta: 0.092,
       longitudeDelta: 0.092 * (Dimensions.get('window').width / Dimensions.get('window').height),
-    });
-  };
+    }, 0);
 
-  const loadEateries = () => {
-    ApiService.getPlaces({
-      searchTerm,
-      lat: searchTerm === '' ? latLng.latitude : 0,
-      lng: searchTerm === '' ? latLng.longitude : 0,
-      range,
-      filters: {
-        venueType: filterService.selectedFilters(),
-      },
-      page: 1,
-      limit: 50,
-    }).then((response) => {
-      if (searchTerm !== '' && response.data.data.appends.latlng) {
-        navigateToLocation(response.data.data.appends.latlng.lat, response.data.data.appends.latlng.lng);
-
-        setSearchTerm('');
-      }
-
-      setPlaces(response.data.data.data);
-    }).catch(() => {
-      //
-    });
+    loadEateries();
   };
 
   const updateFilters = (filters: FilterService) => {
@@ -78,7 +73,7 @@ export default function MapScreen({ navigation }: { navigation: StackNavigationP
       longitude: region.longitude,
     });
 
-    setRange((region.latitudeDelta * 111) * 2);
+    setRange((region.latitudeDelta * 111) / 1.609);
   };
 
   const openDetails = (eatery: Eatery) => {
@@ -88,9 +83,10 @@ export default function MapScreen({ navigation }: { navigation: StackNavigationP
   };
 
   const runSearch = () => {
-    // setLatLng({ latitude: 0, longitude: 0 });
-
-    loadEateries();
+    ApiService.searchForLatLng(searchTerm).then((response) => {
+      setSearchTerm('');
+      navigateToLocation(response.data.lat, response.data.lng);
+    });
   };
 
   useEffect(() => {
@@ -186,6 +182,7 @@ export default function MapScreen({ navigation }: { navigation: StackNavigationP
           ...Styles.wFull,
           ...Styles.hFull,
         }}
+        clusterColor={YELLOW}
       >
         {places.map((eatery) => (
           <Marker
