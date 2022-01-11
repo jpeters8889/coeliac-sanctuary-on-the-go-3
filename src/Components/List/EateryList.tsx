@@ -60,11 +60,18 @@ export default function EateryList(item: Eatery, index: number, navigation: Stac
           <View style={{ ...Styles.mb2, ...Styles.itemsEnd }}>
             <View style={Styles.flexRow}>
               <Text style={Styles.mr1}>
-                {item.ratings.length}
+                {item.average_rating}
               </Text>
               <FontAwesome name="star" size={15} color={YELLOW} />
             </View>
-            <Text>(4 Ratings)</Text>
+            <Text>
+              (
+              {item.ratings.length}
+              {' '}
+              Rating
+              {item.ratings.length > 1 ? 's' : ''}
+              )
+            </Text>
           </View>
         ) : null }
         <TouchableOpacity onPress={() => viewDetails(item.id)}>

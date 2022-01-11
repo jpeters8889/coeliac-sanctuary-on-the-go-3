@@ -2,7 +2,7 @@ import React, {
   MutableRefObject, useEffect, useRef, useState,
 } from 'react';
 import {
-  Dimensions, TextInput, TouchableOpacity, View,
+  Dimensions, Platform, TextInput, TouchableOpacity, View,
 } from 'react-native';
 import { Marker, Region } from 'react-native-maps';
 import MapView from 'react-native-map-clustering';
@@ -116,9 +116,9 @@ export default function MapScreen({ navigation }: { navigation: StackNavigationP
         ...Styles.absolute,
         ...Styles.p4,
         ...Styles.zMax,
-        ...Styles.wFull,
         ...Styles.flexRow,
         ...Styles.justifyBetween,
+        ...(Platform.OS === 'android' ? { ...Styles.w85, ...Styles.p2 } : { ...Styles.wFull, ...Styles.p4 }),
       }}
       >
         <View style={{

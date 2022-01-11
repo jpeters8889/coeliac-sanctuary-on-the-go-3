@@ -6,7 +6,6 @@ import Styles from '../Styles/Styles';
 import Accordion from '../Components/UI/Accordion';
 import { Eatery } from '../types';
 import { ApiService } from '../libs/ApiService';
-import EateryList from '../Components/List/EateryList';
 import ItemSeparator from '../Components/UI/ItemSeparator';
 import Location from '../Components/Nationwide/Location';
 

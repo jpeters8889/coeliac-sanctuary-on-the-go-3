@@ -18,7 +18,7 @@ export default function Location(item: Eatery, index: number) {
     <View style={{
       ...Styles.p2,
       ...Styles.flexRow,
-      ...(index % 2 === 0 ? Styles.bgGreyLight : ''),
+      ...(index % 2 === 0 ? '' : Styles.bgGreyLight),
     }}
     >
       <View style={Styles.w80}>

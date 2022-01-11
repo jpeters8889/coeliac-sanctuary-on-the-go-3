@@ -50,7 +50,16 @@ export default function Accordion({ props, children }: Props) {
           color={YELLOW}
         />
       </TouchableOpacity>
-      <View style={{ ...Styles.bgGreyLight }}>
+      <View style={{
+        ...Styles.bgGreyLight,
+        ...(props?.bottomBorder ? {
+          ...Styles.borderBottom,
+          ...Styles.borderGreyOff,
+        } : {
+          //
+        }),
+      }}
+      >
         {expanded && (<View>{children}</View>)}
       </View>
 

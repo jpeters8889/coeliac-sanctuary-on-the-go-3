@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import {
+  Platform,
   ScrollView, Switch, Text, View,
 } from 'react-native';
 import Styles from '../Styles/Styles';
@@ -65,14 +66,15 @@ export default function FilterSelectModal({ props }: Props) {
                 ...Styles.flexRow,
                 ...Styles.justifyBetween,
                 ...Styles.itemsCenter,
-                ...Styles.p2,
+                ...Styles.px2,
                 ...Styles.borderBottom,
                 ...Styles.borderGreyOff,
+                ...(Platform.OS === 'android' ? { ...Styles.py0, ...Styles.pr2 } : Styles.py2),
               }}
               >
                 <Text style={Styles.fontSemibold}>Select All</Text>
                 <Switch
-                  style={Styles.scale80}
+                  style={Platform.OS === 'ios' ? Styles.scale80 : Styles.scale120}
                   trackColor={{ false: YELLOW_FADED, true: YELLOW_FADED }}
                   thumbColor={YELLOW}
                   onValueChange={() => selectGroup(venueType.id)}
@@ -86,15 +88,16 @@ export default function FilterSelectModal({ props }: Props) {
                     ...Styles.flexRow,
                     ...Styles.justifyBetween,
                     ...Styles.itemsCenter,
-                    ...Styles.p2,
+                    ...Styles.px2,
                     ...Styles.borderBottom,
                     ...Styles.borderGreyOff,
+                    ...(Platform.OS === 'android' ? { ...Styles.py0, ...Styles.pr2 } : Styles.py2),
                   }}
                 >
                   <Text>{filter.label}</Text>
 
                   <Switch
-                    style={Styles.scale80}
+                    style={Platform.OS === 'ios' ? Styles.scale80 : Styles.scale120}
                     trackColor={{ false: BLUE_LIGHT, true: BLUE_LIGHT }}
                     thumbColor={BLUE}
                     onValueChange={() => selectFilter(venueType.id, filter.id)}

@@ -28,6 +28,8 @@ const globalStyles = StyleSheet.create({
   flexRow: { flexDirection: 'row' },
 
   fontSemibold: { fontWeight: '600' },
+  fontBold: { fontWeight: '800' },
+
   hFull: { height: '100%' },
 
   h4: { height: 16 },
@@ -44,7 +46,7 @@ const globalStyles = StyleSheet.create({
 
   justifyEnd: { justifyContent: 'flex-end' },
 
-  overflowHidden: { overflow: 'hidden' },
+  leadingHigh: { lineHeight: 20 },
 
   mb1: { marginBottom: 4 },
   mb2: { marginBottom: 8 },
@@ -59,16 +61,21 @@ const globalStyles = StyleSheet.create({
 
   my4: { marginTop: 16, marginBottom: 16 },
 
+  overflowHidden: { overflow: 'hidden' },
+
   p2: { padding: 8 },
   p4: { padding: 16 },
 
   pt2: { paddingTop: 8 },
+  pr2: { paddingRight: 8 },
   pb6: { paddingBottom: 24 },
 
   px2: { paddingLeft: 8, paddingRight: 2 },
   px4: { paddingLeft: 16, paddingRight: 16 },
   px16: { paddingLeft: 64, paddingRight: 64 },
 
+  py0: { paddingTop: 0, paddingBottom: 0 },
+  py2: { paddingTop: 8, paddingBottom: 8 },
   py4: { paddingTop: 16, paddingBottom: 16 },
   py8: { paddingTop: 32, paddingBottom: 32 },
 
@@ -83,18 +90,21 @@ const globalStyles = StyleSheet.create({
   roundedBottomLg: { borderBottomRightRadius: 16, borderBottomLeftRadius: 16 },
 
   scale80: { transform: [{ scale: 0.8 }] },
+  scale120: { transform: [{ scale: 1.2 }] },
 
   textCenter: { textAlign: 'center' },
 
   textSm: { fontSize: 12 },
   textLg: { fontSize: 16 },
   textXl: { fontSize: 20 },
+  text2Xl: { fontSize: 24 },
   textWhite: { color: WHITE },
 
   top0: { top: 0 },
 
   w20: { width: '20%' },
   w80: { width: '80%' },
+  w85: { width: '85%' },
   wFull: { width: '100%' },
   wAuto: { width: 'auto' },
 

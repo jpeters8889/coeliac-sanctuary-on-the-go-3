@@ -28,7 +28,8 @@ export default function RangeSelectModal({ props }: Props) {
     ...Styles.borderGreyOff,
     ...Styles.textLg,
     ...Styles.overflowHidden,
-    width: 200,
+    ...Styles.textCenter,
+    width: 300,
   };
 
   return (

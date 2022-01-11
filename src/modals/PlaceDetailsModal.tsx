@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
-  View, Text, TouchableOpacity, ActivityIndicator, Alert, Linking, ScrollView,
+  View, Text, TouchableOpacity, ActivityIndicator, Alert, Linking, ScrollView, Platform,
 } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
@@ -14,6 +14,7 @@ import ItemSeparatorBlank from '../Components/UI/ItemSeparatorBlank';
 import { BASE_URL, BLACK } from '../constants';
 import SubmitRatingModal from './SubmitRatingModal';
 import ReportEateryModal from './ReportEateryModal';
+import { formatAddress, notEmpty } from '../helpers';
 
 type Props = {
   route: RouteProp<{
@@ -60,10 +61,24 @@ export default function PlaceDetailsModal({ route, navigation }: Props) {
         ...Styles.absolute,
         ...Styles.top0,
         ...Styles.wFull,
+        ...(Platform.OS === 'android' ? {
+          ...Styles.borderTop,
+          ...Styles.borderGrey,
+        } : ''),
       }}
       >
         {isLoading && <Text style={Styles.textLg}>Loading...</Text>}
-        {!isLoading && <Text style={Styles.textLg}>{eatery.name}</Text>}
+        {!isLoading && (
+        <Text style={{
+          ...(Platform.OS === 'android' ? {
+            ...Styles.text2Xl,
+            ...Styles.fontBold,
+          } : { ...Styles.textLg, ...Styles.fontSemibold }),
+        }}
+        >
+          {eatery.name}
+        </Text>
+        )}
 
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <AntDesign name="close" size={24} color="black" />
@@ -104,12 +119,12 @@ export default function PlaceDetailsModal({ route, navigation }: Props) {
             )}
 
             <Text style={Styles.mb4}>
-              {eatery.address.replaceAll('<br />', '\n')}
+              {formatAddress(eatery.address, '\n')}
             </Text>
 
-            {eatery.phone && <Text style={Styles.mb4}>{eatery.phone}</Text>}
+            {notEmpty(eatery.phone) && <Text style={Styles.mb4}>{eatery.phone}</Text>}
 
-            {eatery.website && (
+            {notEmpty(eatery.website) && (
             <Text style={{ ...Styles.mb4, ...Styles.fontSemibold }} onPress={() => Linking.openURL(eatery.website)}>
               {eatery.website}
             </Text>
@@ -160,7 +175,8 @@ export default function PlaceDetailsModal({ route, navigation }: Props) {
                   {' '}
                   {eatery.ratings.length}
                   {' '}
-                  ratings
+                  rating
+                  {eatery.ratings.length > 1 ? 's' : ''}
                 </Text>
               </View>
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
-  View, Text, TextInput, ActivityIndicator, FlatList, TouchableOpacity, Alert,
+  View, Text, TextInput, ActivityIndicator, FlatList, TouchableOpacity, Alert, Platform,
 } from 'react-native';
 import { AntDesign, MaterialIcons } from '@expo/vector-icons';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -250,6 +250,7 @@ export default function MainListScreen({ navigation }: { navigation: StackNaviga
             ...Styles.bgYellow,
             ...Styles.rounded,
             ...Styles.mr2,
+            ...(Platform.OS === 'android' ? { paddingVertical: 9 } : ''),
           }}
           >
             <Text>Filters</Text>
@@ -262,6 +263,7 @@ export default function MainListScreen({ navigation }: { navigation: StackNaviga
             ...Styles.px4,
             ...Styles.bgYellow,
             ...Styles.rounded,
+            ...(Platform.OS === 'android' ? { paddingVertical: 9 } : ''),
           }}
           >
             <Text>
