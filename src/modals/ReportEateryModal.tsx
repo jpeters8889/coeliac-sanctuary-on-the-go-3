@@ -30,9 +30,7 @@ export default function ReportEateryModal({ props }: Props) {
       return;
     }
 
-    const report = `${details}\n\nThis report is for place ${props.id} - ${props.title}`;
-
-    ApiService.apiSubmitPlaceRequest(report, 'remove').then(() => {
+    ApiService.reportPlace(props.id, details).then(() => {
       Alert.alert('Thank you for your report, we\'ll check it out!');
     }).catch(() => {
       Alert.alert('There was an error submitting your report');

@@ -43,8 +43,8 @@ export default function MapScreen({ navigation }: { navigation: StackNavigationP
       },
     }).then((response) => {
       setPlaces(response.data.data);
-    }).catch(() => {
-      //
+    }).catch((e) => {
+      console.log(e);
     });
   };
 

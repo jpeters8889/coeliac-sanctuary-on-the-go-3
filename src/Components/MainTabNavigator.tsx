@@ -1,13 +1,15 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { FontAwesome5, Ionicons } from '@expo/vector-icons';
-import globalStyles from '../Styles/Styles';
+import { Feather, FontAwesome5, Ionicons } from '@expo/vector-icons';
+import { BottomTabNavigationOptions } from '@react-navigation/bottom-tabs/lib/typescript/src/types';
+import Styles from '../Styles/Styles';
 import { WHITE, YELLOW } from '../constants';
 import Home from '../screens/Home';
 import Map from '../screens/Map';
 import List from '../screens/List';
 import { MainTab } from '../types';
 import NationwideChains from '../screens/NationwideChains';
+import Website from '../screens/Website';
 
 const Tabs = createBottomTabNavigator();
 
@@ -15,36 +17,48 @@ const availableTabs: MainTab[] = [
   {
     name: 'home',
     component: Home,
-    title: 'Home',
+    label: 'Home',
   },
   {
     name: 'map',
     component: Map,
-    title: 'Map',
+    label: 'Map',
+    title: 'Eating Out Map',
   },
   {
     name: 'list',
     component: List,
-    title: 'List',
+    label: 'List',
   },
   {
     name: 'nationwide',
     component: NationwideChains,
-    title: 'Nationwide',
+    label: 'Nationwide',
     icon: ({ color, size }) => (
       <FontAwesome5 name="hamburger" size={size} color={color} />
     ),
   },
+  {
+    name: 'website',
+    component: Website,
+    label: 'Website',
+    icon: ({ color, size }) => (
+      <Feather name="link" size={size} color={color} />
+    ),
+  },
 ];
 
-const options = {
+const options: BottomTabNavigationOptions = {
   headerShown: false,
-  tabBarStyle: globalStyles.bgBlueLight,
+  tabBarStyle: {
+    ...Styles.bgBlueLight,
+    ...Styles.justifyBetween,
+  },
   tabBarActiveTintColor: YELLOW,
   tabBarInactiveTintColor: WHITE,
   tabBarLabelStyle: {
-    ...globalStyles.fontSemibold,
-    ...globalStyles.textLg,
+    // ...Styles.fontSemibold,
+    ...Styles.textSm,
   },
 };
 
@@ -57,7 +71,8 @@ export default function MainTabNavigator() {
           name={tab.name}
           component={tab.component}
           options={{
-            title: tab.title,
+            title: tab.label,
+            headerTitle: 'foo',
             tabBarIcon: ({ focused, color, size }) => (
               tab.icon
                 ? tab.icon({ focused, color, size })

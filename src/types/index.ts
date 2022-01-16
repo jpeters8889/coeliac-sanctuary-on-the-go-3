@@ -1,8 +1,10 @@
 import { ComponentType, ReactNode } from 'react';
+import { BASE_URL } from '../constants';
 
 type MainTab = {
   name: string,
-  title: string,
+  label: string,
+  title?: string,
   component: ComponentType<any>,
   icon?: (props: {
     focused: boolean;
@@ -134,8 +136,34 @@ type SubmitRatingSignature = {
   comment?: string,
 };
 
+type WebsiteModuleData = {
+  architect_title: string;
+  id: number,
+  title: string;
+  meta_description: string;
+  main_image: string;
+  created_at: string;
+  link: string;
+};
+
+type WebsiteDataset = {
+  id: number,
+  title: string;
+  description: string;
+  image: string;
+  createdAt: string;
+  link: string;
+};
+
+type WebsiteDisplaySection = {
+  title: string;
+  key: string;
+  loading: boolean;
+  items: WebsiteDataset[],
+};
+
 export {
   MainTab, Eatery, PlacesApiRequest, Rating, EateryType, SearchRange, ModalProps,
   VenueTypeFilterGroup, VenueTypeFilter, VenueTypeResponse, Review, SubmitRatingSignature,
-  PlacesMapApiRequest,
+  PlacesMapApiRequest, WebsiteModuleData, WebsiteDataset, WebsiteDisplaySection,
 };

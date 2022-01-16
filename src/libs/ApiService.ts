@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosResponse } from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { BASE_URL } from '../constants';
 import { PlacesApiRequest, PlacesMapApiRequest, SubmitRatingSignature } from '../types';
 
@@ -53,6 +53,18 @@ export class ApiService {
     return axios.get(`${BASE_URL}/api/wheretoeat?page=${page}&filter[county]=1`);
   }
 
+  static latestBlogs() {
+    return axios.get(`${BASE_URL}/api/blogs`);
+  }
+
+  static latestRecipes() {
+    return axios.get(`${BASE_URL}/api/recipes`);
+  }
+
+  static latestReviews() {
+    return axios.get(`${BASE_URL}/api/reviews`);
+  }
+
   static async getVenueTypes() {
     return axios.get(`${BASE_URL}/api/wheretoeat/venueTypes`);
   }
@@ -92,6 +104,18 @@ export class ApiService {
       name: 'Through App',
       state: type,
       comment: body,
+    }, {
+      headers: {
+        'X-CSRF-TOKEN': token,
+      },
+    });
+  }
+
+  static async reportPlace(eateryId: number, details: string) {
+    const token = await this.getToken();
+
+    return axios.post(`${BASE_URL}/api/wheretoeat/${eateryId.toString}/report`, {
+      details,
     }, {
       headers: {
         'X-CSRF-TOKEN': token,

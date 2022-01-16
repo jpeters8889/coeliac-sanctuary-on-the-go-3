@@ -51,14 +51,18 @@ const globalStyles = StyleSheet.create({
   mb1: { marginBottom: 4 },
   mb2: { marginBottom: 8 },
   mb4: { marginBottom: 16 },
+  mb8: { marginBottom: 32 },
+
   mr1: { marginRight: 4 },
   mr2: { marginRight: 8 },
+
   mt2: { marginTop: 8 },
   mt4: { marginTop: 16 },
   mt10: { marginTop: 40 },
 
   mx1: { marginRight: 4, marginLeft: 4 },
 
+  my2: { marginTop: 8, marginBottom: 8 },
   my4: { marginTop: 16, marginBottom: 16 },
 
   overflowHidden: { overflow: 'hidden' },
@@ -95,6 +99,7 @@ const globalStyles = StyleSheet.create({
   textCenter: { textAlign: 'center' },
 
   textSm: { fontSize: 12 },
+  textMd: { fontSize: 14 },
   textLg: { fontSize: 16 },
   textXl: { fontSize: 20 },
   text2Xl: { fontSize: 24 },

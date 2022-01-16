@@ -1,3 +1,4 @@
+import { AxiosError } from 'axios';
 import { VenueTypeFilter, VenueTypeFilterGroup, VenueTypeResponse } from '../types';
 import { ApiService } from './ApiService';
 
@@ -50,7 +51,7 @@ export class FilterService {
 
         return venueType;
       });
-    });
+    }).catch((e: AxiosError) => console.log(e.request));
   }
 
   toggleFilter(groupId: number, filterId: number): void {
