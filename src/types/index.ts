@@ -1,7 +1,7 @@
 import { ComponentType, ReactNode } from 'react';
-import { BASE_URL } from '../constants';
 
 type MainTab = {
+  showHeader?: boolean;
   name: string,
   label: string,
   title?: string,
@@ -136,6 +136,15 @@ type SubmitRatingSignature = {
   comment?: string,
 };
 
+type RecommendAPlaceSignature = {
+  name: string;
+  email: string;
+  placeName: string;
+  placeLocation: string;
+  placeWebAddress?: string;
+  placeDetails: string;
+};
+
 type WebsiteModuleData = {
   architect_title: string;
   id: number,
@@ -165,5 +174,5 @@ type WebsiteDisplaySection = {
 export {
   MainTab, Eatery, PlacesApiRequest, Rating, EateryType, SearchRange, ModalProps,
   VenueTypeFilterGroup, VenueTypeFilter, VenueTypeResponse, Review, SubmitRatingSignature,
-  PlacesMapApiRequest, WebsiteModuleData, WebsiteDataset, WebsiteDisplaySection,
+  PlacesMapApiRequest, WebsiteModuleData, WebsiteDataset, WebsiteDisplaySection, RecommendAPlaceSignature,
 };

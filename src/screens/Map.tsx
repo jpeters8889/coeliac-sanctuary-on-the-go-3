@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import PlaceDetailsModal from '../modals/PlaceDetailsModal';
-import MapScreen from '../Components/Map/MapScreen';
+import MapScreenContainer from '../Components/Map/MapScreenContainer';
 
 export default function Map() {
   const stack = createStackNavigator();
@@ -9,7 +9,7 @@ export default function Map() {
   return (
     <stack.Navigator screenOptions={{ headerShown: false }}>
       <stack.Group>
-        <stack.Screen name="map-screen" component={MapScreen} />
+        <stack.Screen name="map-screen" component={MapScreenContainer} />
       </stack.Group>
       <stack.Group screenOptions={{ presentation: 'modal' }}>
         <stack.Screen name="details" component={PlaceDetailsModal} />

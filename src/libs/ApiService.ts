@@ -1,6 +1,8 @@
 import axios, { AxiosResponse } from 'axios';
 import { BASE_URL } from '../constants';
-import { PlacesApiRequest, PlacesMapApiRequest, SubmitRatingSignature } from '../types';
+import {
+  PlacesApiRequest, PlacesMapApiRequest, RecommendAPlaceSignature, SubmitRatingSignature,
+} from '../types';
 
 export class ApiService {
   static getPlaces(request: PlacesApiRequest) {
@@ -97,13 +99,16 @@ export class ApiService {
     });
   }
 
-  static async apiSubmitPlaceRequest(body: string, type: 'add' | 'remove' = 'add') {
+  static async recommendAPlace(details: RecommendAPlaceSignature) {
     const token = await this.getToken();
 
-    return axios.post(`${BASE_URL}/api/wheretoeat/place-request`, {
-      name: 'Through App',
-      state: type,
-      comment: body,
+    return axios.post(`${BASE_URL}/api/wheretoeat/recommend-a-place`, {
+      name: details.name,
+      email: details.email,
+      place_name: details.placeName,
+      place_location: details.placeLocation,
+      place_web_address: details.placeWebAddress,
+      place_details: details.placeDetails,
     }, {
       headers: {
         'X-CSRF-TOKEN': token,

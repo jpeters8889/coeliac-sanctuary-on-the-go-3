@@ -18,6 +18,7 @@ const globalStyles = StyleSheet.create({
   borderGrey: { borderColor: GREY },
   borderGreyOff: { borderColor: GREY_OFF },
   borderBlue: { borderColor: BLUE },
+  borderRed: { borderColor: 'red' },
   borderBlueLight: { borderColor: BLUE_LIGHT },
   borderBottom: { borderBottomWidth: 1 },
 

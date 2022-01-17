@@ -11,6 +11,7 @@ import Map from './src/screens/Map';
 import List from './src/screens/List';
 import NationwideChains from './src/screens/NationwideChains';
 import Website from './src/screens/Website';
+import NationwideScreenContainer from './src/Components/Nationwide/NationwideScreenContainer';
 
 export default function App() {
   const Tabs = createBottomTabNavigator();
@@ -26,19 +27,19 @@ export default function App() {
       name: 'map',
       component: Map,
       label: 'Map',
-      title: 'Eating Out Map',
+      showHeader: false,
     },
     {
       name: 'list',
       component: List,
       label: 'List',
-      title: 'Eating Out List',
+      showHeader: false,
     },
     {
       name: 'nationwide',
-      component: NationwideChains,
+      component: NationwideScreenContainer,
       label: 'Nationwide',
-      title: 'Nationwide Chains',
+      showHeader: false,
       icon: ({ color, size }) => (
         <FontAwesome5 name="hamburger" size={size} color={color} />
       ),
@@ -86,6 +87,7 @@ export default function App() {
             component={tab.component}
             options={{
               title: tab.label,
+              headerShown: tab?.showHeader ?? true,
               headerTitle: tab?.title ?? tab.label,
               tabBarIcon: ({ focused, color, size }) => (
                 tab.icon
