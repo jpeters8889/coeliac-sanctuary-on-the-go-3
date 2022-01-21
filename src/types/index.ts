@@ -166,7 +166,7 @@ type WebsiteDataset = {
 
 type WebsiteDisplaySection = {
   title: string;
-  key: string;
+  key: 'blogs' | 'recipes' | 'reviews';
   loading: boolean;
   items: WebsiteDataset[],
 };

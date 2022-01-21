@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
-  View, Text, ActivityIndicator, ScrollView,
+  ActivityIndicator, NativeScrollEvent, NativeSyntheticEvent, ScrollView, Text, View,
 } from 'react-native';
 import Styles from '../Styles/Styles';
 import { ApiService } from '../libs/ApiService';
@@ -15,6 +15,12 @@ export default function Website() {
   const [recipes, setRecipes]: [WebsiteDataset[], any] = useState([]);
   const [loadingReviews, setLoadingReviews]: [boolean, any] = useState(true);
   const [reviews, setReviews]: [WebsiteDataset[], any] = useState([]);
+
+  const [activeItems, setActiveItems]: [{ [K: string]: number }, any] = useState(() => ({
+    blogs: 0,
+    recipes: 0,
+    reviews: 0,
+  }));
 
   const sections: WebsiteDisplaySection[] = [
     {
@@ -44,7 +50,7 @@ export default function Website() {
         image: blog.main_image,
         createdAt: blog.created_at,
         link: `${BASE_URL}${blog.link}`,
-      })).filter((item: WebsiteModuleData, index: number) => index < 3));
+      })));
 
       setLoadingBlogs(false);
     });
@@ -59,7 +65,7 @@ export default function Website() {
         image: recipe.main_image,
         createdAt: recipe.created_at,
         link: `${BASE_URL}${recipe.link}`,
-      })).filter((item: WebsiteModuleData, index: number) => index < 3));
+      })));
 
       setLoadingRecipes(false);
     });
@@ -74,10 +80,20 @@ export default function Website() {
         image: review.main_image,
         createdAt: review.created_at,
         link: `${BASE_URL}${review.link}`,
-      })).filter((item: WebsiteModuleData, index: number) => index < 3));
+      })));
 
       setLoadingReviews(false);
     });
+  };
+
+  const scrollEnded = (key: 'blogs' | 'recipes' | 'reviews', event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    const itemWidth = event.nativeEvent.contentSize.width / 12;
+    const itemIndex = event.nativeEvent.contentOffset.x / itemWidth;
+
+    setActiveItems((prevState: { [K: string]: number }) => ({
+      ...prevState,
+      [key]: itemIndex,
+    }));
   };
 
   useEffect(() => {
@@ -102,7 +118,7 @@ export default function Website() {
             ...Styles.border,
             ...Styles.borderBlue,
             ...Styles.roundedLg,
-            ...Styles.mb8,
+            ...Styles.mb4,
           }}
         >
           <View style={{
@@ -124,11 +140,42 @@ export default function Website() {
           {section.loading && <ActivityIndicator size="large" style={Styles.my4} />}
 
           {!section.loading && (
-            <View>
-              {section.items.map((item) => (
-                <WebsiteItem item={item} key={item.id.toString()} />
-              ))}
-            </View>
+            <>
+              <ScrollView
+                horizontal
+                pagingEnabled
+                showsHorizontalScrollIndicator={false}
+                onMomentumScrollEnd={(event) => scrollEnded(section.key, event)}
+                contentContainerStyle={{
+                  width: '1200%',
+                }}
+              >
+                {section.items.map((item) => (
+                  <WebsiteItem item={item} key={item.id.toString()} />
+                ))}
+              </ScrollView>
+              <View style={{
+                ...Styles.flexRow,
+                ...Styles.justifyCenter,
+                ...Styles.my4,
+              }}
+              >
+                {section.items.map((item, index) => (
+                  <View
+                    key={item.id.toString()}
+                    style={{
+                      width: 10,
+                      height: 10,
+                      ...Styles.border,
+                      ...Styles.borderGreyOff,
+                      ...Styles.rounded,
+                      ...Styles.mx1,
+                      ...(activeItems[section.key] === index ? Styles.bgGreyOff : Styles.bgWhite),
+                    }}
+                  />
+                ))}
+              </View>
+            </>
           )}
         </View>
       ))}

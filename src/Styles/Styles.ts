@@ -49,6 +49,8 @@ const globalStyles = StyleSheet.create({
 
   leadingHigh: { lineHeight: 20 },
 
+  maxWFull: { maxWidth: '100%' },
+
   mb1: { marginBottom: 4 },
   mb2: { marginBottom: 8 },
   mb4: { marginBottom: 16 },
@@ -68,6 +70,7 @@ const globalStyles = StyleSheet.create({
 
   overflowHidden: { overflow: 'hidden' },
 
+  p1: { padding: 6 },
   p2: { padding: 8 },
   p4: { padding: 16 },
 
@@ -91,6 +94,7 @@ const globalStyles = StyleSheet.create({
   roundedLg: { borderRadius: 16 },
 
   roundedTop: { borderTopRightRadius: 8, borderTopLeftRadius: 8 },
+  roundedTopSm: { borderTopRightRadius: 6, borderTopLeftRadius: 6 },
   roundedTopLg: { borderTopRightRadius: 16, borderTopLeftRadius: 16 },
   roundedBottomLg: { borderBottomRightRadius: 16, borderBottomLeftRadius: 16 },
 

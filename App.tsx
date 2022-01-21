@@ -9,7 +9,6 @@ import { MainTab } from './src/types';
 import Home from './src/screens/Home';
 import Map from './src/screens/Map';
 import List from './src/screens/List';
-import NationwideChains from './src/screens/NationwideChains';
 import Website from './src/screens/Website';
 import NationwideScreenContainer from './src/Components/Nationwide/NationwideScreenContainer';
 
@@ -21,7 +20,7 @@ export default function App() {
       name: 'home',
       component: Home,
       label: 'Home',
-      title: 'Coeliac Sanctuary - On the Go',
+      showHeader: false,
     },
     {
       name: 'map',

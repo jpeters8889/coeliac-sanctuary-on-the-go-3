@@ -9,7 +9,13 @@ import { WebsiteDataset } from '../../types';
 
 export default function WebsiteItem({ item }: { item: WebsiteDataset }) {
   return (
-    <TouchableOpacity style={Styles.mt2} onPress={() => Linking.openURL(item.link)}>
+    <TouchableOpacity
+      style={{
+        ...Styles.mt2,
+        ...Styles.maxWFull,
+      }}
+      onPress={() => Linking.openURL(item.link)}
+    >
       <ConstrainedImage image={item.image} />
 
       <View style={Styles.px2}>
