@@ -113,6 +113,7 @@ const globalStyles = StyleSheet.create({
   top0: { top: 0 },
 
   w20: { width: '20%' },
+  w25: { width: '25%' },
   w80: { width: '80%' },
   w85: { width: '85%' },
   wFull: { width: '100%' },

@@ -67,6 +67,18 @@ export class ApiService {
     return axios.get(`${BASE_URL}/api/reviews`);
   }
 
+  static summary() {
+    return axios.get(`${BASE_URL}/api/wheretoeat/summary`);
+  }
+
+  static latestRatings() {
+    return axios.get(`${BASE_URL}/api/wheretoeat/ratings/latest`);
+  }
+
+  static latestLocations() {
+    return axios.get(`${BASE_URL}/api/wheretoeat/latest`);
+  }
+
   static async getVenueTypes() {
     return axios.get(`${BASE_URL}/api/wheretoeat/venueTypes`);
   }

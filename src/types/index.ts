@@ -171,8 +171,35 @@ type WebsiteDisplaySection = {
   items: WebsiteDataset[],
 };
 
+type WhereToEatSummary = {
+  [K: string]: number,
+  eateries: number;
+  attractions: number;
+  hotels: number;
+};
+
+type WhereToEatSummarySection = {
+  title: string;
+  key: string;
+};
+
+type LatestEateryRatings = {
+  id: number,
+  location: string,
+  rating: string,
+  created_at: string,
+};
+
+type LatestEateries = {
+  id: number,
+  name: string,
+  location: string,
+  created_at: string,
+};
+
 export {
   MainTab, Eatery, PlacesApiRequest, Rating, EateryType, SearchRange, ModalProps,
   VenueTypeFilterGroup, VenueTypeFilter, VenueTypeResponse, Review, SubmitRatingSignature,
   PlacesMapApiRequest, WebsiteModuleData, WebsiteDataset, WebsiteDisplaySection, RecommendAPlaceSignature,
+  WhereToEatSummary, WhereToEatSummarySection, LatestEateryRatings, LatestEateries,
 };
