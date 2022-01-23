@@ -1,12 +1,13 @@
 import { StyleSheet } from 'react-native';
 import {
-  BLUE, BLUE_LIGHT, GREY_LIGHT, GREY_OFF, WHITE, YELLOW, GREY, BLUE_LIGHT_FADED,
+  BLUE, BLUE_LIGHT, GREY_LIGHT, GREY_OFF, WHITE, YELLOW, GREY, BLUE_LIGHT_FADED, BLUE_FADED,
 } from '../constants';
 
 const globalStyles = StyleSheet.create({
   absolute: { position: 'absolute' },
 
   bgBlue: { backgroundColor: BLUE },
+  bgBlueFaded: { backgroundColor: BLUE_FADED },
   bgBlueLight: { backgroundColor: BLUE_LIGHT },
   bgBlueLightFaded: { backgroundColor: BLUE_LIGHT_FADED },
   bgGreyLight: { backgroundColor: GREY_LIGHT },
@@ -98,6 +99,7 @@ const globalStyles = StyleSheet.create({
   roundedTopLg: { borderTopRightRadius: 16, borderTopLeftRadius: 16 },
   roundedBottomLg: { borderBottomRightRadius: 16, borderBottomLeftRadius: 16 },
 
+  scale60: { transform: [{ scale: 0.6 }] },
   scale80: { transform: [{ scale: 0.8 }] },
   scale120: { transform: [{ scale: 1.2 }] },
 

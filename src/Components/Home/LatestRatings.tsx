@@ -60,7 +60,7 @@ export default function LatestRatings() {
 
       {!loading && (
       <View>
-        {ratings.map((rating) => (
+        {ratings.map((rating, index) => (
           <View
             key={rating.id.toString()}
             style={{
@@ -69,13 +69,14 @@ export default function LatestRatings() {
               ...Styles.p1,
               ...Styles.borderTop,
               ...Styles.borderBlue,
+              ...(index % 2 === 0 ? Styles.bgBlueLightFaded : ''),
             }}
           >
             <Text style={Styles.fontSemibold}>{rating.location}</Text>
 
             <View style={{ ...Styles.flexRow, ...Styles.my2 }}>
-              {starArray(rating.rating).map((index) => (
-                <FontAwesome key={index.toString()} name="star" size={20} color={YELLOW} />
+              {starArray(rating.rating).map((star) => (
+                <FontAwesome key={star.toString()} name="star" size={20} color={YELLOW} />
               ))}
             </View>
 

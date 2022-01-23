@@ -197,9 +197,15 @@ type LatestEateries = {
   created_at: string,
 };
 
+type ShopCta = {
+  text: string,
+  link: string,
+  image: string,
+};
+
 export {
   MainTab, Eatery, PlacesApiRequest, Rating, EateryType, SearchRange, ModalProps,
   VenueTypeFilterGroup, VenueTypeFilter, VenueTypeResponse, Review, SubmitRatingSignature,
   PlacesMapApiRequest, WebsiteModuleData, WebsiteDataset, WebsiteDisplaySection, RecommendAPlaceSignature,
-  WhereToEatSummary, WhereToEatSummarySection, LatestEateryRatings, LatestEateries,
+  WhereToEatSummary, WhereToEatSummarySection, LatestEateryRatings, LatestEateries, ShopCta,
 };

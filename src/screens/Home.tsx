@@ -1,7 +1,7 @@
 import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import MainHomeScreen from '../Components/Home/MainHomeScreen';
-import Settings from './Settings';
+import About from './About';
 import Styles from '../Styles/Styles';
 import { BLACK } from '../constants';
 
@@ -26,7 +26,7 @@ export default function Home() {
       />
       <Drawer.Screen
         name="about"
-        component={Settings}
+        component={About}
         options={{
           drawerLabel: 'About our App',
           headerTitle: 'About our App',

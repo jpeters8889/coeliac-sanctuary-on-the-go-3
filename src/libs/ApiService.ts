@@ -79,6 +79,10 @@ export class ApiService {
     return axios.get(`${BASE_URL}/api/wheretoeat/latest`);
   }
 
+  static shopCta() {
+    return axios.get(`${BASE_URL}/api/popup`);
+  }
+
   static async getVenueTypes() {
     return axios.get(`${BASE_URL}/api/wheretoeat/venueTypes`);
   }

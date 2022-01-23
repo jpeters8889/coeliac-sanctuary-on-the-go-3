@@ -50,7 +50,7 @@ export default function LatestLocations() {
 
       {!loading && (
       <View>
-        {locations.map((location) => (
+        {locations.map((location, index) => (
           <View
             key={location.id.toString()}
             style={{
@@ -59,6 +59,7 @@ export default function LatestLocations() {
               ...Styles.p1,
               ...Styles.borderTop,
               ...Styles.borderBlue,
+              ...(index % 2 === 0 ? Styles.bgBlueLightFaded : ''),
             }}
           >
             <Text style={Styles.fontSemibold}>{location.name}</Text>

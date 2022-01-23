@@ -7,6 +7,7 @@ import { ApiService } from '../libs/ApiService';
 import { BASE_URL } from '../constants';
 import { WebsiteDataset, WebsiteDisplaySection, WebsiteModuleData } from '../types';
 import WebsiteItem from '../Components/Website/WebsiteItem';
+import ShopCtaComponent from '../Components/UI/ShopCtaComponent';
 
 export default function Website() {
   const [loadingBlogs, setLoadingBlogs]: [boolean, any] = useState(true);
@@ -112,72 +113,76 @@ export default function Website() {
       </Text>
 
       {sections.map((section) => (
-        <View
-          key={section.key}
-          style={{
-            ...Styles.border,
-            ...Styles.borderBlue,
-            ...Styles.roundedLg,
-            ...Styles.mb4,
-          }}
-        >
-          <View style={{
-            ...Styles.bgBlue,
-            ...Styles.p2,
-            ...Styles.roundedTopLg,
-          }}
+        <>
+          <View
+            key={section.key}
+            style={{
+              ...Styles.border,
+              ...Styles.borderBlue,
+              ...Styles.roundedLg,
+              ...Styles.my4,
+            }}
           >
-            <Text style={{
-              ...Styles.textWhite,
-              ...Styles.textXl,
-              ...Styles.fontSemibold,
+            <View style={{
+              ...Styles.bgBlue,
+              ...Styles.p2,
+              ...Styles.roundedTopLg,
             }}
             >
-              {section.title}
-            </Text>
-          </View>
-
-          {section.loading && <ActivityIndicator size="large" style={Styles.my4} />}
-
-          {!section.loading && (
-            <>
-              <ScrollView
-                horizontal
-                pagingEnabled
-                showsHorizontalScrollIndicator={false}
-                onMomentumScrollEnd={(event) => scrollEnded(section.key, event)}
-                contentContainerStyle={{
-                  width: '1200%',
-                }}
-              >
-                {section.items.map((item) => (
-                  <WebsiteItem item={item} key={item.id.toString()} />
-                ))}
-              </ScrollView>
-              <View style={{
-                ...Styles.flexRow,
-                ...Styles.justifyCenter,
-                ...Styles.my4,
+              <Text style={{
+                ...Styles.textWhite,
+                ...Styles.textXl,
+                ...Styles.fontSemibold,
               }}
               >
-                {section.items.map((item, index) => (
-                  <View
-                    key={item.id.toString()}
-                    style={{
-                      width: 10,
-                      height: 10,
-                      ...Styles.border,
-                      ...Styles.borderGreyOff,
-                      ...Styles.rounded,
-                      ...Styles.mx1,
-                      ...(activeItems[section.key] === index ? Styles.bgGreyOff : Styles.bgWhite),
-                    }}
-                  />
-                ))}
-              </View>
-            </>
-          )}
-        </View>
+                {section.title}
+              </Text>
+            </View>
+
+            {section.loading && <ActivityIndicator size="large" style={Styles.my4} />}
+
+            {!section.loading && (
+              <>
+                <ScrollView
+                  horizontal
+                  pagingEnabled
+                  showsHorizontalScrollIndicator={false}
+                  onMomentumScrollEnd={(event) => scrollEnded(section.key, event)}
+                  contentContainerStyle={{
+                    width: '1200%',
+                  }}
+                >
+                  {section.items.map((item) => (
+                    <WebsiteItem item={item} key={item.id.toString()} />
+                  ))}
+                </ScrollView>
+                <View style={{
+                  ...Styles.flexRow,
+                  ...Styles.justifyCenter,
+                  ...Styles.my4,
+                }}
+                >
+                  {section.items.map((item, index) => (
+                    <View
+                      key={item.id.toString()}
+                      style={{
+                        width: 10,
+                        height: 10,
+                        ...Styles.border,
+                        ...Styles.borderGreyOff,
+                        ...Styles.rounded,
+                        ...Styles.mx1,
+                        ...(activeItems[section.key] === index ? Styles.bgGreyOff : Styles.bgWhite),
+                      }}
+                    />
+                  ))}
+                </View>
+              </>
+            )}
+          </View>
+
+          {section.key === 'blogs' && <ShopCtaComponent />}
+        </>
       ))}
     </ScrollView>
   );
