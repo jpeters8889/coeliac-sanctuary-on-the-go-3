@@ -17,7 +17,7 @@ export default function Home() {
     }}
     >
       <Drawer.Screen
-        name="home-scree"
+        name="home-screen"
         component={MainHomeScreen}
         options={{
           drawerLabel: 'Coeliac Sanctuary - On the Go',

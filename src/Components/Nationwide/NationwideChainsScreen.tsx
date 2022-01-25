@@ -8,8 +8,11 @@ import { Eatery } from '../../types';
 import { ApiService } from '../../libs/ApiService';
 import ItemSeparator from '../UI/ItemSeparator';
 import Location from './Location';
+import AnalyticsService from '../../libs/AnalyticsService';
 
 export default function NationwideChainsScreen() {
+  AnalyticsService.logScreen('nationwide-screen').then(() => {});
+
   const [isLoading, setIsLoading]: [boolean, any] = useState(true);
   const [places, setPlaces]: [Eatery[], any] = useState([]);
   const [currentPage, setCurrentPage]: [number, any] = useState(1);

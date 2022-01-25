@@ -2,13 +2,13 @@
   "expo": {
     "name": "coeliac-sanctuary-on-the-go-3",
     "slug": "coeliac-sanctuary-on-the-go-3",
-    "version": "1.0.0",
+    "version": "3.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#80ccfc"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -16,17 +16,36 @@
     "assetBundlePatterns": [
       "**/*"
     ],
+    "plugins": [
+      "expo-ads-admob"
+    ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.coeliacsanctuary.onthego",
+      "googleServicesFile": "./GoogleService-Info.plist",
+      "config": {
+        "googleMobileAdsAppId": "ca-app-pub-1063051842575021~3318227595"
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
+        "backgroundColor": "#80ccfc"
+      },
+      "package": "com.coeliacsanctuary.onthego",
+      "googleServicesFile": "./google-services.json",
+      "config": {
+        "googleMobileAdsAppId": "ca-app-pub-1063051842575021~3318227595"
       }
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/favicon.png",
+      "config": {
+        "firebase": {
+          "apiKey": "AIzaSyDIVDDuTDhXGVzZOjozaArXoyW5o9hzkI8",
+          "measurementId": "G-53299243-1"
+        }
+      }
     }
   }
 }

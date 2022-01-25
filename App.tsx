@@ -3,6 +3,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Feather, FontAwesome5, Ionicons } from '@expo/vector-icons';
 import { BottomTabNavigationOptions } from '@react-navigation/bottom-tabs/lib/typescript/src/types';
+import Constants from 'expo-constants';
+import { Platform } from 'react-native';
+import { AdMobBanner } from 'expo-ads-admob';
 import Styles from './src/Styles/Styles';
 import { WHITE, YELLOW } from './src/constants';
 import { MainTab } from './src/types';
@@ -14,6 +17,18 @@ import NationwideScreenContainer from './src/Components/Nationwide/NationwideScr
 
 export default function App() {
   const Tabs = createBottomTabNavigator();
+
+  const adId = (): string => {
+    if (Constants.isDevice && !__DEV__) {
+      return 'ca-app-pub-3940256099942544/2934735716';
+    }
+
+    if (Platform.OS === 'android') {
+      return 'ca-app-pub-3940256099942544/6300978111'; // android test ad
+    }
+
+    return 'ca-app-pub-3940256099942544/2934735716'; // ios test ad
+  };
 
   const availableTabs: MainTab[] = [
     {
@@ -77,27 +92,35 @@ export default function App() {
   };
 
   return (
-    <NavigationContainer>
-      <Tabs.Navigator screenOptions={options}>
-        {availableTabs.map((tab) => (
-          <Tabs.Screen
-            key={tab.name}
-            name={tab.name}
-            component={tab.component}
-            options={{
-              title: tab.label,
-              headerShown: tab?.showHeader ?? true,
-              headerTitle: tab?.title ?? tab.label,
-              tabBarIcon: ({ focused, color, size }) => (
-                tab.icon
-                  ? tab.icon({ focused, color, size })
-                // @ts-ignore
-                  : <Ionicons name={tab.name} size={size} color={color} />
-              ),
-            }}
-          />
-        ))}
-      </Tabs.Navigator>
-    </NavigationContainer>
+    <>
+      <NavigationContainer>
+        <Tabs.Navigator screenOptions={options}>
+          {availableTabs.map((tab) => (
+            <Tabs.Screen
+              key={tab.name}
+              name={tab.name}
+              component={tab.component}
+              options={{
+                title: tab.label,
+                headerShown: tab?.showHeader ?? true,
+                headerTitle: tab?.title ?? tab.label,
+                tabBarIcon: ({ focused, color, size }) => (
+                  tab.icon
+                    ? tab.icon({ focused, color, size })
+                    // @ts-ignore
+                    : <Ionicons name={tab.name} size={size} color={color} />
+                ),
+              }}
+            />
+          ))}
+        </Tabs.Navigator>
+      </NavigationContainer>
+
+      <AdMobBanner
+        bannerSize="smartBannerPortrait"
+        adUnitID={adId()}
+        servePersonalizedAds // true or false
+      />
+    </>
   );
 }

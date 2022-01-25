@@ -9,6 +9,7 @@ import { ModalProps } from '../types';
 import ModalContainer from '../Components/UI/ModalContainer';
 import { BLACK, BLUE, YELLOW } from '../constants';
 import { ApiService } from '../libs/ApiService';
+import AnalyticsService from '../libs/AnalyticsService';
 
 type Props = {
   props: ModalProps & {
@@ -18,6 +19,10 @@ type Props = {
 };
 
 export default function SubmitRatingModal({ props }: Props) {
+  AnalyticsService.logScreen('submit-rating-modal', {
+    eatery_id: props.id,
+  }).then(() => {});
+
   const [starRating, setStarRating]: [0 | 1 | 2 | 3 | 4 | 5, any] = useState(0);
   const [name, setName]: [string, any] = useState('');
   const [email, setEmail]: [string, any] = useState('');
@@ -30,14 +35,20 @@ export default function SubmitRatingModal({ props }: Props) {
   const stars: number[] = [1, 2, 3, 4, 5];
 
   const submitReview = () => {
+    AnalyticsService.logEvent({ type: 'submit_rating_attempt' }).then(() => {});
+
     const emptyFields = [name, email, review].filter((field) => field === '');
 
     if (starRating === 0) {
+      AnalyticsService.logEvent({ type: 'submit_rating_validation_error' }).then(() => {});
+
       Alert.alert('Please select your rating first!');
       return;
     }
 
     if (emptyFields.length > 0 && emptyFields.length < 3) {
+      AnalyticsService.logEvent({ type: 'submit_rating_validation_error' }).then(() => {});
+
       Alert.alert('Please complete all fields to submit a review with your rating');
       return;
     }

@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import {
-  Text, TouchableOpacity, Linking, View,
-} from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import Styles from '../../Styles/Styles';
 import { ApiService } from '../../libs/ApiService';
 import { ShopCta } from '../../types';
 import ConstrainedImage from './ConstrainedImage';
 import { BASE_URL } from '../../constants';
+import LinkService from '../../libs/LinkService';
 
 export default function ShopCtaComponent() {
   const [shopCta, setShopCta]: [ShopCta | undefined, any] = useState();
@@ -32,7 +31,7 @@ export default function ShopCtaComponent() {
             ...Styles.borderBlue,
             ...Styles.roundedSm,
           }}
-          onPress={() => Linking.openURL(`${BASE_URL}/${shopCta.link}`)}
+          onPress={() => LinkService.openLink(`${BASE_URL}${shopCta.link}`)}
         >
           <ConstrainedImage image={shopCta.image} />
           <Text style={{

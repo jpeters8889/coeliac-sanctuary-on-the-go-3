@@ -5,8 +5,11 @@ import HomeSummary from './HomeSummary';
 import LatestRatings from './LatestRatings';
 import LatestLocations from './LatestLocations';
 import ShopCtaComponent from '../UI/ShopCtaComponent';
+import AnalyticsService from '../../libs/AnalyticsService';
 
 export default function MainHomeScreen() {
+  AnalyticsService.logScreen('home-screen').then(() => {});
+
   return (
     <ScrollView style={{ ...Styles.bgWhite, ...Styles.flex1, ...Styles.p2 }}>
       <Text style={{ ...Styles.mb2, ...Styles.textLg, ...Styles.leadingHigh }}>

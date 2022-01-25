@@ -11,6 +11,7 @@ import { FilterService } from '../libs/FilterService';
 import {
   BLUE, BLUE_LIGHT, YELLOW, YELLOW_FADED,
 } from '../constants';
+import AnalyticsService from '../libs/AnalyticsService';
 
 type Props = {
   props: {
@@ -21,6 +22,8 @@ type Props = {
 };
 
 export default function FilterSelectModal({ props }: Props) {
+  AnalyticsService.logScreen('filter-select-modal').then(() => {});
+
   const [filters, setFilters]: [VenueTypeFilterGroup[], any] = useState(
     props.filterService.getVenueTypes(),
   );
@@ -28,10 +31,19 @@ export default function FilterSelectModal({ props }: Props) {
   const forceUpdate = useCallback(() => updateState({}), []);
 
   const closeModal = () => {
+    AnalyticsService.logEvent({ type: 'closed_modal' }).then(() => {});
+
     props.onClose(props.filterService);
   };
 
   const selectGroup = (groupId: number) => {
+    AnalyticsService.logEvent({
+      type: 'toggled_filter_group',
+      metaData: {
+        groupId,
+      },
+    }).then(() => {});
+
     props.filterService.toggleGroup(groupId);
 
     setFilters(props.filterService.getVenueTypes());
@@ -39,6 +51,14 @@ export default function FilterSelectModal({ props }: Props) {
   };
 
   const selectFilter = (groupId: number, filterId: number) => {
+    AnalyticsService.logEvent({
+      type: 'toggled_filter',
+      metaData: {
+        groupId,
+        filterId,
+      },
+    }).then(() => {});
+
     props.filterService.toggleFilter(groupId, filterId);
 
     setFilters(props.filterService.getVenueTypes());

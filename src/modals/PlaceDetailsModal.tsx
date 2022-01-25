@@ -15,6 +15,8 @@ import { BASE_URL, BLACK } from '../constants';
 import SubmitRatingModal from './SubmitRatingModal';
 import ReportEateryModal from './ReportEateryModal';
 import { formatAddress, notEmpty } from '../helpers';
+import AnalyticsService from '../libs/AnalyticsService';
+import LinkService from '../libs/LinkService';
 
 type Props = {
   route: RouteProp<{
@@ -26,6 +28,10 @@ type Props = {
 };
 
 export default function PlaceDetailsModal({ route, navigation }: Props) {
+  AnalyticsService.logScreen('place_details_modal_screen', {
+    eatery_id: route.params.id,
+  }).then(() => {});
+
   const [isLoading, setIsLoading]: [boolean, any] = useState(true);
   const [eatery, setEatery]: [Eatery, any] = useState({} as Eatery);
   const [showSubmitRatingModal, setShowSubmitRatingModal]: [boolean, any] = useState(false);
@@ -125,7 +131,7 @@ export default function PlaceDetailsModal({ route, navigation }: Props) {
             {notEmpty(eatery.phone) && <Text style={Styles.mb4}>{eatery.phone}</Text>}
 
             {notEmpty(eatery.website) && (
-            <Text style={{ ...Styles.mb4, ...Styles.fontSemibold }} onPress={() => Linking.openURL(eatery.website)}>
+            <Text style={{ ...Styles.mb4, ...Styles.fontSemibold }} onPress={() => LinkService.openLink(eatery.website)}>
               {eatery.website}
             </Text>
             )}
@@ -139,7 +145,7 @@ export default function PlaceDetailsModal({ route, navigation }: Props) {
 
             {eatery.reviews.map((review, index) => (
               <Text
-                onPress={() => Linking.openURL(`${BASE_URL}${review.link}`)}
+                onPress={() => LinkService.openLink(`${BASE_URL}${review.link}`)}
                 key={review.id}
                 style={{
                   ...Styles.fontSemibold,

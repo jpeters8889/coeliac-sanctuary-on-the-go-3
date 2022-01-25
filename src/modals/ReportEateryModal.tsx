@@ -3,12 +3,11 @@ import {
   Alert,
   Text, TextInput, TouchableOpacity, View,
 } from 'react-native';
-import { FontAwesome } from '@expo/vector-icons';
 import Styles from '../Styles/Styles';
 import { ModalProps } from '../types';
 import ModalContainer from '../Components/UI/ModalContainer';
-import { BLACK, BLUE, YELLOW } from '../constants';
 import { ApiService } from '../libs/ApiService';
+import AnalyticsService from '../libs/AnalyticsService';
 
 type Props = {
   props: ModalProps & {
@@ -18,14 +17,24 @@ type Props = {
 };
 
 export default function ReportEateryModal({ props }: Props) {
+  AnalyticsService.logScreen('report_eatery_modal', {
+    eatery_id: props.id,
+  }).then(() => {});
+
   const [details, setDetails]: [string, any] = useState('');
 
   const closeModal = () => {
+    AnalyticsService.logEvent({ type: 'closed_modal' }).then(() => {});
+
     props.onClose();
   };
 
   const submit = () => {
+    AnalyticsService.logEvent({ type: 'submit_report_eatery_attempt' }).then(() => {});
+
     if (details === '') {
+      AnalyticsService.logEvent({ type: 'submit_eatery_validation_error' }).then(() => {});
+
       Alert.alert('Please let us know why you\'re reporting this location!');
       return;
     }

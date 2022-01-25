@@ -7,9 +7,18 @@ import { BLUE, BLUE_LIGHT_FADED } from '../constants';
 import AnalyticsService from '../libs/AnalyticsService';
 
 export default function About() {
+  AnalyticsService.logScreen('about-screen').then(() => {});
+
   const [allowAnalytics, setAllowAnalytics]: [boolean, any] = useState(true);
 
   const setAnalytics = (value: boolean) => {
+    AnalyticsService.logEvent({
+      type: 'consent_toggle',
+      metaData: {
+        consent: value,
+      },
+    }).then(() => {});
+
     AnalyticsService.toggleAnalytics(value).then(() => {
       setAllowAnalytics(value);
     });

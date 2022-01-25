@@ -1,5 +1,5 @@
 {
-  "name": "coeliac-sanctuary-on-the-go-",
+  "name": "coeliac-sanctuary-on-the-go",
   "version": "3.0.0",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^12.0.5",
+    "@react-native-async-storage/async-storage": "~1.15.0",
     "@react-navigation/bottom-tabs": "^6.0.9",
     "@react-navigation/drawer": "^6.1.8",
     "@react-navigation/native": "^6.0.6",
@@ -20,6 +21,7 @@
     "axios": "^0.24.0",
     "dayjs": "^1.10.7",
     "expo": "^43.0.0",
+    "expo-firebase-analytics": "~5.0.3",
     "expo-location": "~13.0.4",
     "expo-status-bar": "~1.1.0",
     "react": "17.0.1",
@@ -33,7 +35,7 @@
     "react-native-screens": "~3.8.0",
     "react-native-svg": "12.1.1",
     "react-native-web": "0.17.1",
-    "@react-native-async-storage/async-storage": "~1.15.0"
+    "expo-ads-admob": "~11.0.3"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

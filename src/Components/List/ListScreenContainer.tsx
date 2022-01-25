@@ -1,7 +1,6 @@
 import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import MainListScreen from './MainListScreen';
-import About from '../../screens/About';
 import Styles from '../../Styles/Styles';
 import { BLACK } from '../../constants';
 import RecommendAPlace from '../../screens/RecommendAPlace';

@@ -15,8 +15,11 @@ import { FilterService } from '../../libs/FilterService';
 import FilterSelectModal from '../../modals/FilterSelectModal';
 import { Eatery } from '../../types';
 import { ApiService } from '../../libs/ApiService';
+import AnalyticsService from '../../libs/AnalyticsService';
 
 export default function MapScreen({ navigation }: { navigation: StackNavigationProp<any> }) {
+  AnalyticsService.logScreen('map-screen').then(() => {});
+
   const initialLatLng = {
     latitude: 51.5073509,
     longitude: -0.1277583,
@@ -49,6 +52,14 @@ export default function MapScreen({ navigation }: { navigation: StackNavigationP
   };
 
   const navigateToLocation = (latitude: number, longitude: number) => {
+    AnalyticsService.logEvent({
+      type: 'navigating_to_location',
+      metaData: {
+        latitude,
+        longitude,
+      },
+    }).then(() => {});
+
     // @ts-ignore
     map.current.animateToRegion({
       latitude,
@@ -83,6 +94,13 @@ export default function MapScreen({ navigation }: { navigation: StackNavigationP
   };
 
   const runSearch = () => {
+    AnalyticsService.logEvent({
+      type: 'searched_for_location',
+      metaData: {
+        searchTerm,
+      },
+    }).then(() => {});
+
     ApiService.searchForLatLng(searchTerm).then((response) => {
       setSearchTerm('');
       navigateToLocation(response.data.lat, response.data.lng);

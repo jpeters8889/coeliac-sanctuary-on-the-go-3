@@ -6,6 +6,7 @@ import dayjs from 'dayjs';
 import Styles from '../../Styles/Styles';
 import ConstrainedImage from '../UI/ConstrainedImage';
 import { WebsiteDataset } from '../../types';
+import LinkService from '../../libs/LinkService';
 
 export default function WebsiteItem({ item }: { item: WebsiteDataset }) {
   return (
@@ -14,7 +15,7 @@ export default function WebsiteItem({ item }: { item: WebsiteDataset }) {
         ...Styles.mt2,
         ...Styles.maxWFull,
       }}
-      onPress={() => Linking.openURL(item.link)}
+      onPress={() => LinkService.openLink(item.link)}
     >
       <ConstrainedImage image={item.image} />
 

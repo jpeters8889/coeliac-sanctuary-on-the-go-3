@@ -8,8 +8,11 @@ import { BASE_URL } from '../constants';
 import { WebsiteDataset, WebsiteDisplaySection, WebsiteModuleData } from '../types';
 import WebsiteItem from '../Components/Website/WebsiteItem';
 import ShopCtaComponent from '../Components/UI/ShopCtaComponent';
+import AnalyticsService from '../libs/AnalyticsService';
 
 export default function Website() {
+  AnalyticsService.logScreen('website-screen').then(() => {});
+
   const [loadingBlogs, setLoadingBlogs]: [boolean, any] = useState(true);
   const [blogs, setBlogs]: [WebsiteDataset[], any] = useState([]);
   const [loadingRecipes, setLoadingRecipes]: [boolean, any] = useState(true);
@@ -95,6 +98,14 @@ export default function Website() {
       ...prevState,
       [key]: itemIndex,
     }));
+
+    AnalyticsService.logEvent({
+      type: 'scrolled_website_items',
+      metaData: {
+        section: key,
+        visibleItemIndex: itemIndex,
+      },
+    }).then(() => {});
   };
 
   useEffect(() => {

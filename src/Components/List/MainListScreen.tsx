@@ -13,8 +13,11 @@ import { FilterService } from '../../libs/FilterService';
 import { Eatery, SearchRange } from '../../types';
 import LocationService from '../../libs/LocationService';
 import { ApiService } from '../../libs/ApiService';
+import AnalyticsService from '../../libs/AnalyticsService';
 
 export default function MainListScreen({ navigation }: { navigation: StackNavigationProp<any> }) {
+  AnalyticsService.logScreen('list-screen').then(() => {});
+
   const [firstLoad, setFirstLoad]: [boolean, any] = useState(true);
   const [isLoading, setIsLoading]: [boolean, any] = useState(true);
   const [places, setPlaces]: [Eatery[], any] = useState([] as Eatery[]);
@@ -91,6 +94,13 @@ export default function MainListScreen({ navigation }: { navigation: StackNaviga
   };
 
   const runSearch = () => {
+    AnalyticsService.logEvent({
+      type: 'eatery_search',
+      metaData: {
+        searchTerm,
+      },
+    }).then(() => {});
+
     setLatLng({ lat: 0, lng: 0 });
 
     resetList();
@@ -105,6 +115,8 @@ export default function MainListScreen({ navigation }: { navigation: StackNaviga
   };
 
   const goToCurrentLocation = () => {
+    AnalyticsService.logEvent({ type: 'go_to_current_location' }).then(() => {});
+
     resetList();
 
     locationService.getPermission()

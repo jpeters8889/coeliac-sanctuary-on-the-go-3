@@ -7,8 +7,11 @@ import Styles from '../Styles/Styles';
 import { BLUE } from '../constants';
 import ItemSeparator from '../Components/UI/ItemSeparator';
 import { ApiService } from '../libs/ApiService';
+import AnalyticsService from '../libs/AnalyticsService';
 
 export default function RecommendAPlace({ navigation }: { navigation: DrawerNavigationProp<any> }) {
+  AnalyticsService.logScreen('recommend-a-place-screen').then(() => {});
+
   const [name, setName]: [string, any] = useState('');
   const [email, setEmail]: [string, any] = useState('');
   const [placeName, setPlaceName]: [string, any] = useState('');

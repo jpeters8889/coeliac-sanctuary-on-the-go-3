@@ -203,9 +203,14 @@ type ShopCta = {
   image: string,
 };
 
+type AnalyticsEvent = {
+  type: string;
+  metaData?: { [K: string]: any }
+};
+
 export {
   MainTab, Eatery, PlacesApiRequest, Rating, EateryType, SearchRange, ModalProps,
   VenueTypeFilterGroup, VenueTypeFilter, VenueTypeResponse, Review, SubmitRatingSignature,
   PlacesMapApiRequest, WebsiteModuleData, WebsiteDataset, WebsiteDisplaySection, RecommendAPlaceSignature,
-  WhereToEatSummary, WhereToEatSummarySection, LatestEateryRatings, LatestEateries, ShopCta,
+  WhereToEatSummary, WhereToEatSummarySection, LatestEateryRatings, LatestEateries, ShopCta, AnalyticsEvent,
 };

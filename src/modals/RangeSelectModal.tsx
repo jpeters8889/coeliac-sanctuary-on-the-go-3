@@ -3,6 +3,7 @@ import { Text, TouchableOpacity } from 'react-native';
 import Styles from '../Styles/Styles';
 import { ModalProps, SearchRange } from '../types';
 import ModalContainer from '../Components/UI/ModalContainer';
+import AnalyticsService from '../libs/AnalyticsService';
 
 type Props = {
   props: ModalProps & {
@@ -12,12 +13,24 @@ type Props = {
 };
 
 export default function RangeSelectModal({ props }: Props) {
+  AnalyticsService.logScreen('range_select_modal').then(() => {});
+
   const closeModal = () => {
+    AnalyticsService.logEvent({ type: 'closed_modal' }).then(() => {});
+
     props.onClose();
   };
 
   const selectRange = async (selectedRange: SearchRange) => {
+    AnalyticsService.logEvent({
+      type: 'selected_range',
+      metaData: {
+        selectedRange,
+      },
+    }).then(() => {});
+
     await props.setRange(selectedRange);
+
     closeModal();
   };
 
