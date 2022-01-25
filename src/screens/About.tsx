@@ -55,7 +55,7 @@ export default function About() {
 
       <Text style={{
         ...Styles.textLg,
-        ...Styles.fontSemibold,
+        ...(Platform.OS === 'ios' ? Styles.fontSemibold : Styles.fontBold),
       }}
       >
         Reviewed Places
@@ -70,7 +70,7 @@ export default function About() {
 
       <Text style={{
         ...Styles.textLg,
-        ...Styles.fontSemibold,
+        ...(Platform.OS === 'ios' ? Styles.fontSemibold : Styles.fontBold),
       }}
       >
         User Ratings
@@ -84,7 +84,7 @@ export default function About() {
 
       <Text style={{
         ...Styles.textLg,
-        ...Styles.fontSemibold,
+        ...(Platform.OS === 'ios' ? Styles.fontSemibold : Styles.fontBold),
       }}
       >
         Nationwide Eateries
@@ -105,7 +105,7 @@ export default function About() {
 
       <Text style={{
         ...Styles.textLg,
-        ...Styles.fontSemibold,
+        ...(Platform.OS === 'ios' ? Styles.fontSemibold : Styles.fontBold),
       }}
       >
         Privacy Policy

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, ActivityIndicator } from 'react-native';
+import {
+  View, Text, ActivityIndicator, Platform,
+} from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import Styles from '../../Styles/Styles';
 import { YELLOW } from '../../constants';
@@ -42,11 +44,11 @@ export default function LatestRatings() {
       <Text style={{
         ...Styles.p1,
         ...Styles.textLg,
-        ...Styles.fontSemibold,
         ...Styles.bgBlueLightFaded,
         ...Styles.roundedTopSm,
         ...Styles.borderBottom,
         ...Styles.borderBlue,
+        ...(Platform.OS === 'ios' ? Styles.fontSemibold : Styles.fontBold),
       }}
       >
         Latest Eatery Ratings
@@ -72,7 +74,9 @@ export default function LatestRatings() {
               ...(index % 2 === 0 ? Styles.bgBlueLightFaded : ''),
             }}
           >
-            <Text style={Styles.fontSemibold}>{rating.location}</Text>
+            <Text style={Platform.OS === 'ios' ? Styles.fontSemibold : Styles.fontBold}>
+              {rating.location}
+            </Text>
 
             <View style={{ ...Styles.flexRow, ...Styles.my2 }}>
               {starArray(rating.rating).map((star) => (

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import {
+  Platform, Text, TouchableOpacity, View,
+} from 'react-native';
 import Styles from '../../Styles/Styles';
 import { ApiService } from '../../libs/ApiService';
 import { ShopCta } from '../../types';
@@ -37,8 +39,8 @@ export default function ShopCtaComponent() {
           <Text style={{
             ...Styles.textCenter,
             ...Styles.textLg,
-            ...Styles.fontSemibold,
             ...Styles.mt2,
+            ...(Platform.OS === 'ios' ? Styles.fontSemibold : Styles.fontBold),
           }}
           >
             {shopCta.text}

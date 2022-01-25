@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
-  ActivityIndicator, NativeScrollEvent, NativeSyntheticEvent, ScrollView, Text, View,
+  ActivityIndicator, NativeScrollEvent, NativeSyntheticEvent, Platform, ScrollView, Text, View,
 } from 'react-native';
 import Styles from '../Styles/Styles';
 import { ApiService } from '../libs/ApiService';
@@ -92,7 +92,7 @@ export default function Website() {
 
   const scrollEnded = (key: 'blogs' | 'recipes' | 'reviews', event: NativeSyntheticEvent<NativeScrollEvent>) => {
     const itemWidth = event.nativeEvent.contentSize.width / 12;
-    const itemIndex = event.nativeEvent.contentOffset.x / itemWidth;
+    const itemIndex = Math.round(event.nativeEvent.contentOffset.x / itemWidth);
 
     setActiveItems((prevState: { [K: string]: number }) => ({
       ...prevState,
@@ -124,9 +124,8 @@ export default function Website() {
       </Text>
 
       {sections.map((section) => (
-        <>
+        <View key={section.key}>
           <View
-            key={section.key}
             style={{
               ...Styles.border,
               ...Styles.borderBlue,
@@ -143,7 +142,7 @@ export default function Website() {
               <Text style={{
                 ...Styles.textWhite,
                 ...Styles.textXl,
-                ...Styles.fontSemibold,
+                ...(Platform.OS === 'ios' ? Styles.fontSemibold : Styles.fontBold),
               }}
               >
                 {section.title}
@@ -193,7 +192,7 @@ export default function Website() {
           </View>
 
           {section.key === 'blogs' && <ShopCtaComponent />}
-        </>
+        </View>
       ))}
     </ScrollView>
   );

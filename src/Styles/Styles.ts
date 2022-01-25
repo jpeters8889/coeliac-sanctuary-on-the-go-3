@@ -30,7 +30,7 @@ const globalStyles = StyleSheet.create({
   flexRow: { flexDirection: 'row' },
 
   fontSemibold: { fontWeight: '600' },
-  fontBold: { fontWeight: '800' },
+  fontBold: { fontWeight: 'bold' },
 
   hFull: { height: '100%' },
 
@@ -63,6 +63,7 @@ const globalStyles = StyleSheet.create({
   mt2: { marginTop: 8 },
   mt4: { marginTop: 16 },
   mt10: { marginTop: 40 },
+  mt20: { marginTop: 80 },
 
   mx1: { marginRight: 4, marginLeft: 4 },
 

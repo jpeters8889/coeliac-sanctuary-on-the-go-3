@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, ActivityIndicator } from 'react-native';
+import {
+  View, Text, ActivityIndicator, Platform,
+} from 'react-native';
 import Styles from '../../Styles/Styles';
 import { WHITE } from '../../constants';
 import { ApiService } from '../../libs/ApiService';
@@ -63,7 +65,7 @@ export default function HomeSummary() {
           {!loadingSummary && (
           <Text style={{
             ...Styles.textCenter,
-            ...Styles.textXl,
+            ...(Platform.OS === 'ios' ? Styles.textXl : Styles.text2Xl),
           }}
           >
             {summaryStats[section.key].toLocaleString('en-GB', { minimumFractionDigits: 0 })}

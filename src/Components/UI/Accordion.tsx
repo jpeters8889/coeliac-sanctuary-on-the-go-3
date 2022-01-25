@@ -1,5 +1,5 @@
 import {
-  LayoutAnimation, Text, TouchableOpacity, View,
+  LayoutAnimation, Platform, Text, TouchableOpacity, View,
 } from 'react-native';
 import React, { ReactElement, useState } from 'react';
 import { AntDesign } from '@expo/vector-icons';
@@ -42,7 +42,13 @@ export default function Accordion({ props, children }: Props) {
         }}
         onPress={() => toggleExpand()}
       >
-        <Text style={{ ...Styles.textXl, ...Styles.fontSemibold }}>{props.title}</Text>
+        <Text style={{
+          ...Styles.textXl,
+          ...(Platform.OS === 'ios' ? Styles.fontSemibold : Styles.fontBold),
+        }}
+        >
+          {props.title}
+        </Text>
 
         <AntDesign
           name={expanded ? 'caretup' : 'caretdown'}

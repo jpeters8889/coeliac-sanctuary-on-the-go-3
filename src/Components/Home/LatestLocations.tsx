@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, ActivityIndicator } from 'react-native';
+import {
+  View, Text, ActivityIndicator, Platform,
+} from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import Styles from '../../Styles/Styles';
 import { YELLOW } from '../../constants';
@@ -32,11 +34,11 @@ export default function LatestLocations() {
       <Text style={{
         ...Styles.p1,
         ...Styles.textLg,
-        ...Styles.fontSemibold,
         ...Styles.bgBlueLightFaded,
         ...Styles.roundedTopSm,
         ...Styles.borderBottom,
         ...Styles.borderBlue,
+        ...(Platform.OS === 'ios' ? Styles.fontSemibold : Styles.fontBold),
       }}
       >
         Latest Additions
@@ -62,7 +64,9 @@ export default function LatestLocations() {
               ...(index % 2 === 0 ? Styles.bgBlueLightFaded : ''),
             }}
           >
-            <Text style={Styles.fontSemibold}>{location.name}</Text>
+            <Text style={Platform.OS === 'ios' ? Styles.fontSemibold : Styles.fontBold}>
+              {location.name}
+            </Text>
 
             <Text style={Styles.mb2}>{location.location}</Text>
 

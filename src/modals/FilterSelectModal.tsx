@@ -92,7 +92,9 @@ export default function FilterSelectModal({ props }: Props) {
                 ...(Platform.OS === 'android' ? { ...Styles.py0, ...Styles.pr2 } : Styles.py2),
               }}
               >
-                <Text style={Styles.fontSemibold}>Select All</Text>
+                <Text style={Platform.OS === 'ios' ? Styles.fontSemibold : Styles.fontBold}>
+                  Select All
+                </Text>
                 <Switch
                   style={Platform.OS === 'ios' ? Styles.scale80 : Styles.scale120}
                   trackColor={{ false: YELLOW_FADED, true: YELLOW_FADED }}

@@ -1,5 +1,5 @@
 import {
-  Linking, Text, TouchableOpacity, View,
+  Linking, Platform, Text, TouchableOpacity, View,
 } from 'react-native';
 import React from 'react';
 import dayjs from 'dayjs';
@@ -22,9 +22,9 @@ export default function WebsiteItem({ item }: { item: WebsiteDataset }) {
       <View style={Styles.px2}>
         <Text style={{
           ...Styles.textXl,
-          ...Styles.fontSemibold,
           ...Styles.py2,
           ...Styles.textCenter,
+          ...(Platform.OS === 'ios' ? Styles.fontSemibold : Styles.fontBold),
         }}
         >
           {item.title}

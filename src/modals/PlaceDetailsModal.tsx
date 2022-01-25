@@ -70,6 +70,7 @@ export default function PlaceDetailsModal({ route, navigation }: Props) {
         ...(Platform.OS === 'android' ? {
           ...Styles.borderTop,
           ...Styles.borderGrey,
+          ...Styles.mt10,
         } : ''),
       }}
       >
@@ -92,14 +93,18 @@ export default function PlaceDetailsModal({ route, navigation }: Props) {
       </View>
 
       {isLoading && (
-      <View style={{ ...Styles.mt10, ...Styles.py8 }}>
+      <View style={{
+        ...(Platform.OS === 'ios' ? Styles.mt10 : Styles.mt20),
+        ...Styles.py8,
+      }}
+      >
         <ActivityIndicator size="large" />
       </View>
       )}
 
       {!isLoading && (
       <>
-        <ScrollView style={Styles.mt10}>
+        <ScrollView style={Platform.OS === 'ios' ? Styles.mt10 : Styles.mt20}>
           <View style={{ ...Styles.p2, ...Styles.borderBottom, ...Styles.borderBlueLight }}>
             {eatery.type.type !== 'att' && (
             <Text style={Styles.mb4}>
@@ -112,7 +117,7 @@ export default function PlaceDetailsModal({ route, navigation }: Props) {
               {eatery.restaurants.map((restaurant) => (
                 <View key={restaurant.id} style={Styles.mb2}>
                   <Text style={{
-                    ...Styles.fontSemibold,
+                    ...(Platform.OS === 'ios' ? Styles.fontSemibold : Styles.fontBold),
                     ...Styles.textLg,
                   }}
                   >
@@ -131,7 +136,13 @@ export default function PlaceDetailsModal({ route, navigation }: Props) {
             {notEmpty(eatery.phone) && <Text style={Styles.mb4}>{eatery.phone}</Text>}
 
             {notEmpty(eatery.website) && (
-            <Text style={{ ...Styles.mb4, ...Styles.fontSemibold }} onPress={() => LinkService.openLink(eatery.website)}>
+            <Text
+              style={{
+                ...Styles.mb4,
+                ...(Platform.OS === 'ios' ? Styles.fontSemibold : Styles.fontBold),
+              }}
+              onPress={() => LinkService.openLink(eatery.website)}
+            >
               {eatery.website}
             </Text>
             )}
@@ -139,7 +150,12 @@ export default function PlaceDetailsModal({ route, navigation }: Props) {
 
           {eatery.reviews.length > 0 && (
           <View style={{ ...Styles.p2, ...Styles.borderBottom, ...Styles.borderBlueLight }}>
-            <Text style={{ ...Styles.textLg, ...Styles.fontSemibold, ...Styles.mb4 }}>
+            <Text style={{
+              ...Styles.textLg,
+              ...Styles.mb4,
+              ...(Platform.OS === 'ios' ? Styles.fontSemibold : Styles.fontBold),
+            }}
+            >
               Our Reviews
             </Text>
 
@@ -148,7 +164,7 @@ export default function PlaceDetailsModal({ route, navigation }: Props) {
                 onPress={() => LinkService.openLink(`${BASE_URL}${review.link}`)}
                 key={review.id}
                 style={{
-                  ...Styles.fontSemibold,
+                  ...(Platform.OS === 'ios' ? Styles.fontSemibold : Styles.fontBold),
                   ...(index < eatery.reviews.length - 1 ? Styles.mb1 : null),
                 }}
               >
@@ -161,7 +177,11 @@ export default function PlaceDetailsModal({ route, navigation }: Props) {
           )}
 
           <View style={{ ...Styles.p2, ...Styles.borderBottom, ...Styles.borderBlueLight }}>
-            <Text style={{ ...Styles.textLg, ...Styles.fontSemibold }}>
+            <Text style={{
+              ...Styles.textLg,
+              ...(Platform.OS === 'ios' ? Styles.fontSemibold : Styles.fontBold),
+            }}
+            >
               Visitor Ratings
             </Text>
 
@@ -199,7 +219,7 @@ export default function PlaceDetailsModal({ route, navigation }: Props) {
                     <Text style={{
                       ...Styles.textLg,
                       ...Styles.textCenter,
-                      ...Styles.fontSemibold,
+                      ...(Platform.OS === 'ios' ? Styles.fontSemibold : Styles.fontBold),
                     }}
                     >
                       Have you visited
@@ -229,7 +249,13 @@ export default function PlaceDetailsModal({ route, navigation }: Props) {
               {' '}
               {dayjs(eatery.created_at).format('DD/MM/YYYY')}
             </Text>
-            <Text style={{ ...Styles.fontSemibold, ...Styles.pt2 }} onPress={() => setShowReportProblemModal(true)}>
+            <Text
+              style={{
+                ...(Platform.OS === 'ios' ? Styles.fontSemibold : Styles.fontBold),
+                ...Styles.pt2,
+              }}
+              onPress={() => setShowReportProblemModal(true)}
+            >
               Report a problem with this location.
             </Text>
           </View>

@@ -1,4 +1,4 @@
-import { Text, View } from 'react-native';
+import { Platform, Text, View } from 'react-native';
 import React from 'react';
 import Styles from '../../Styles/Styles';
 import { Eatery } from '../../types';
@@ -22,7 +22,12 @@ export default function Location(item: Eatery, index: number) {
     }}
     >
       <View style={Styles.w80}>
-        <Text style={{ ...Styles.fontSemibold, ...Styles.textLg, ...Styles.mb2 }}>
+        <Text style={{
+          ...Styles.textLg,
+          ...Styles.mb2,
+          ...(Platform.OS === 'ios' ? Styles.fontSemibold : Styles.fontBold),
+        }}
+        >
           {item.name}
         </Text>
 

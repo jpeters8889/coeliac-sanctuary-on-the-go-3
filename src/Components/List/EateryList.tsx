@@ -1,4 +1,6 @@
-import { Text, TouchableOpacity, View } from 'react-native';
+import {
+  Platform, Text, TouchableOpacity, View,
+} from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import React from 'react';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -22,7 +24,12 @@ export default function EateryList(item: Eatery, index: number, navigation: Stac
     }}
     >
       <View style={Styles.w80}>
-        <Text style={{ ...Styles.fontSemibold, ...Styles.textLg, ...Styles.mb2 }}>
+        <Text style={{
+          ...Styles.textLg,
+          ...Styles.mb2,
+          ...(Platform.OS === 'ios' ? Styles.fontSemibold : Styles.fontBold),
+        }}
+        >
           {item.name}
         </Text>
 
@@ -32,7 +39,11 @@ export default function EateryList(item: Eatery, index: number, navigation: Stac
 
         {item.type.type === 'att' && item.restaurants.length === 1 && (
         <View style={Styles.mb4}>
-          <Text style={{ ...Styles.fontSemibold, ...Styles.mb1 }}>
+          <Text style={{
+            ...(Platform.OS === 'ios' ? Styles.fontSemibold : Styles.fontBold),
+            ...Styles.mb1,
+          }}
+          >
             {item.restaurants[0].restaurant_name}
           </Text>
 
