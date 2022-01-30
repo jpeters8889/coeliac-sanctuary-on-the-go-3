@@ -11,7 +11,7 @@ import { Eatery } from '../types';
 import { ApiService } from '../libs/ApiService';
 import EateryReview from '../Components/UI/EateryReview';
 import ItemSeparatorBlank from '../Components/UI/ItemSeparatorBlank';
-import { BASE_URL, BLACK } from '../constants';
+import { BASE_URL, BLACK, BLUE } from '../constants';
 import SubmitRatingModal from './SubmitRatingModal';
 import ReportEateryModal from './ReportEateryModal';
 import { formatAddress, notEmpty } from '../helpers';
@@ -98,7 +98,7 @@ export default function PlaceDetailsModal({ route, navigation }: Props) {
         ...Styles.py8,
       }}
       >
-        <ActivityIndicator size="large" />
+        <ActivityIndicator size="large" color={BLUE} />
       </View>
       )}
 

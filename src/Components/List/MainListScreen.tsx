@@ -14,6 +14,7 @@ import { Eatery, SearchRange } from '../../types';
 import LocationService from '../../libs/LocationService';
 import { ApiService } from '../../libs/ApiService';
 import AnalyticsService from '../../libs/AnalyticsService';
+import { YELLOW } from '../../constants';
 
 export default function MainListScreen({ navigation }: { navigation: StackNavigationProp<any> }) {
   AnalyticsService.logScreen('list-screen').then(() => {});
@@ -210,7 +211,7 @@ export default function MainListScreen({ navigation }: { navigation: StackNaviga
         />
       </View>
 
-      {isLoading && (<ActivityIndicator size="large" style={Styles.mt4} />)}
+      {isLoading && (<ActivityIndicator size="large" style={Styles.mt4} color={YELLOW} />)}
 
       {!isLoading && (places.length > 0 ? (
         <View style={Styles.flex1}>
@@ -221,7 +222,7 @@ export default function MainListScreen({ navigation }: { navigation: StackNaviga
             ItemSeparatorComponent={ItemSeparator}
             onEndReached={() => updateList()}
             onEndReachedThreshold={0.9}
-            ListFooterComponent={hasMorePages ? <ActivityIndicator size="large" style={Styles.my4} /> : null}
+            ListFooterComponent={hasMorePages ? <ActivityIndicator size="large" style={Styles.my4} color={YELLOW} /> : null}
             style={Styles.flex1}
           />
         </View>

@@ -8,6 +8,7 @@ import { Eatery } from '../types';
 import { ApiService } from '../libs/ApiService';
 import ItemSeparator from '../Components/UI/ItemSeparator';
 import Location from '../Components/Nationwide/Location';
+import { YELLOW } from '../constants';
 
 export default function NationwideChains() {
   const [isLoading, setIsLoading]: [boolean, any] = useState(true);
@@ -68,7 +69,7 @@ export default function NationwideChains() {
         </View>
       </Accordion>
 
-      {isLoading && (<ActivityIndicator size="large" style={Styles.mt4} />)}
+      {isLoading && (<ActivityIndicator size="large" style={Styles.mt4} color={YELLOW} />)}
 
       {!isLoading && (
       <View style={Styles.flex1}>
@@ -79,7 +80,7 @@ export default function NationwideChains() {
           ItemSeparatorComponent={ItemSeparator}
           onEndReached={() => updateList()}
           onEndReachedThreshold={0.9}
-          ListFooterComponent={hasMorePages ? <ActivityIndicator size="large" style={Styles.my4} /> : null}
+          ListFooterComponent={hasMorePages ? <ActivityIndicator size="large" style={Styles.my4} color={YELLOW} /> : null}
           style={Styles.flex1}
         />
       </View>

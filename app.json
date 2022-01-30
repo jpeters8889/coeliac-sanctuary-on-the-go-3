@@ -1,10 +1,12 @@
 {
   "expo": {
-    "name": "coeliac-sanctuary-on-the-go-3",
+    "name": "Coeliac Sanctuary - On the Go",
     "slug": "coeliac-sanctuary-on-the-go-3",
     "version": "3.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
+    "backgroundColor": "#80ccfc",
+    "primaryColor": "#80ccfc",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -20,14 +22,22 @@
       "expo-ads-admob"
     ],
     "ios": {
-      "supportsTablet": true,
+      "supportsTablet": false,
       "bundleIdentifier": "com.coeliacsanctuary.onthego",
       "googleServicesFile": "./GoogleService-Info.plist",
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "We use your location to find places to eat around you.",
+        "UIBackgroundModes": [
+          "location"
+        ]
+      },
       "config": {
+        "googleMapsApiKey": "AIzaSyAm-VlmF6ZqCHd4Nm5OvGbQ52bevyUG98s",
         "googleMobileAdsAppId": "ca-app-pub-1063051842575021~3318227595"
       }
     },
     "android": {
+      "versionCode": "30001",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#80ccfc"
@@ -35,8 +45,16 @@
       "package": "com.coeliacsanctuary.onthego",
       "googleServicesFile": "./google-services.json",
       "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyDF3a9VkAThbLBxJF7EL8nYe8IHDluW8hA"
+        },
         "googleMobileAdsAppId": "ca-app-pub-1063051842575021~3318227595"
-      }
+      },
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_BACKGROUND_LOCATION"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png",

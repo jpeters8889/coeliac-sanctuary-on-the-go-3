@@ -4,7 +4,7 @@ import {
 } from 'react-native';
 import Styles from '../Styles/Styles';
 import { ApiService } from '../libs/ApiService';
-import { BASE_URL } from '../constants';
+import { BASE_URL, BLUE_LIGHT } from '../constants';
 import { WebsiteDataset, WebsiteDisplaySection, WebsiteModuleData } from '../types';
 import WebsiteItem from '../Components/Website/WebsiteItem';
 import ShopCtaComponent from '../Components/UI/ShopCtaComponent';
@@ -149,7 +149,7 @@ export default function Website() {
               </Text>
             </View>
 
-            {section.loading && <ActivityIndicator size="large" style={Styles.my4} />}
+            {section.loading && <ActivityIndicator size="large" style={Styles.my4} color={BLUE_LIGHT} />}
 
             {!section.loading && (
               <>

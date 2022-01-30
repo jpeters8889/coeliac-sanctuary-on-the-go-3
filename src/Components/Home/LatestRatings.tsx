@@ -4,7 +4,7 @@ import {
 } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import Styles from '../../Styles/Styles';
-import { YELLOW } from '../../constants';
+import { BLUE_LIGHT, YELLOW } from '../../constants';
 import { LatestEateryRatings } from '../../types';
 import { ApiService } from '../../libs/ApiService';
 
@@ -58,7 +58,7 @@ export default function LatestRatings() {
         Here are the latest eateries that have been rated on our app and website.
       </Text>
 
-      {loading && <ActivityIndicator size="large" style={Styles.mb4} />}
+      {loading && <ActivityIndicator size="large" style={Styles.mb4} color={BLUE_LIGHT} />}
 
       {!loading && (
       <View>

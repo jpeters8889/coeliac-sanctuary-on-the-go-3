@@ -3,9 +3,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Feather, FontAwesome5, Ionicons } from '@expo/vector-icons';
 import { BottomTabNavigationOptions } from '@react-navigation/bottom-tabs/lib/typescript/src/types';
-import Constants from 'expo-constants';
 import { Platform } from 'react-native';
 import { AdMobBanner } from 'expo-ads-admob';
+import * as Device from 'expo-device';
 import Styles from './src/Styles/Styles';
 import { WHITE, YELLOW } from './src/constants';
 import { MainTab } from './src/types';
@@ -19,8 +19,8 @@ export default function App() {
   const Tabs = createBottomTabNavigator();
 
   const adId = (): string => {
-    if (Constants.isDevice && !__DEV__) {
-      return 'ca-app-pub-3940256099942544/2934735716';
+    if (Device.isDevice) {
+      return 'ca-app-pub-1063051842575021/7584775669';
     }
 
     if (Platform.OS === 'android') {

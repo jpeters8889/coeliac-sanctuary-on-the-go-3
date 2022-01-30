@@ -9,6 +9,7 @@ import { ApiService } from '../../libs/ApiService';
 import ItemSeparator from '../UI/ItemSeparator';
 import Location from './Location';
 import AnalyticsService from '../../libs/AnalyticsService';
+import { YELLOW } from '../../constants';
 
 export default function NationwideChainsScreen() {
   AnalyticsService.logScreen('nationwide-screen').then(() => {});
@@ -71,7 +72,7 @@ export default function NationwideChainsScreen() {
         </View>
       </Accordion>
 
-      {isLoading && (<ActivityIndicator size="large" style={Styles.mt4} />)}
+      {isLoading && (<ActivityIndicator size="large" style={Styles.mt4} color={YELLOW} />)}
 
       {!isLoading && (
       <View style={Styles.flex1}>
@@ -82,7 +83,7 @@ export default function NationwideChainsScreen() {
           ItemSeparatorComponent={ItemSeparator}
           onEndReached={() => updateList()}
           onEndReachedThreshold={0.9}
-          ListFooterComponent={hasMorePages ? <ActivityIndicator size="large" style={Styles.my4} /> : null}
+          ListFooterComponent={hasMorePages ? <ActivityIndicator size="large" style={Styles.my4} color={YELLOW} /> : null}
           style={Styles.flex1}
         />
       </View>

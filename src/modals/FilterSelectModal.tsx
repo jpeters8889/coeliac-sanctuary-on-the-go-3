@@ -9,7 +9,7 @@ import Accordion from '../Components/UI/Accordion';
 import ModalContainer from '../Components/UI/ModalContainer';
 import { FilterService } from '../libs/FilterService';
 import {
-  BLUE, BLUE_LIGHT, YELLOW, YELLOW_FADED,
+  BLUE, BLUE_LIGHT, YELLOW, YELLOW_FADED, YELLOW_DIM, BLUE_DIM, BLUE_LIGHT_FADED,
 } from '../constants';
 import AnalyticsService from '../libs/AnalyticsService';
 
@@ -98,7 +98,7 @@ export default function FilterSelectModal({ props }: Props) {
                 <Switch
                   style={Platform.OS === 'ios' ? Styles.scale80 : Styles.scale120}
                   trackColor={{ false: YELLOW_FADED, true: YELLOW_FADED }}
-                  thumbColor={YELLOW}
+                  thumbColor={props.filterService.isGroupFullySelected(venueType.id) ? YELLOW : YELLOW_DIM}
                   onValueChange={() => selectGroup(venueType.id)}
                   value={props.filterService.isGroupFullySelected(venueType.id)}
                 />
@@ -120,8 +120,8 @@ export default function FilterSelectModal({ props }: Props) {
 
                   <Switch
                     style={Platform.OS === 'ios' ? Styles.scale80 : Styles.scale120}
-                    trackColor={{ false: BLUE_LIGHT, true: BLUE_LIGHT }}
-                    thumbColor={BLUE}
+                    trackColor={{ false: BLUE_LIGHT_FADED, true: BLUE_LIGHT }}
+                    thumbColor={filter.selected ? BLUE : BLUE_DIM}
                     onValueChange={() => selectFilter(venueType.id, filter.id)}
                     value={filter.selected}
                   />
