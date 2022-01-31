@@ -34,6 +34,8 @@ export default function MapScreen({ navigation }: { navigation: StackNavigationP
   const [range, setRange]: [number, any] = useState(5);
   const [reloadList, setReloadList]: [any, any] = useState();
 
+  const [marginBottomHack, setMarginBottomHack]: [number, any] = useState(1);
+
   const map: MutableRefObject<MapView> = useRef({} as MapView);
 
   const loadEateries = () => {
@@ -196,9 +198,11 @@ export default function MapScreen({ navigation }: { navigation: StackNavigationP
           longitudeDelta: 0.92 * (Dimensions.get('window').width / Dimensions.get('window').height),
         }}
         onRegionChangeComplete={moveMap}
+        onMapReady={() => setMarginBottomHack(0)}
         style={{
           ...Styles.wFull,
           ...Styles.hFull,
+          marginBottom: marginBottomHack,
         }}
         clusterColor={YELLOW}
       >

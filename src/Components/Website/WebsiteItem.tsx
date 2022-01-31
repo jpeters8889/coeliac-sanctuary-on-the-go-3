@@ -15,6 +15,7 @@ export default function WebsiteItem({ item }: { item: WebsiteDataset }) {
         ...Styles.mt2,
         ...Styles.maxWFull,
       }}
+      activeOpacity={1}
       onPress={() => LinkService.openLink(item.link)}
     >
       <ConstrainedImage image={item.image} />
