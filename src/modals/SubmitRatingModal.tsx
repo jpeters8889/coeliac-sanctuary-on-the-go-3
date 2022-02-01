@@ -141,6 +141,7 @@ export default function SubmitRatingModal({ props }: Props) {
               ...Styles.borderBlue,
               ...Styles.bgBlueLightFaded,
               ...Styles.roundedSm,
+              textAlignVertical: 'top',
               height: 100,
             }}
             onChangeText={setReview}

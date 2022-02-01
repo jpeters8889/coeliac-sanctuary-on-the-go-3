@@ -9,12 +9,15 @@ export default function Home() {
   const Drawer = createDrawerNavigator();
 
   return (
-    <Drawer.Navigator screenOptions={{
-      headerStyle: {
-        ...Styles.bgBlueLight,
-      },
-      headerTintColor: BLACK,
-    }}
+    <Drawer.Navigator
+      detachInactiveScreens
+      initialRouteName="home-screen"
+      screenOptions={{
+        headerStyle: {
+          ...Styles.bgBlueLight,
+        },
+        headerTintColor: BLACK,
+      }}
     >
       <Drawer.Screen
         name="home-screen"

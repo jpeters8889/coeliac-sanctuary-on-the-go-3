@@ -25,6 +25,8 @@ const globalStyles = StyleSheet.create({
 
   border: { borderWidth: 1 },
   borderTop: { borderTopWidth: 1 },
+
+  flex0: { flex: 0 },
   flex1: { flex: 1 },
 
   flexRow: { flexDirection: 'row' },

@@ -1,5 +1,5 @@
 import React from 'react';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createDrawerNavigator, DrawerNavigationProp } from '@react-navigation/drawer';
 import Styles from '../../Styles/Styles';
 import { BLACK } from '../../constants';
 import RecommendAPlace from '../../screens/RecommendAPlace';
@@ -9,12 +9,16 @@ export default function MapScreenContainer() {
   const Drawer = createDrawerNavigator();
 
   return (
-    <Drawer.Navigator screenOptions={{
-      headerStyle: {
-        ...Styles.bgBlueLight,
-      },
-      headerTintColor: BLACK,
-    }}
+    <Drawer.Navigator
+      detachInactiveScreens
+      initialRouteName="map"
+      screenOptions={{
+        unmountOnBlur: true,
+        headerStyle: {
+          ...Styles.bgBlueLight,
+        },
+        headerTintColor: BLACK,
+      }}
     >
       <Drawer.Screen
         name="map"

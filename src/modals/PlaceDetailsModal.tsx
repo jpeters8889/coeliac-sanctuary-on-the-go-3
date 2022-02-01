@@ -76,12 +76,16 @@ export default function PlaceDetailsModal({ route, navigation }: Props) {
       >
         {isLoading && <Text style={Styles.textLg}>Loading...</Text>}
         {!isLoading && (
-        <Text style={{
-          ...(Platform.OS === 'android' ? {
-            ...Styles.text2Xl,
-            ...Styles.fontBold,
-          } : { ...Styles.textLg, ...Styles.fontSemibold }),
-        }}
+        <Text
+          adjustsFontSizeToFit
+          numberOfLines={1}
+          // ellipsizeMode="tail"
+          style={{
+            ...(Platform.OS === 'android' ? {
+              ...Styles.text2Xl,
+              ...Styles.fontBold,
+            } : { ...Styles.textLg, ...Styles.fontSemibold }),
+          }}
         >
           {eatery.name}
         </Text>
@@ -136,15 +140,23 @@ export default function PlaceDetailsModal({ route, navigation }: Props) {
             {notEmpty(eatery.phone) && <Text style={Styles.mb4}>{eatery.phone}</Text>}
 
             {notEmpty(eatery.website) && (
-            <Text
+            <TouchableOpacity
               style={{
                 ...Styles.mb4,
-                ...(Platform.OS === 'ios' ? Styles.fontSemibold : Styles.fontBold),
+                ...Styles.itemsCenter,
+                ...Styles.flexRow,
               }}
               onPress={() => LinkService.openLink(eatery.website)}
             >
-              {eatery.website}
-            </Text>
+              <Text style={{
+                ...(Platform.OS === 'ios' ? Styles.fontSemibold : Styles.fontBold),
+                ...Styles.mr2,
+              }}
+              >
+                Visit Website
+              </Text>
+              <FontAwesome name="external-link" size={18} color="black" />
+            </TouchableOpacity>
             )}
           </View>
 
@@ -185,26 +197,27 @@ export default function PlaceDetailsModal({ route, navigation }: Props) {
               Visitor Ratings
             </Text>
 
-            {eatery.ratings.length > 0 && (
             <View style={Styles.mt4}>
-              <View style={{ ...Styles.flexRow, ...Styles.itemsCenter, ...Styles.mb4 }}>
-                <Text>
-                  Rated
-                  {' '}
-                  {eatery.average_rating}
-                  {' '}
-                </Text>
-                <FontAwesome name="star" size={16} color={BLACK} />
-                <Text>
-                  {' '}
-                  from
-                  {' '}
-                  {eatery.ratings.length}
-                  {' '}
-                  rating
-                  {eatery.ratings.length > 1 ? 's' : ''}
-                </Text>
-              </View>
+              {eatery.ratings.length > 0 && (
+                <View style={{ ...Styles.flexRow, ...Styles.itemsCenter, ...Styles.mb4 }}>
+                  <Text>
+                    Rated
+                    {' '}
+                    {eatery.average_rating}
+                    {' '}
+                  </Text>
+                  <FontAwesome name="star" size={16} color={BLACK} />
+                  <Text>
+                    {' '}
+                    from
+                    {' '}
+                    {eatery.ratings.length}
+                    {' '}
+                    rating
+                    {eatery.ratings.length > 1 ? 's' : ''}
+                  </Text>
+                </View>
+              )}
 
               <View>
                 <TouchableOpacity onPress={() => setShowSubmitRatingModal(true)}>
@@ -230,17 +243,17 @@ export default function PlaceDetailsModal({ route, navigation }: Props) {
                   </View>
                 </TouchableOpacity>
               </View>
-
-              <View>
-                {eatery.ratings.map((rating, index) => (
-                  <View key={rating.id.toString()}>
-                    <EateryReview item={rating} />
-                    {index < eatery.ratings.length - 1 && <ItemSeparatorBlank />}
-                  </View>
-                ))}
-              </View>
+              {eatery.ratings.length > 0 && (
+                <View>
+                  {eatery.ratings.map((rating, index) => (
+                    <View key={rating.id.toString()}>
+                      <EateryReview item={rating} />
+                      {index < eatery.ratings.length - 1 && <ItemSeparatorBlank />}
+                    </View>
+                  ))}
+                </View>
+              )}
             </View>
-            )}
           </View>
 
           <View style={Styles.p2}>

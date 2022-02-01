@@ -142,6 +142,7 @@ export default function RecommendAPlace({ navigation }: { navigation: DrawerNavi
               ...Styles.bgBlueLightFaded,
               ...Styles.roundedSm,
               ...(errors.placeLocation ? Styles.borderRed : Styles.borderBlue),
+              textAlignVertical: 'top',
               height: 100,
             }}
             onChangeText={setPlaceLocation}
@@ -178,6 +179,7 @@ export default function RecommendAPlace({ navigation }: { navigation: DrawerNavi
               ...Styles.bgBlueLightFaded,
               ...Styles.roundedSm,
               ...(errors.placeDetails ? Styles.borderRed : Styles.borderBlue),
+              textAlignVertical: 'top',
               height: 150,
             }}
             onChangeText={setPlaceDetails}

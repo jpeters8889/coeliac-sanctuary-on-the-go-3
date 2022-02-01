@@ -149,7 +149,7 @@ export default function About() {
         ...Styles.mb4,
       }}
       >
-        App Version 3.0.0 alpha 3, published 31st January 2022
+        App Version 3.0.0 alpha 4, published 1st February 2022
       </Text>
 
     </ScrollView>

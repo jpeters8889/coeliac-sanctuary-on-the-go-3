@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import { CommonActions, NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Feather, FontAwesome5, Ionicons } from '@expo/vector-icons';
 import { BottomTabNavigationOptions } from '@react-navigation/bottom-tabs/lib/typescript/src/types';
@@ -111,6 +111,20 @@ export default function App() {
                     : <Ionicons name={tab.name} size={size} color={color} />
                 ),
               }}
+              listeners={({ navigation }) => ({
+                tabPress: (event) => {
+                  event.preventDefault();
+
+                  navigation.dispatch(
+                    CommonActions.reset({
+                      index: 0,
+                      routes: [
+                        { name: tab.name },
+                      ],
+                    }),
+                  );
+                },
+              })}
             />
           ))}
         </Tabs.Navigator>

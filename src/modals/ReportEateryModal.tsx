@@ -59,8 +59,8 @@ export default function ReportEateryModal({ props }: Props) {
           Is there a problem with
           {' '}
           {props.title}
-          ? has it now closed? Or does it no longer offer gluten free options?
-          Or it doesn't follow correct procedures? Let us know using the form below
+          ? has it now closed? Does it no longer offer gluten free options?
+          Does it not follow correct procedures? Let us know using the form below
           and we'll check it out!
         </Text>
 
@@ -74,6 +74,7 @@ export default function ReportEateryModal({ props }: Props) {
               ...Styles.borderBlue,
               ...Styles.bgBlueLightFaded,
               ...Styles.roundedSm,
+              textAlignVertical: 'top',
               height: 100,
             }}
             onChangeText={setDetails}

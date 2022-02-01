@@ -9,15 +9,18 @@ export default function NationwideScreenContainer() {
   const Drawer = createDrawerNavigator();
 
   return (
-    <Drawer.Navigator screenOptions={{
-      headerStyle: {
-        ...Styles.bgBlueLight,
-      },
-      headerTintColor: BLACK,
-    }}
+    <Drawer.Navigator
+      detachInactiveScreens
+      initialRouteName="nationwide-screen"
+      screenOptions={{
+        headerStyle: {
+          ...Styles.bgBlueLight,
+        },
+        headerTintColor: BLACK,
+      }}
     >
       <Drawer.Screen
-        name="map"
+        name="nationwide-screen"
         component={NationwideChainsScreen}
         options={{
           drawerLabel: 'Nationwide Chains',

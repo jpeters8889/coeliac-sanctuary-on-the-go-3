@@ -9,12 +9,15 @@ export default function ListScreenContainer() {
   const Drawer = createDrawerNavigator();
 
   return (
-    <Drawer.Navigator screenOptions={{
-      headerStyle: {
-        ...Styles.bgBlueLight,
-      },
-      headerTintColor: BLACK,
-    }}
+    <Drawer.Navigator
+      detachInactiveScreens
+      initialRouteName="list"
+      screenOptions={{
+        headerStyle: {
+          ...Styles.bgBlueLight,
+        },
+        headerTintColor: BLACK,
+      }}
     >
       <Drawer.Screen
         name="list"
