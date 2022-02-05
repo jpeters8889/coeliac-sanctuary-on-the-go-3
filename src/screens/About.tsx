@@ -5,6 +5,7 @@ import {
 import Styles from '../Styles/Styles';
 import { BLUE, BLUE_LIGHT_FADED } from '../constants';
 import AnalyticsService from '../libs/AnalyticsService';
+import LinkService from '../libs/LinkService';
 
 export default function About() {
   AnalyticsService.logScreen('about-screen').then(() => {});
@@ -144,12 +145,23 @@ export default function About() {
         />
       </View>
 
+      <Text
+        style={{
+          ...Styles.textMd,
+          ...Styles.textLg,
+          ...Styles.fontBold,
+        }}
+        onPress={() => LinkService.openLink('https://www.coeliacsanctuary.co.uk/privacy-policy')}
+      >
+        You can view our Privacy Policy on our website by tapping here.
+      </Text>
+
       <Text style={{
         ...Styles.textSm,
-        ...Styles.mb4,
+        ...Styles.my4,
       }}
       >
-        App Version 3.0.0 alpha 4, published 1st February 2022
+        App Version 3.0.0, published 5th February 2022
       </Text>
 
     </ScrollView>

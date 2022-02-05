@@ -22,6 +22,7 @@
       "expo-ads-admob"
     ],
     "ios": {
+      "buildNumber": "30000",
       "supportsTablet": false,
       "bundleIdentifier": "com.coeliacsanctuary.onthego",
       "googleServicesFile": "./GoogleService-Info.plist",
