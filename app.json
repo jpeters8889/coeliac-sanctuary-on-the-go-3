@@ -19,26 +19,28 @@
       "**/*"
     ],
     "plugins": [
-      "expo-ads-admob"
+      [
+        "expo-tracking-transparency",
+        {
+          "userTrackingPermission": "This identifier will be used to deliver personalized ads to you."
+        }
+      ]
     ],
     "ios": {
-      "buildNumber": "30000",
+      "buildNumber": "30003",
       "supportsTablet": false,
       "bundleIdentifier": "com.coeliacsanctuary.onthego",
       "googleServicesFile": "./GoogleService-Info.plist",
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription": "We use your location to find places to eat around you.",
-        "UIBackgroundModes": [
-          "location"
-        ]
       },
       "config": {
         "googleMapsApiKey": "AIzaSyAm-VlmF6ZqCHd4Nm5OvGbQ52bevyUG98s",
-        "googleMobileAdsAppId": "ca-app-pub-1063051842575021~3318227595"
+        "googleMobileAdsAppId": "ca-app-pub-1063051842575021~4822363527"
       }
     },
     "android": {
-      "versionCode": 30004,
+      "versionCode": 30005,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#80ccfc"

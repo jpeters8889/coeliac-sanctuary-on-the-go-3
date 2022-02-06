@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { CommonActions, NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Feather, FontAwesome5, Ionicons } from '@expo/vector-icons';
@@ -6,6 +6,7 @@ import { BottomTabNavigationOptions } from '@react-navigation/bottom-tabs/lib/ty
 import { Platform } from 'react-native';
 import { AdMobBanner } from 'expo-ads-admob';
 import * as Device from 'expo-device';
+import { requestTrackingPermissionsAsync } from 'expo-tracking-transparency';
 import Styles from './src/Styles/Styles';
 import { WHITE, YELLOW } from './src/constants';
 import { MainTab } from './src/types';
@@ -14,13 +15,18 @@ import Map from './src/screens/Map';
 import List from './src/screens/List';
 import Website from './src/screens/Website';
 import NationwideScreenContainer from './src/Components/Nationwide/NationwideScreenContainer';
+import AnalyticsService from './src/libs/AnalyticsService';
 
 export default function App() {
   const Tabs = createBottomTabNavigator();
 
   const adId = (): string => {
     if (Device.isDevice) {
-      return 'ca-app-pub-1063051842575021/7584775669';
+      if (Platform.OS === 'android') {
+        return 'ca-app-pub-1063051842575021/7584775669';
+      }
+
+      return 'ca-app-pub-1063051842575021/8005756608';
     }
 
     if (Platform.OS === 'android') {
@@ -90,6 +96,13 @@ export default function App() {
       ...Styles.textSm,
     },
   };
+
+  useEffect(() => {
+    (async () => {
+      const { status } = await requestTrackingPermissionsAsync();
+      await AnalyticsService.toggleAnalytics(status === 'granted');
+    })();
+  }, []);
 
   return (
     <>

@@ -56,6 +56,7 @@ export default class AnalyticsService {
   static async toggleAnalytics(value: boolean) {
     try {
       await AsyncStorage.setItem('@allow-analytics', value ? 'true' : 'false');
+      await Analytics.setAnalyticsCollectionEnabled(value);
     } catch (e) {
       // saving error
     }
