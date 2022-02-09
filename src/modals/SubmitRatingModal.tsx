@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import {
-  Alert,
-  Text, TextInput, TouchableOpacity, View,
+  Alert, Keyboard, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View,
 } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import Styles from '../Styles/Styles';
@@ -74,111 +73,114 @@ export default function SubmitRatingModal({ props }: Props) {
       title: 'Submit Rating',
     }}
     >
-      <View style={Styles.p2}>
-        <Text style={Styles.textCenter}>
-          How would you rate
-          {' '}
-          {props.title}
-          ?
-        </Text>
 
-        <View style={{ ...Styles.flexRow, ...Styles.justifyAround, ...Styles.mt2 }}>
-          {stars.map((star) => (
-            <TouchableOpacity key={star.toString()} onPress={() => setStarRating(star)}>
-              {starRating < star && (<FontAwesome name="star-o" size={40} color={BLACK} />)}
-              {starRating >= star && (<FontAwesome name="star" size={40} color={YELLOW} />)}
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={Styles.p2}>
+          <Text style={Styles.textCenter}>
+            How would you rate
+            {' '}
+            {props.title}
+            ?
+          </Text>
+
+          <View style={{ ...Styles.flexRow, ...Styles.justifyAround, ...Styles.mt2 }}>
+            {stars.map((star) => (
+              <TouchableOpacity key={star.toString()} onPress={() => setStarRating(star)}>
+                {starRating < star && (<FontAwesome name="star-o" size={40} color={BLACK} />)}
+                {starRating >= star && (<FontAwesome name="star" size={40} color={YELLOW} />)}
+              </TouchableOpacity>
+            ))}
+          </View>
+
+          <Text style={Styles.mt2}>
+            Do you also want to leave an optional short review with your rating? Please enter some details below!
+          </Text>
+
+          <View style={Styles.mt4}>
+            <TextInput
+              placeholder="Your Name..."
+              placeholderTextColor={BLUE}
+              value={name}
+              style={{
+                ...Styles.p2,
+                ...Styles.border,
+                ...Styles.borderBlue,
+                ...Styles.bgBlueLightFaded,
+                ...Styles.roundedSm,
+              }}
+              onChangeText={setName}
+            />
+          </View>
+
+          <View style={Styles.mt4}>
+            <TextInput
+              placeholder="Your Email..."
+              placeholderTextColor={BLUE}
+              value={email}
+              autoCompleteType="email"
+              keyboardType="email-address"
+              style={{
+                ...Styles.p2,
+                ...Styles.border,
+                ...Styles.borderBlue,
+                ...Styles.bgBlueLightFaded,
+                ...Styles.roundedSm,
+              }}
+              onChangeText={setEmail}
+            />
+          </View>
+
+          <View style={{ ...Styles.mt4, flexGrow: 0 }}>
+            <TextInput
+              multiline
+              placeholder="Your Review..."
+              placeholderTextColor={BLUE}
+              value={review}
+              style={{
+                ...Styles.p2,
+                ...Styles.border,
+                ...Styles.borderBlue,
+                ...Styles.bgBlueLightFaded,
+                ...Styles.roundedSm,
+                textAlignVertical: 'top',
+                height: 100,
+              }}
+              onChangeText={setReview}
+            />
+          </View>
+
+          <Text style={{ ...Styles.mt4, ...Styles.textSm, ...Styles.italic }}>
+            Please note, your email address is only required for validation purposes and will never be
+            shown to anyone on the app or website.
+          </Text>
+
+          <View style={{ ...Styles.flexRow, ...Styles.justifyBetween, ...Styles.mt4 }}>
+            <TouchableOpacity onPress={() => closeModal()}>
+              <View style={{
+                ...Styles.p2,
+                ...Styles.px4,
+                ...Styles.bgBlue,
+                ...Styles.rounded,
+              }}
+              >
+                <Text>Cancel</Text>
+              </View>
             </TouchableOpacity>
-          ))}
+
+            <TouchableOpacity onPress={() => submitReview()}>
+              <View style={{
+                ...Styles.p2,
+                ...Styles.px4,
+                ...Styles.bgYellow,
+                ...Styles.roundedSm,
+              }}
+              >
+                <Text>Submit</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
         </View>
-
-        <Text style={Styles.mt2}>
-          Do you also want to leave an optional short review with your rating? Please enter some details below!
-        </Text>
-
-        <View style={Styles.mt4}>
-          <TextInput
-            placeholder="Your Name..."
-            placeholderTextColor={BLUE}
-            value={name}
-            style={{
-              ...Styles.p2,
-              ...Styles.border,
-              ...Styles.borderBlue,
-              ...Styles.bgBlueLightFaded,
-              ...Styles.roundedSm,
-            }}
-            onChangeText={setName}
-          />
-        </View>
-
-        <View style={Styles.mt4}>
-          <TextInput
-            placeholder="Your Email..."
-            placeholderTextColor={BLUE}
-            value={email}
-            autoCompleteType="email"
-            keyboardType="email-address"
-            style={{
-              ...Styles.p2,
-              ...Styles.border,
-              ...Styles.borderBlue,
-              ...Styles.bgBlueLightFaded,
-              ...Styles.roundedSm,
-            }}
-            onChangeText={setEmail}
-          />
-        </View>
-
-        <View style={Styles.mt4}>
-          <TextInput
-            multiline
-            placeholder="Your Review..."
-            placeholderTextColor={BLUE}
-            value={review}
-            style={{
-              ...Styles.p2,
-              ...Styles.border,
-              ...Styles.borderBlue,
-              ...Styles.bgBlueLightFaded,
-              ...Styles.roundedSm,
-              textAlignVertical: 'top',
-              height: 100,
-            }}
-            onChangeText={setReview}
-          />
-        </View>
-
-        <Text style={{ ...Styles.mt4, ...Styles.textSm, ...Styles.italic }}>
-          Please note, your email address is only required for validation purposes and will never be
-          shown to anyone on the app or website.
-        </Text>
-
-        <View style={{ ...Styles.flexRow, ...Styles.justifyBetween, ...Styles.mt4 }}>
-          <TouchableOpacity onPress={() => closeModal()}>
-            <View style={{
-              ...Styles.p2,
-              ...Styles.px4,
-              ...Styles.bgBlue,
-              ...Styles.rounded,
-            }}
-            >
-              <Text>Cancel</Text>
-            </View>
-          </TouchableOpacity>
-
-          <TouchableOpacity onPress={() => submitReview()}>
-            <View style={{
-              ...Styles.p2,
-              ...Styles.px4,
-              ...Styles.bgYellow,
-              ...Styles.roundedSm,
-            }}
-            >
-              <Text>Submit</Text>
-            </View>
-          </TouchableOpacity>
-        </View>
-      </View>
+      </TouchableWithoutFeedback>
     </ModalContainer>
   );
 }

@@ -161,7 +161,7 @@ export default function About() {
         ...Styles.my4,
       }}
       >
-        App Version 3.0.0, published 5th February 2022
+        App Version 3.0.1, published 8th February 2022
       </Text>
 
     </ScrollView>

@@ -61,7 +61,7 @@ export default function NationwideChainsScreen() {
       >
         <View style={Styles.p2}>
           <Text style={Styles.mb2}>
-            Our list of Nationwide Eateries are restaurants, ubs, cafes etc across the UK
+            Our list of Nationwide Eateries are restaurants, pubs, cafes etc across the UK
             that offer gluten free options or have a full gluten free menu.
           </Text>
           <Text>

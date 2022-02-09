@@ -1,6 +1,7 @@
 import { AntDesign } from '@expo/vector-icons';
 import React, { ReactElement } from 'react';
 import {
+  KeyboardAvoidingView,
   Modal, Text, TouchableOpacity, View,
 } from 'react-native';
 import Styles from '../../Styles/Styles';
@@ -71,6 +72,7 @@ export default function ModalContainer({ props, children }: Props) {
     ...Styles.flexRow,
     ...Styles.justifyBetween,
     ...Styles.itemsCenter,
+    zIndex: 9999,
     ...(isFullscreen() ? {
       ...Styles.wFull,
       ...Styles.roundedTopLg,
@@ -99,7 +101,9 @@ export default function ModalContainer({ props, children }: Props) {
             </View>
           )}
           <View>
-            {children}
+            <KeyboardAvoidingView behavior="position">
+              {children}
+            </KeyboardAvoidingView>
           </View>
         </View>
       </View>

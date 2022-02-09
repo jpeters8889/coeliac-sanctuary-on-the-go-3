@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {
-  Alert,
-  Text, TextInput, TouchableOpacity, View,
+  Alert, Keyboard,
+  Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View,
 } from 'react-native';
 import Styles from '../Styles/Styles';
 import { ModalProps } from '../types';
@@ -54,59 +54,61 @@ export default function ReportEateryModal({ props }: Props) {
       title: 'Report a problem',
     }}
     >
-      <View style={Styles.p2}>
-        <Text>
-          Is there a problem with
-          {' '}
-          {props.title}
-          ? has it now closed? Does it no longer offer gluten free options?
-          Does it not follow correct procedures? Let us know using the form below
-          and we'll check it out!
-        </Text>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={Styles.p2}>
+          <Text>
+            Is there a problem with
+            {' '}
+            {props.title}
+            ? has it now closed? Does it no longer offer gluten free options?
+            Does it not follow correct procedures? Let us know using the form below
+            and we'll check it out!
+          </Text>
 
-        <View style={Styles.mt4}>
-          <TextInput
-            multiline
-            value={details}
-            style={{
-              ...Styles.p2,
-              ...Styles.border,
-              ...Styles.borderBlue,
-              ...Styles.bgBlueLightFaded,
-              ...Styles.roundedSm,
-              textAlignVertical: 'top',
-              height: 100,
-            }}
-            onChangeText={setDetails}
-          />
+          <View style={{ ...Styles.mt4, flexGrow: 0 }}>
+            <TextInput
+              multiline
+              value={details}
+              style={{
+                ...Styles.p2,
+                ...Styles.border,
+                ...Styles.borderBlue,
+                ...Styles.bgBlueLightFaded,
+                ...Styles.roundedSm,
+                textAlignVertical: 'top',
+                height: 100,
+              }}
+              onChangeText={setDetails}
+            />
+          </View>
+
+          <View style={{ ...Styles.flexRow, ...Styles.justifyBetween, ...Styles.mt4 }}>
+            <TouchableOpacity onPress={() => closeModal()}>
+              <View style={{
+                ...Styles.p2,
+                ...Styles.px4,
+                ...Styles.bgBlue,
+                ...Styles.rounded,
+              }}
+              >
+                <Text>Cancel</Text>
+              </View>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={() => submit()}>
+              <View style={{
+                ...Styles.p2,
+                ...Styles.px4,
+                ...Styles.bgYellow,
+                ...Styles.roundedSm,
+              }}
+              >
+                <Text>Submit</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
         </View>
-
-        <View style={{ ...Styles.flexRow, ...Styles.justifyBetween, ...Styles.mt4 }}>
-          <TouchableOpacity onPress={() => closeModal()}>
-            <View style={{
-              ...Styles.p2,
-              ...Styles.px4,
-              ...Styles.bgBlue,
-              ...Styles.rounded,
-            }}
-            >
-              <Text>Cancel</Text>
-            </View>
-          </TouchableOpacity>
-
-          <TouchableOpacity onPress={() => submit()}>
-            <View style={{
-              ...Styles.p2,
-              ...Styles.px4,
-              ...Styles.bgYellow,
-              ...Styles.roundedSm,
-            }}
-            >
-              <Text>Submit</Text>
-            </View>
-          </TouchableOpacity>
-        </View>
-      </View>
+      </TouchableWithoutFeedback>
     </ModalContainer>
   );
 }
