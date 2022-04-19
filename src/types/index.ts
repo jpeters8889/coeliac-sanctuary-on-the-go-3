@@ -185,6 +185,7 @@ type WhereToEatSummarySection = {
 
 type LatestEateryRatings = {
   id: number,
+  eatery_id: number,
   location: string,
   rating: string,
   created_at: string,
