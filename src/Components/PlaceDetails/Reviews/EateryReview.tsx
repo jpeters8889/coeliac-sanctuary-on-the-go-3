@@ -1,15 +1,17 @@
-import { Image, Text, View } from 'react-native';
-import React from 'react';
+import { Platform, Text, View } from 'react-native';
+import React, { useState } from 'react';
 import dayjs from 'dayjs';
 import { UserReview } from '../../../types';
 import Styles from '../../../Styles/Styles';
 import { notEmpty } from '../../../helpers';
 import ReviewTitle from './ReviewTitle';
 import EateryRatings from './EateryRatings';
-import ScaledImage from '../../UI/ScaledImage';
 import EateryImages from '../EateryImages';
 
 export default function EateryReview({ item }: { item: UserReview }) {
+  const [displayFullReview, setDisplayFullReview]: [boolean, any] = useState(false);
+  const [hasMoreText, setHasMoreText]: [boolean, any] = useState(true);
+
   const stars = [];
   const price = [];
 
@@ -37,6 +39,26 @@ export default function EateryReview({ item }: { item: UserReview }) {
     price.push(x.toString());
   }
 
+  useState(() => {
+    if (item.admin_review && item.body.length > 500 && !displayFullReview) {
+      setHasMoreText(true);
+    }
+  });
+
+  const reviewText = (): string => {
+    if (item.admin_review) {
+      if (item.body.length > 500 && !displayFullReview) {
+        return `${item.body.substring(0, item.body.indexOf(' ', 500))}...`;
+      }
+    }
+
+    if (!item.body) {
+      return 'Reviewer left no text with their rating';
+    }
+
+    return item.body;
+  };
+
   return (
     <View style={{ ...Styles.border, ...Styles.borderBlue, ...Styles.rounded }}>
       <ReviewTitle item={item} />
@@ -44,10 +66,23 @@ export default function EateryReview({ item }: { item: UserReview }) {
       {hasRatings() && <EateryRatings item={item} />}
 
       <View style={{ ...Styles.p2, ...Styles.bgBlueLightFaded, ...Styles.borderBlue }}>
-        <Text>{notEmpty(item.body) ? item.body : 'Reviewer left no text with their rating'}</Text>
+        <Text>{reviewText()}</Text>
+
+        {hasMoreText && !displayFullReview && (
+        <Text
+          onPress={() => setDisplayFullReview(true)}
+          style={{
+            ...Styles.textLg,
+            ...(Platform.OS === 'ios' ? Styles.fontSemibold : Styles.fontBold),
+          }}
+        >
+          View full review
+        </Text>
+        )}
 
         {notEmpty(item.images) && <EateryImages props={{ images: item.images }} />}
 
+        {!item.admin_review && (
         <View style={{
           ...Styles.mt2,
           ...Styles.flexRow,
@@ -58,6 +93,7 @@ export default function EateryReview({ item }: { item: UserReview }) {
           {notEmpty(item.name) && <Text style={{ ...Styles.italic }}>{item.name}</Text>}
           <Text style={{ ...Styles.flex1, ...Styles.textRight }}>{dayjs(item.created_at).format('MMM Do YYYY')}</Text>
         </View>
+        )}
       </View>
     </View>
   );

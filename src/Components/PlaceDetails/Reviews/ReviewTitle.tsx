@@ -30,7 +30,7 @@ export default function ReviewTitle({ item }: { item: UserReview }) {
         {stars.map((index) => <FontAwesome name="star" size={22} color={YELLOW} key={index} style={Styles.mr1} />)}
       </View>
 
-      <Text>{item.human_date}</Text>
+      {!item.admin_review && <Text>{item.human_date}</Text>}
     </View>
   );
 }
