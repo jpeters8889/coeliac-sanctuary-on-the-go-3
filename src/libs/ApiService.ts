@@ -135,7 +135,7 @@ export class ApiService {
   static async reportPlace(eateryId: number, details: string) {
     const token = await this.getToken();
 
-    return axios.post(`${BASE_URL}/api/wheretoeat/${eateryId.toString}/report`, {
+    return axios.post(`${BASE_URL}/api/wheretoeat/${eateryId.toString()}/report`, {
       details,
     }, {
       headers: {

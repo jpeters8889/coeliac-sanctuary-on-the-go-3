@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
-  View, Text, ActivityIndicator, Platform,
+  View, Text, ActivityIndicator, Platform, TouchableOpacity,
 } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import Styles from '../../Styles/Styles';
@@ -57,8 +57,9 @@ export default function LatestLocations({ navigation }: { navigation: StackNavig
       {!loading && (
       <View>
         {locations.map((location, index) => (
-          <View
+          <TouchableOpacity
             key={location.id.toString()}
+            onPress={() => openLocation(location.id)}
             style={{
               ...Styles.wFull,
               ...Styles.justifyBetween,
@@ -68,17 +69,14 @@ export default function LatestLocations({ navigation }: { navigation: StackNavig
               ...(index % 2 === 0 ? Styles.bgBlueLightFaded : ''),
             }}
           >
-            <Text
-              style={Platform.OS === 'ios' ? Styles.fontSemibold : Styles.fontBold}
-              onPress={() => openLocation(location.id)}
-            >
+            <Text style={Platform.OS === 'ios' ? Styles.fontSemibold : Styles.fontBold}>
               {location.name}
             </Text>
 
             <Text style={Styles.mb2}>{location.location}</Text>
 
             <Text style={Styles.textSm}>{location.created_at}</Text>
-          </View>
+          </TouchableOpacity>
         ))}
       </View>
       )}

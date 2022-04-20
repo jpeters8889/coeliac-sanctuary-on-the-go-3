@@ -67,7 +67,7 @@ export default function EateryList(item: Eatery, index: number, navigation: Stac
         <View style={{ ...Styles.mb2, ...Styles.flex1 }}>
           {placeIcon(item.type.type)}
         </View>
-        { item.ratings.length ? (
+        { item.user_reviews.length ? (
           <View style={{ ...Styles.mb2, ...Styles.itemsEnd }}>
             <View style={Styles.flexRow}>
               <Text style={Styles.mr1}>
@@ -77,10 +77,10 @@ export default function EateryList(item: Eatery, index: number, navigation: Stac
             </View>
             <Text>
               (
-              {item.ratings.length}
+              {item.user_reviews.length}
               {' '}
               Rating
-              {item.ratings.length > 1 ? 's' : ''}
+              {item.user_reviews.length > 1 ? 's' : ''}
               )
             </Text>
           </View>

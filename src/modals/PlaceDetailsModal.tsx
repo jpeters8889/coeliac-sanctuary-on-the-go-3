@@ -1,22 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import {
-  View, Text, TouchableOpacity, ActivityIndicator, Alert, Linking, ScrollView, Platform,
+  View, ActivityIndicator, Alert, ScrollView, Platform,
 } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
-import { AntDesign, FontAwesome } from '@expo/vector-icons';
-import dayjs from 'dayjs';
 import Styles from '../Styles/Styles';
-import { Eatery } from '../types';
+import { Eatery, UserReview } from '../types';
 import { ApiService } from '../libs/ApiService';
-import EateryReview from '../Components/UI/EateryReview';
-import ItemSeparatorBlank from '../Components/UI/ItemSeparatorBlank';
-import { BASE_URL, BLACK, BLUE } from '../constants';
+import { BLUE } from '../constants';
 import SubmitRatingModal from './SubmitRatingModal';
 import ReportEateryModal from './ReportEateryModal';
-import { formatAddress, notEmpty } from '../helpers';
+import { notEmpty } from '../helpers';
 import AnalyticsService from '../libs/AnalyticsService';
-import LinkService from '../libs/LinkService';
+import TitleBar from '../Components/PlaceDetails/TitleBar';
+import EateryInfo from '../Components/PlaceDetails/EateryInfo';
+import UserReviews from '../Components/PlaceDetails/UserReviews';
+import PlaceDetailsFooter from '../Components/PlaceDetails/PlaceDetailsFooter';
+import PlaceAdminReview from '../Components/PlaceDetails/PlaceAdminReview';
+import UserImages from '../Components/PlaceDetails/UserImages';
 
 type Props = {
   route: RouteProp<{
@@ -49,6 +50,12 @@ export default function PlaceDetailsModal({ route, navigation }: Props) {
       });
   };
 
+  const adminReview = (): UserReview | false => {
+    const ourReview = eatery.user_reviews.filter((review) => review.admin_review);
+
+    return ourReview.length ? ourReview[0] : false;
+  };
+
   const closeSubmitRatingModal = () => {
     loadEatery();
     setShowSubmitRatingModal(false);
@@ -58,43 +65,7 @@ export default function PlaceDetailsModal({ route, navigation }: Props) {
 
   return (
     <View>
-      <View style={{
-        ...Styles.bgBlueLight,
-        ...Styles.p2,
-        ...Styles.flexRow,
-        ...Styles.justifyBetween,
-        ...Styles.itemsCenter,
-        ...Styles.absolute,
-        ...Styles.top0,
-        ...Styles.wFull,
-        ...(Platform.OS === 'android' ? {
-          ...Styles.borderTop,
-          ...Styles.borderGrey,
-          ...Styles.mt10,
-        } : ''),
-      }}
-      >
-        {isLoading && <Text style={Styles.textLg}>Loading...</Text>}
-        {!isLoading && (
-        <Text
-          adjustsFontSizeToFit
-          numberOfLines={1}
-          // ellipsizeMode="tail"
-          style={{
-            ...(Platform.OS === 'android' ? {
-              ...Styles.text2Xl,
-              ...Styles.fontBold,
-            } : { ...Styles.textLg, ...Styles.fontSemibold }),
-          }}
-        >
-          {eatery.name}
-        </Text>
-        )}
-
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <AntDesign name="close" size={24} color="black" />
-        </TouchableOpacity>
-      </View>
+      <TitleBar props={{ isLoading, placeName: eatery.name, navigation }} />
 
       {isLoading && (
       <View style={{
@@ -109,169 +80,15 @@ export default function PlaceDetailsModal({ route, navigation }: Props) {
       {!isLoading && (
       <>
         <ScrollView style={Platform.OS === 'ios' ? Styles.mt10 : Styles.mt20}>
-          <View style={{ ...Styles.p2, ...Styles.borderBottom, ...Styles.borderBlueLight }}>
-            {eatery.type.type !== 'att' && (
-            <Text style={Styles.mb4}>
-              {eatery.info}
-            </Text>
-            )}
+          <EateryInfo props={{ eatery }} />
 
-            {eatery.type.type === 'att' && (
-            <View>
-              {eatery.restaurants.map((restaurant) => (
-                <View key={restaurant.id} style={Styles.mb2}>
-                  <Text style={{
-                    ...(Platform.OS === 'ios' ? Styles.fontSemibold : Styles.fontBold),
-                    ...Styles.textLg,
-                  }}
-                  >
-                    {restaurant.restaurant_name}
-                  </Text>
-                  <Text>{restaurant.info}</Text>
-                </View>
-              ))}
-            </View>
-            )}
+          { notEmpty(adminReview()) && <PlaceAdminReview props={{ adminReview: adminReview() as UserReview }} />}
 
-            <Text style={Styles.mb4}>
-              {formatAddress(eatery.address, '\n')}
-            </Text>
+          { notEmpty(eatery.user_images) && <UserImages props={{ name: eatery.name, images: eatery.user_images }} />}
 
-            {notEmpty(eatery.phone) && <Text style={Styles.mb4}>{eatery.phone}</Text>}
+          <UserReviews props={{ eatery, setShowSubmitRatingModal }} />
 
-            {notEmpty(eatery.website) && (
-            <TouchableOpacity
-              style={{
-                ...Styles.mb4,
-                ...Styles.itemsCenter,
-                ...Styles.flexRow,
-              }}
-              onPress={() => LinkService.openLink(eatery.website)}
-            >
-              <Text style={{
-                ...(Platform.OS === 'ios' ? Styles.fontSemibold : Styles.fontBold),
-                ...Styles.mr2,
-              }}
-              >
-                Visit Website
-              </Text>
-              <FontAwesome name="external-link" size={18} color="black" />
-            </TouchableOpacity>
-            )}
-          </View>
-
-          {eatery.reviews.length > 0 && (
-          <View style={{ ...Styles.p2, ...Styles.borderBottom, ...Styles.borderBlueLight }}>
-            <Text style={{
-              ...Styles.textLg,
-              ...Styles.mb4,
-              ...(Platform.OS === 'ios' ? Styles.fontSemibold : Styles.fontBold),
-            }}
-            >
-              Our Reviews
-            </Text>
-
-            {eatery.reviews.map((review, index) => (
-              <Text
-                onPress={() => LinkService.openLink(`${BASE_URL}${review.link}`)}
-                key={review.id}
-                style={{
-                  ...(Platform.OS === 'ios' ? Styles.fontSemibold : Styles.fontBold),
-                  ...(index < eatery.reviews.length - 1 ? Styles.mb1 : null),
-                }}
-              >
-                Our review from
-                {' '}
-                {dayjs(review.created_at).format('MMM Do YYYY')}
-              </Text>
-            ))}
-          </View>
-          )}
-
-          <View style={{ ...Styles.p2, ...Styles.borderBottom, ...Styles.borderBlueLight }}>
-            <Text style={{
-              ...Styles.textLg,
-              ...(Platform.OS === 'ios' ? Styles.fontSemibold : Styles.fontBold),
-            }}
-            >
-              Visitor Ratings
-            </Text>
-
-            <View style={Styles.mt4}>
-              {eatery.ratings.length > 0 && (
-                <View style={{ ...Styles.flexRow, ...Styles.itemsCenter, ...Styles.mb4 }}>
-                  <Text>
-                    Rated
-                    {' '}
-                    {eatery.average_rating}
-                    {' '}
-                  </Text>
-                  <FontAwesome name="star" size={16} color={BLACK} />
-                  <Text>
-                    {' '}
-                    from
-                    {' '}
-                    {eatery.ratings.length}
-                    {' '}
-                    rating
-                    {eatery.ratings.length > 1 ? 's' : ''}
-                  </Text>
-                </View>
-              )}
-
-              <View>
-                <TouchableOpacity onPress={() => setShowSubmitRatingModal(true)}>
-                  <View style={{
-                    ...Styles.bgYellow,
-                    ...Styles.p2,
-                    ...Styles.px4,
-                    ...Styles.rounded,
-                    ...Styles.mb4,
-                  }}
-                  >
-                    <Text style={{
-                      ...Styles.textLg,
-                      ...Styles.textCenter,
-                      ...(Platform.OS === 'ios' ? Styles.fontSemibold : Styles.fontBold),
-                    }}
-                    >
-                      Have you visited
-                      {' '}
-                      {eatery.name}
-                      ? Why not leave a rating to let others know your experience!
-                    </Text>
-                  </View>
-                </TouchableOpacity>
-              </View>
-              {eatery.ratings.length > 0 && (
-                <View>
-                  {eatery.ratings.map((rating, index) => (
-                    <View key={rating.id.toString()}>
-                      <EateryReview item={rating} />
-                      {index < eatery.ratings.length - 1 && <ItemSeparatorBlank />}
-                    </View>
-                  ))}
-                </View>
-              )}
-            </View>
-          </View>
-
-          <View style={Styles.p2}>
-            <Text style={Styles.italic}>
-              This location was added to our database on
-              {' '}
-              {dayjs(eatery.created_at).format('DD/MM/YYYY')}
-            </Text>
-            <Text
-              style={{
-                ...(Platform.OS === 'ios' ? Styles.fontSemibold : Styles.fontBold),
-                ...Styles.pt2,
-              }}
-              onPress={() => setShowReportProblemModal(true)}
-            >
-              Report a problem with this location.
-            </Text>
-          </View>
+          <PlaceDetailsFooter props={{ eatery, setShowReportProblemModal }} />
         </ScrollView>
 
         {showSubmitRatingModal && (
@@ -291,7 +108,6 @@ export default function PlaceDetailsModal({ route, navigation }: Props) {
         }}
         />
         )}
-
       </>
       )}
     </View>

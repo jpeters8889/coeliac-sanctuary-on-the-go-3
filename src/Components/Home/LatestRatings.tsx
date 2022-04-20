@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
-  View, Text, ActivityIndicator, Platform,
+  View, Text, ActivityIndicator, Platform, TouchableOpacity,
 } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -68,8 +68,9 @@ export default function LatestRatings({ navigation }: { navigation: StackNavigat
       {!loading && (
         <View>
           {ratings.map((rating, index) => (
-            <View
+            <TouchableOpacity
               key={rating.id.toString()}
+              onPress={() => openLocation(rating.eatery_id)}
               style={{
                 ...Styles.wFull,
                 ...Styles.justifyBetween,
@@ -79,10 +80,7 @@ export default function LatestRatings({ navigation }: { navigation: StackNavigat
                 ...(index % 2 === 0 ? Styles.bgBlueLightFaded : ''),
               }}
             >
-              <Text
-                style={Platform.OS === 'ios' ? Styles.fontSemibold : Styles.fontBold}
-                onPress={() => openLocation(rating.eatery_id)}
-              >
+              <Text style={Platform.OS === 'ios' ? Styles.fontSemibold : Styles.fontBold}>
                 {rating.location}
               </Text>
 
@@ -93,7 +91,7 @@ export default function LatestRatings({ navigation }: { navigation: StackNavigat
               </View>
 
               <Text style={Styles.textSm}>{rating.created_at}</Text>
-            </View>
+            </TouchableOpacity>
           ))}
         </View>
       )}

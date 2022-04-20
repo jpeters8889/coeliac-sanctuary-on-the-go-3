@@ -67,10 +67,13 @@ const globalStyles = StyleSheet.create({
   mt10: { marginTop: 40 },
   mt20: { marginTop: 80 },
 
+  '-mx1': { marginRight: -4, marginLeft: -4 },
   mx1: { marginRight: 4, marginLeft: 4 },
 
   my2: { marginTop: 8, marginBottom: 8 },
   my4: { marginTop: 16, marginBottom: 16 },
+
+  m1: { margin: 4 },
 
   overflowHidden: { overflow: 'hidden' },
 
@@ -107,6 +110,7 @@ const globalStyles = StyleSheet.create({
   scale120: { transform: [{ scale: 1.2 }] },
 
   textCenter: { textAlign: 'center' },
+  textRight: { textAlign: 'right' },
 
   textSm: { fontSize: 12 },
   textMd: { fontSize: 14 },
@@ -114,6 +118,7 @@ const globalStyles = StyleSheet.create({
   textXl: { fontSize: 20 },
   text2Xl: { fontSize: 24 },
   textWhite: { color: WHITE },
+  textYellow: { color: YELLOW },
 
   top0: { top: 0 },
 

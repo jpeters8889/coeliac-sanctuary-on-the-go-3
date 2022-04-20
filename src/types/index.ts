@@ -37,7 +37,7 @@ type Eatery = {
   lng: number;
   name: string;
   phone: string;
-  ratings: Rating[];
+  user_reviews: UserReview[];
   restaurants: AttractionRestaurant[];
   reviews: Review[];
   town: {
@@ -49,6 +49,7 @@ type Eatery = {
     name: string;
     type: EateryType;
   };
+  user_images: ReviewImage[],
   venue_type: {
     id: number;
     venue_type: string;
@@ -64,16 +65,33 @@ type AttractionRestaurant = {
   info: string,
 };
 
-type Rating = {
+type UserReview = {
+  human_date: string;
+  admin_review: boolean;
   average_rating: number;
   body: string;
   id: number;
   name?: string;
   number_of_ratings: number;
-  rating: '1' | '2' | '3' | '4' | '5',
+  rating: StarReview,
+  images: ReviewImage[],
+  price: {
+    value: string;
+    label: string;
+  };
+  food_rating: string;
+  service_rating: string;
   wheretoeat_id: number;
   created_at: string;
 };
+
+type ReviewImage = {
+  id: string;
+  thumb: string;
+  path: string;
+};
+
+type StarReview = '1' | '2' | '3' | '4' | '5';
 
 type Review = {
   id: number,
@@ -210,8 +228,9 @@ type AnalyticsEvent = {
 };
 
 export {
-  MainTab, Eatery, PlacesApiRequest, Rating, EateryType, SearchRange, ModalProps,
+  MainTab, Eatery, PlacesApiRequest, UserReview, EateryType, SearchRange, ModalProps,
   VenueTypeFilterGroup, VenueTypeFilter, VenueTypeResponse, Review, SubmitRatingSignature,
   PlacesMapApiRequest, WebsiteModuleData, WebsiteDataset, WebsiteDisplaySection, RecommendAPlaceSignature,
   WhereToEatSummary, WhereToEatSummarySection, LatestEateryRatings, LatestEateries, ShopCta, AnalyticsEvent,
+  ReviewImage,
 };

@@ -40,4 +40,8 @@ const notEmpty = (check: any): Boolean => {
   return !!check;
 };
 
-export { formatAddress, placeIcon, notEmpty };
+const ucFirst = (string: string): string => string.charAt(0).toUpperCase() + string.slice(1);
+
+export {
+  formatAddress, placeIcon, notEmpty, ucFirst,
+};
