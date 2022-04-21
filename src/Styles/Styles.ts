@@ -61,6 +61,7 @@ const globalStyles = StyleSheet.create({
 
   mr1: { marginRight: 4 },
   mr2: { marginRight: 8 },
+  mr8: { marginRight: 32 },
 
   mt2: { marginTop: 8 },
   mt4: { marginTop: 16 },

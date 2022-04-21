@@ -1,20 +1,30 @@
 import React from 'react';
-import {
-  View, Platform, Text, TouchableOpacity,
-} from 'react-native';
-import { FontAwesome } from '@expo/vector-icons';
+import { View, Platform, Text } from 'react-native';
+import { FontAwesome, Ionicons } from '@expo/vector-icons';
 import Styles from '../../Styles/Styles';
 import { formatAddress, notEmpty } from '../../helpers';
 import LinkService from '../../libs/LinkService';
 import { Eatery } from '../../types';
+import SideButton from './SideButton';
 
 type Props = {
   props: {
     eatery: Eatery
+    setShowOpeningTimesModal: (show: boolean) => void,
   },
 };
 
 export default function EateryInfo({ props }: Props) {
+  const openingTimesLabel = (): string => {
+    if (props.eatery.opening_times?.is_open_now) {
+      return `Open Now, closes at ${props.eatery.opening_times.closes_at}`;
+    }
+
+    return 'Currently Closed';
+  };
+
+  const phoneLink = (): string => `tel:${props.eatery.phone.replaceAll(' ', '')}`;
+
   return (
     <View style={{ ...Styles.p2, ...Styles.borderBottom, ...Styles.borderBlueLight }}>
       {props.eatery.type.type !== 'att' && (
@@ -40,31 +50,54 @@ export default function EateryInfo({ props }: Props) {
       </View>
       )}
 
-      <Text style={Styles.mb4}>
-        {formatAddress(props.eatery.address, '\n')}
-      </Text>
+      <View style={{ ...Styles.flexRow, ...Styles.justifyBetween }}>
+        <View>
+          <Text>
+            {formatAddress(props.eatery.address, '\n')}
+          </Text>
+        </View>
 
-      {notEmpty(props.eatery.phone) && <Text style={Styles.mb4}>{props.eatery.phone}</Text>}
+        <View>
+          {notEmpty(props.eatery.phone) && (
+          <SideButton props={{
+            onPress: () => LinkService.openLink(phoneLink()),
+            label: 'Call Now',
+            icon: <Ionicons name="call" size={18} color="black" />,
+            bottomMargin: true,
+          }}
+          />
+          )}
 
-      {notEmpty(props.eatery.website) && (
-      <TouchableOpacity
-        style={{
-          ...Styles.mb4,
-          ...Styles.itemsCenter,
-          ...Styles.flexRow,
-        }}
-        onPress={() => LinkService.openLink(props.eatery.website)}
-      >
-        <Text style={{
-          ...(Platform.OS === 'ios' ? Styles.fontSemibold : Styles.fontBold),
-          ...Styles.mr2,
-        }}
-        >
-          Visit Website
-        </Text>
-        <FontAwesome name="external-link" size={18} color="black" />
-      </TouchableOpacity>
-      )}
+          {notEmpty(props.eatery.opening_times) && (
+          <SideButton props={{
+            onPress: () => props.setShowOpeningTimesModal(true),
+            label: openingTimesLabel(),
+            icon: false,
+            bottomMargin: true,
+          }}
+          />
+          )}
+
+          {notEmpty(props.eatery.website) && (
+          <SideButton props={{
+            onPress: () => LinkService.openLink(props.eatery.website),
+            label: 'Visit Website',
+            icon: <FontAwesome name="external-link" size={18} color="black" />,
+            bottomMargin: true,
+          }}
+          />
+          )}
+
+          {notEmpty(props.eatery.gf_menu_link) && (
+          <SideButton props={{
+            onPress: () => LinkService.openLink(props.eatery.gf_menu_link),
+            label: 'Gluten Free Menu',
+            icon: <FontAwesome name="external-link" size={18} color="black" />,
+          }}
+          />
+          )}
+        </View>
+      </View>
     </View>
   );
 }

@@ -4,19 +4,24 @@ import Styles from '../../Styles/Styles';
 
 type Props = {
   image: string,
+  constrain?: number;
 };
 
-export default function ScaledImage({ image }: Props) {
+export default function ScaledImage({ image, constrain }: Props) {
   const [aspectRatio, setAspectRatio]: [number, any] = useState(1);
 
   useEffect(() => {
     let isMounted = true;
 
-    Image.getSize(image, (width, height) => {
-      if (isMounted) {
-        setAspectRatio(width / height);
-      }
-    });
+    if (constrain) {
+      setAspectRatio(constrain);
+    } else {
+      Image.getSize(image, (width, height) => {
+        if (isMounted) {
+          setAspectRatio(width / height);
+        }
+      });
+    }
 
     return () => { isMounted = false; };
   });
@@ -27,7 +32,7 @@ export default function ScaledImage({ image }: Props) {
         ...Styles.wFull,
         height: undefined,
         aspectRatio,
-        resizeMode: 'contain',
+        resizeMode: constrain ? 'cover' : 'contain',
       }}
       source={{ uri: image }}
     />

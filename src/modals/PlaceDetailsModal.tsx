@@ -18,6 +18,7 @@ import UserReviews from '../Components/PlaceDetails/UserReviews';
 import PlaceDetailsFooter from '../Components/PlaceDetails/PlaceDetailsFooter';
 import PlaceAdminReview from '../Components/PlaceDetails/PlaceAdminReview';
 import UserImages from '../Components/PlaceDetails/UserImages';
+import OpeningTimesModal from './OpeningTimesModal';
 
 type Props = {
   route: RouteProp<{
@@ -37,6 +38,7 @@ export default function PlaceDetailsModal({ route, navigation }: Props) {
   const [eatery, setEatery]: [Eatery, any] = useState({} as Eatery);
   const [showSubmitRatingModal, setShowSubmitRatingModal]: [boolean, any] = useState(false);
   const [showReportProblemModal, setShowReportProblemModal]: [boolean, any] = useState(false);
+  const [showOpeningTimesModal, setShowOpeningTimesModal]: [boolean, any] = useState(false);
 
   const loadEatery = () => {
     ApiService.getPlaceDetails(route.params.id)
@@ -80,7 +82,7 @@ export default function PlaceDetailsModal({ route, navigation }: Props) {
       {!isLoading && (
       <>
         <ScrollView style={Platform.OS === 'ios' ? Styles.mt10 : Styles.mt20}>
-          <EateryInfo props={{ eatery }} />
+          <EateryInfo props={{ eatery, setShowOpeningTimesModal }} />
 
           { notEmpty(adminReview()) && <PlaceAdminReview props={{ adminReview: adminReview() as UserReview }} />}
 
@@ -90,6 +92,16 @@ export default function PlaceDetailsModal({ route, navigation }: Props) {
 
           <PlaceDetailsFooter props={{ eatery, setShowReportProblemModal }} />
         </ScrollView>
+
+        {eatery.opening_times !== null && showOpeningTimesModal && (
+        <OpeningTimesModal props={{
+          id: eatery.id,
+          name: eatery.name,
+          onClose: () => setShowOpeningTimesModal(false),
+          openingTimes: eatery.opening_times,
+        }}
+        />
+        )}
 
         {showSubmitRatingModal && (
         <SubmitRatingModal props={{

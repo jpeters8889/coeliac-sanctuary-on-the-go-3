@@ -30,12 +30,14 @@ type Eatery = {
     id: number;
   }
   features: [],
+  gf_menu_link: string;
   icon: string;
   id: number;
   info: string;
   lat: number;
   lng: number;
   name: string;
+  opening_times: null | OpeningTimes;
   phone: string;
   user_reviews: UserReview[];
   restaurants: AttractionRestaurant[];
@@ -58,6 +60,27 @@ type Eatery = {
 };
 
 type EateryType = 'att' | 'hotel' | 'wte';
+
+type OpeningTimes = {
+  [K: string]: string | boolean;
+  monday_start: string;
+  monday_end: string;
+  tuesday_start: string;
+  tuesday_end: string;
+  wednesday_start: string;
+  wednesday_end: string;
+  thursday_start: string;
+  thursday_end: string;
+  friday_start: string;
+  friday_end: string;
+  saturday_start: string;
+  saturday_end: string;
+  sunday_start: string;
+  sunday_end: string;
+  is_open_now: false;
+  opens_at: string;
+  closes_at: string;
+};
 
 type AttractionRestaurant = {
   id: number,
@@ -232,5 +255,5 @@ export {
   VenueTypeFilterGroup, VenueTypeFilter, VenueTypeResponse, Review, SubmitRatingSignature,
   PlacesMapApiRequest, WebsiteModuleData, WebsiteDataset, WebsiteDisplaySection, RecommendAPlaceSignature,
   WhereToEatSummary, WhereToEatSummarySection, LatestEateryRatings, LatestEateries, ShopCta, AnalyticsEvent,
-  ReviewImage,
+  ReviewImage, OpeningTimes,
 };

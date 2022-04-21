@@ -29,7 +29,10 @@ export default function EateryImages({ props }: Props) {
   return (
     <>
       <View>
-        <View style={{ ...Styles.flexRow, ...Styles.mt2, ...Styles['-mx1'] }}>
+        <View style={{
+          ...Styles.flexRow, ...Styles.mt2, ...Styles['-mx1'], flexWrap: 'wrap',
+        }}
+        >
           {props.images.map((image, index) => {
             if (showAllImages || !props.limit || (props.limit && index < props.limit)) {
               return (
@@ -38,7 +41,7 @@ export default function EateryImages({ props }: Props) {
                   onPress={() => setViewImage(image.path)}
                   key={image.id}
                 >
-                  <ScaledImage image={image.thumb} />
+                  <ScaledImage image={image.thumb} constrain={1} />
                 </TouchableOpacity>
               );
             }
