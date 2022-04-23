@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, Platform, Text } from 'react-native';
 import dayjs from 'dayjs';
-import Styles from '../../Styles/Styles';
-import { Eatery } from '../../types';
+import Styles from '../../../Styles/Styles';
+import { Eatery } from '../../../types';
 
 type Props = {
   props: {

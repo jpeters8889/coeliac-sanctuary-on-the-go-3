@@ -3,11 +3,11 @@ import {
   View, Platform, Text, TouchableOpacity,
 } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
-import Styles from '../../Styles/Styles';
-import { Eatery, UserReview } from '../../types';
-import { BLACK } from '../../constants';
-import EateryReview from './Reviews/EateryReview';
-import ItemSeparatorBlank from '../UI/ItemSeparatorBlank';
+import Styles from '../../../Styles/Styles';
+import { Eatery, UserReview } from '../../../types';
+import { BLACK } from '../../../constants';
+import EateryReview from '../Reviews/EateryReview';
+import ItemSeparatorBlank from '../../UI/ItemSeparatorBlank';
 
 type Props = {
   props: {

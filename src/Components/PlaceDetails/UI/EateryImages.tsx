@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import {
   TouchableOpacity, View, Text, Platform,
 } from 'react-native';
-import Styles from '../../Styles/Styles';
-import { ReviewImage } from '../../types';
-import ScaledImage from '../UI/ScaledImage';
-import ModalContainer from '../UI/ModalContainer';
+import Styles from '../../../Styles/Styles';
+import { ReviewImage } from '../../../types';
+import ScaledImage from '../../UI/ScaledImage';
+import ModalContainer from '../../UI/ModalContainer';
 
 type Props = {
   props: {
@@ -64,6 +64,7 @@ export default function EateryImages({ props }: Props) {
       {viewImage !== false && (
         <ModalContainer props={{
           onClose: () => setViewImage(false),
+          wide: true,
         }}
         >
           <ScaledImage image={viewImage} />

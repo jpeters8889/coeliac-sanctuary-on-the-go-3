@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, Platform, Text } from 'react-native';
 import { FontAwesome, Ionicons } from '@expo/vector-icons';
-import Styles from '../../Styles/Styles';
-import { formatAddress, notEmpty } from '../../helpers';
-import LinkService from '../../libs/LinkService';
-import { Eatery } from '../../types';
+import Styles from '../../../Styles/Styles';
+import { formatAddress, notEmpty } from '../../../helpers';
+import LinkService from '../../../libs/LinkService';
+import { Eatery } from '../../../types';
 import SideButton from './SideButton';
 
 type Props = {

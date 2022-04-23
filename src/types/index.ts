@@ -102,8 +102,8 @@ type UserReview = {
     value: string;
     label: string;
   };
-  food_rating: string;
-  service_rating: string;
+  food_rating: FoodServiceRating;
+  service_rating: FoodServiceRating;
   wheretoeat_id: number;
   created_at: string;
 };
@@ -114,7 +114,7 @@ type ReviewImage = {
   path: string;
 };
 
-type StarReview = '1' | '2' | '3' | '4' | '5';
+type StarReview = 0 | 1 | 2 | 3 | 4 | 5;
 
 type Review = {
   id: number,
@@ -171,10 +171,18 @@ type VenueTypeResponse = {
 
 type SubmitRatingSignature = {
   eateryId: number;
-  rating: 1 | 2 | 3 | 4 | 5;
+  rating: StarReview;
+};
+
+type SubmitReviewSignature = {
+  eateryId: number;
+  rating: StarReview;
   name?: string;
   email?: string;
-  comment?: string,
+  foodRating: FoodServiceRating;
+  serviceRating: FoodServiceRating;
+  expense: StarReview;
+  comment?: string;
 };
 
 type RecommendAPlaceSignature = {
@@ -250,10 +258,12 @@ type AnalyticsEvent = {
   metaData?: { [K: string]: any }
 };
 
+type FoodServiceRating = 'excellent' | 'good' | 'poor';
+
 export {
   MainTab, Eatery, PlacesApiRequest, UserReview, EateryType, SearchRange, ModalProps,
-  VenueTypeFilterGroup, VenueTypeFilter, VenueTypeResponse, Review, SubmitRatingSignature,
+  VenueTypeFilterGroup, VenueTypeFilter, VenueTypeResponse, Review, SubmitReviewSignature,
   PlacesMapApiRequest, WebsiteModuleData, WebsiteDataset, WebsiteDisplaySection, RecommendAPlaceSignature,
   WhereToEatSummary, WhereToEatSummarySection, LatestEateryRatings, LatestEateries, ShopCta, AnalyticsEvent,
-  ReviewImage, OpeningTimes,
+  ReviewImage, OpeningTimes, StarReview, SubmitRatingSignature, FoodServiceRating,
 };

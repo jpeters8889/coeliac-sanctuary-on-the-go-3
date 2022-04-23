@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 import {
-  BLUE, BLUE_LIGHT, GREY_LIGHT, GREY_OFF, WHITE, YELLOW, GREY, BLUE_LIGHT_FADED, BLUE_FADED,
+  BLUE, BLUE_LIGHT, GREY_LIGHT, GREY_OFF, WHITE, YELLOW, YELLOW_FADED, GREY, BLUE_LIGHT_FADED, BLUE_FADED, BLUE_DARK,
 } from '../constants';
 
 const globalStyles = StyleSheet.create({
@@ -12,6 +12,7 @@ const globalStyles = StyleSheet.create({
   bgBlueLightFaded: { backgroundColor: BLUE_LIGHT_FADED },
   bgGreyLight: { backgroundColor: GREY_LIGHT },
   bgYellow: { backgroundColor: YELLOW },
+  bgYellowFaded: { backgroundColor: YELLOW_FADED },
   bgWhite: { backgroundColor: WHITE },
   bgGreyOff: { backgroundColor: GREY_OFF },
 
@@ -74,15 +75,18 @@ const globalStyles = StyleSheet.create({
   my2: { marginTop: 8, marginBottom: 8 },
   my4: { marginTop: 16, marginBottom: 16 },
 
+  m0: { margin: 0 },
   m1: { margin: 4 },
 
   overflowHidden: { overflow: 'hidden' },
 
+  p0: { padding: 0 },
   p1: { padding: 6 },
   p2: { padding: 8 },
   p4: { padding: 16 },
 
   pt2: { paddingTop: 8 },
+  pt12: { paddingTop: 44 },
   pr2: { paddingRight: 8 },
   pb6: { paddingBottom: 24 },
 
@@ -118,6 +122,10 @@ const globalStyles = StyleSheet.create({
   textLg: { fontSize: 16 },
   textXl: { fontSize: 20 },
   text2Xl: { fontSize: 24 },
+  text3Xl: { fontSize: 28 },
+
+  textBlue: { color: BLUE },
+  textBlueDark: { color: BLUE_DARK },
   textWhite: { color: WHITE },
   textYellow: { color: YELLOW },
 

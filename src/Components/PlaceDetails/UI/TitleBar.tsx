@@ -2,9 +2,10 @@ import React, { ReactElement } from 'react';
 import {
   View, Platform, Text, TouchableOpacity,
 } from 'react-native';
-import { AntDesign } from '@expo/vector-icons';
+import { AntDesign, Ionicons } from '@expo/vector-icons';
 import { StackNavigationProp } from '@react-navigation/stack';
-import Styles from '../../Styles/Styles';
+import Styles from '../../../Styles/Styles';
+import { BLACK } from '../../../constants';
 
 type Props = {
   props: {
@@ -19,11 +20,10 @@ export default function TitleBar({ props }: Props) {
     <View style={{
       ...Styles.bgBlueLight,
       ...Styles.p2,
+      ...Styles.pt12,
       ...Styles.flexRow,
       ...Styles.justifyBetween,
       ...Styles.itemsCenter,
-      ...Styles.absolute,
-      ...Styles.top0,
       ...Styles.wFull,
       ...(Platform.OS === 'android' ? {
         ...Styles.borderTop,
@@ -38,10 +38,8 @@ export default function TitleBar({ props }: Props) {
           adjustsFontSizeToFit
           numberOfLines={1}
           style={{
-            ...(Platform.OS === 'android' ? {
-              ...Styles.text2Xl,
-              ...Styles.fontBold,
-            } : { ...Styles.textLg, ...Styles.fontSemibold }),
+            ...Styles.text2Xl,
+            ...(Platform.OS === 'android' ? Styles.fontBold : Styles.fontSemibold),
           }}
         >
           {props.placeName}
@@ -49,7 +47,7 @@ export default function TitleBar({ props }: Props) {
       )}
 
       <TouchableOpacity onPress={() => props.navigation.goBack()}>
-        <AntDesign name="close" size={24} color="black" />
+        <Ionicons name="arrow-back" size={24} color={BLACK} />
       </TouchableOpacity>
     </View>
   );

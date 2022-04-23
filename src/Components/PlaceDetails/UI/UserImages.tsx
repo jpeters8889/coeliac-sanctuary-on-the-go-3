@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Platform, Text } from 'react-native';
-import Styles from '../../Styles/Styles';
-import { ReviewImage } from '../../types';
+import Styles from '../../../Styles/Styles';
+import { ReviewImage } from '../../../types';
 import EateryImages from './EateryImages';
 
 type Props = {

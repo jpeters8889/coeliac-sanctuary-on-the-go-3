@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 import { BASE_URL } from '../constants';
 import {
-  PlacesApiRequest, PlacesMapApiRequest, RecommendAPlaceSignature, SubmitRatingSignature,
+  PlacesApiRequest, PlacesMapApiRequest, RecommendAPlaceSignature, SubmitRatingSignature, SubmitReviewSignature,
 } from '../types';
 
 export class ApiService {
@@ -104,8 +104,24 @@ export class ApiService {
 
     return axios.post(`${BASE_URL}/api/wheretoeat/${request.eateryId}/reviews`, {
       rating: request.rating,
+      method: 'app',
+    }, {
+      headers: {
+        'X-CSRF-TOKEN': token,
+      },
+    });
+  }
+
+  static async submitFullReview(request: SubmitReviewSignature) {
+    const token = await this.getToken();
+
+    return axios.post(`${BASE_URL}/api/wheretoeat/${request.eateryId}/reviews`, {
+      rating: request.rating,
       name: request.name,
       email: request.email,
+      food: request.foodRating,
+      service: request.serviceRating,
+      expense: request.expense,
       comment: request.comment,
       method: 'app',
     }, {

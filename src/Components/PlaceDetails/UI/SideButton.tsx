@@ -4,9 +4,9 @@ import {
 } from 'react-native';
 import { AntDesign, FontAwesome } from '@expo/vector-icons';
 import { StackNavigationProp } from '@react-navigation/stack';
-import Styles from '../../Styles/Styles';
-import LinkService from '../../libs/LinkService';
-import { notEmpty } from '../../helpers';
+import Styles from '../../../Styles/Styles';
+import LinkService from '../../../libs/LinkService';
+import { notEmpty } from '../../../helpers';
 
 type Props = {
   props: {

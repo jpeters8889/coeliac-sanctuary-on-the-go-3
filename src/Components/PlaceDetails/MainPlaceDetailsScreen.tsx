@@ -4,21 +4,21 @@ import {
 } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
-import Styles from '../Styles/Styles';
-import { Eatery, UserReview } from '../types';
-import { ApiService } from '../libs/ApiService';
-import { BLUE } from '../constants';
-import SubmitRatingModal from './SubmitRatingModal';
-import ReportEateryModal from './ReportEateryModal';
-import { notEmpty } from '../helpers';
-import AnalyticsService from '../libs/AnalyticsService';
-import TitleBar from '../Components/PlaceDetails/TitleBar';
-import EateryInfo from '../Components/PlaceDetails/EateryInfo';
-import UserReviews from '../Components/PlaceDetails/UserReviews';
-import PlaceDetailsFooter from '../Components/PlaceDetails/PlaceDetailsFooter';
-import PlaceAdminReview from '../Components/PlaceDetails/PlaceAdminReview';
-import UserImages from '../Components/PlaceDetails/UserImages';
-import OpeningTimesModal from './OpeningTimesModal';
+import Styles from '../../Styles/Styles';
+import { Eatery, UserReview } from '../../types';
+import { ApiService } from '../../libs/ApiService';
+import { BLUE } from '../../constants';
+import CreateReviewModal from '../../modals/CreateReviewModal';
+import ReportEateryModal from '../../modals/ReportEateryModal';
+import { notEmpty } from '../../helpers';
+import AnalyticsService from '../../libs/AnalyticsService';
+import TitleBar from './UI/TitleBar';
+import EateryInfo from './UI/EateryInfo';
+import UserReviews from './UI/UserReviews';
+import PlaceDetailsFooter from './UI/PlaceDetailsFooter';
+import PlaceAdminReview from './UI/PlaceAdminReview';
+import UserImages from './UI/UserImages';
+import OpeningTimesModal from '../../modals/OpeningTimesModal';
 
 type Props = {
   route: RouteProp<{
@@ -29,7 +29,7 @@ type Props = {
   navigation: StackNavigationProp<any>
 };
 
-export default function PlaceDetailsModal({ route, navigation }: Props) {
+export default function MainPlaceDetailsScreen({ route, navigation }: Props) {
   AnalyticsService.logScreen('place_details_modal_screen', {
     eatery_id: route.params.id,
   }).then(() => {});
@@ -81,7 +81,7 @@ export default function PlaceDetailsModal({ route, navigation }: Props) {
 
       {!isLoading && (
       <>
-        <ScrollView style={Platform.OS === 'ios' ? Styles.mt10 : Styles.mt20}>
+        <ScrollView>
           <EateryInfo props={{ eatery, setShowOpeningTimesModal }} />
 
           { notEmpty(adminReview()) && <PlaceAdminReview props={{ adminReview: adminReview() as UserReview }} />}
@@ -104,9 +104,10 @@ export default function PlaceDetailsModal({ route, navigation }: Props) {
         )}
 
         {showSubmitRatingModal && (
-        <SubmitRatingModal props={{
+        <CreateReviewModal props={{
           id: eatery.id,
           title: eatery.name,
+          navigation,
           onClose: () => closeSubmitRatingModal(),
         }}
         />

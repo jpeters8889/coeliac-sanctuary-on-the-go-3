@@ -6,7 +6,7 @@ import Styles from '../../../Styles/Styles';
 import { notEmpty } from '../../../helpers';
 import ReviewTitle from './ReviewTitle';
 import EateryRatings from './EateryRatings';
-import EateryImages from '../EateryImages';
+import EateryImages from '../UI/EateryImages';
 
 export default function EateryReview({ item }: { item: UserReview }) {
   const [displayFullReview, setDisplayFullReview]: [boolean, any] = useState(false);

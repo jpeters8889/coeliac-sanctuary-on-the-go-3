@@ -33,6 +33,7 @@ module.exports = {
     "class-methods-use-this": "off",
     "no-param-reassign": ["error", { "props": false }],
     "no-plusplus": "off",
-    "react/destructuring-assignment": "off"
+    "react/destructuring-assignment": "off",
+    "react/no-unescaped-entities": "off"
   },
 };
