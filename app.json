@@ -33,6 +33,7 @@
       "googleServicesFile": "./GoogleService-Info.plist",
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription": "We use your location to find places to eat around you.",
+        "NSPhotoLibraryUsageDescription": "So you can upload photos when reviewing locations"
       },
       "config": {
         "googleMapsApiKey": "AIzaSyAm-VlmF6ZqCHd4Nm5OvGbQ52bevyUG98s",

@@ -3,6 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import AnalyticsService from '../../libs/AnalyticsService';
 import MainPlaceDetailsScreen from '../PlaceDetails/MainPlaceDetailsScreen';
 import HomeScreenContent from './HomeScreenContent';
+import SubmitReviewScreen from '../PlaceDetails/SubmitReviewScreen';
 
 export default function MainHomeScreen() {
   AnalyticsService.logScreen('home-screen').then(() => {});
@@ -13,8 +14,11 @@ export default function MainHomeScreen() {
       <stack.Group>
         <stack.Screen name="home-screen-content" component={HomeScreenContent} />
       </stack.Group>
-      <stack.Group screenOptions={{ presentation: 'modal' }}>
-        <stack.Screen name="details" component={MainPlaceDetailsScreen} />
+      <stack.Group screenOptions={{ headerShown: false }}>
+        <stack.Screen name="details" component={MainPlaceDetailsScreen} options={{ headerShown: false }} />
+      </stack.Group>
+      <stack.Group screenOptions={{ headerShown: false }}>
+        <stack.Screen name="add-review" component={SubmitReviewScreen} options={{ headerShown: false }} />
       </stack.Group>
     </stack.Navigator>
   );

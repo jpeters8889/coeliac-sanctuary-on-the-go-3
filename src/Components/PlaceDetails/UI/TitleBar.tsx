@@ -4,6 +4,7 @@ import {
 } from 'react-native';
 import { AntDesign, Ionicons } from '@expo/vector-icons';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { RouteProp } from '@react-navigation/native';
 import Styles from '../../../Styles/Styles';
 import { BLACK } from '../../../constants';
 
@@ -20,11 +21,11 @@ export default function TitleBar({ props }: Props) {
     <View style={{
       ...Styles.bgBlueLight,
       ...Styles.p2,
-      ...Styles.pt12,
       ...Styles.flexRow,
       ...Styles.justifyBetween,
       ...Styles.itemsCenter,
       ...Styles.wFull,
+      ...Styles.absolute,
       ...(Platform.OS === 'android' ? {
         ...Styles.borderTop,
         ...Styles.borderGrey,

@@ -59,6 +59,7 @@ const globalStyles = StyleSheet.create({
   mb2: { marginBottom: 8 },
   mb4: { marginBottom: 16 },
   mb8: { marginBottom: 32 },
+  mb10: { marginBottom: 80 },
 
   mr1: { marginRight: 4 },
   mr2: { marginRight: 8 },

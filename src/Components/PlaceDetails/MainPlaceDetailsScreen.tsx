@@ -69,6 +69,8 @@ export default function MainPlaceDetailsScreen({ route, navigation }: Props) {
     <View>
       <TitleBar props={{ isLoading, placeName: eatery.name, navigation }} />
 
+      <View style={Styles.mt10} />
+
       {isLoading && (
       <View style={{
         ...(Platform.OS === 'ios' ? Styles.mt10 : Styles.mt20),
