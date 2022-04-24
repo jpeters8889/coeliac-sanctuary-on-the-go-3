@@ -31,7 +31,6 @@
     "react-dom": "17.0.1",
     "react-native": "0.64.3",
     "react-native-gesture-handler": "~1.10.2",
-    "react-native-image-picker": "^4.7.3",
     "react-native-map-clustering": "^3.4.2",
     "react-native-maps": "0.28.1",
     "react-native-reanimated": "~2.2.0",
@@ -40,7 +39,8 @@
     "react-native-select-dropdown": "^1.13.0",
     "react-native-svg": "12.1.1",
     "react-native-web": "0.17.1",
-    "react-navigation": "^4.4.4"
+    "react-navigation": "^4.4.4",
+    "expo-image-picker": "~11.0.3"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

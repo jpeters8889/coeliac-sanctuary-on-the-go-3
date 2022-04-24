@@ -1,4 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
+import { ExpandImagePickerResult, ImagePickerOptions } from 'expo-image-picker/build/ImagePicker.types';
+import { Platform } from 'react-native';
+import { ImageInfo } from 'expo-image-picker/src/ImagePicker.types';
 import { BASE_URL } from '../constants';
 import {
   PlacesApiRequest, PlacesMapApiRequest, RecommendAPlaceSignature, SubmitRatingSignature, SubmitReviewSignature,
@@ -155,6 +158,28 @@ export class ApiService {
       details,
     }, {
       headers: {
+        'X-CSRF-TOKEN': token,
+      },
+    });
+  }
+
+  static async uploadPhoto(photo: ImageInfo) {
+    const token = await this.getToken();
+
+    const request = new FormData();
+
+    const fileName = photo.uri.split('/').reverse()[0];
+
+    request.append('images[0]', {
+      uri: Platform.OS === 'ios' ? photo.uri.replace('file://', '') : photo.uri,
+      name: fileName,
+      type: 'image',
+    });
+
+    return axios.post(`${BASE_URL}/api/wheretoeat/review/image-upload`, request, {
+      validateStatus: () => true,
+      headers: {
+        'Content-Type': 'multipart/form-data',
         'X-CSRF-TOKEN': token,
       },
     });

@@ -16,6 +16,7 @@ import { ucFirst } from '../../helpers';
 import TitleBar from './UI/TitleBar';
 import { BLACK, YELLOW } from '../../constants';
 import ItemSeparator from '../UI/ItemSeparator';
+import UploadImages from './Reviews/UploadImages';
 
 dayjs.extend(advancedFormat);
 
@@ -252,6 +253,10 @@ export default function SubmitReviewScreen(props: Props) {
               }}
               onChangeText={setReview}
             />
+          </View>
+
+          <View style={{ ...Styles.mt4, flexGrow: 0 }}>
+            <UploadImages />
           </View>
 
           <Text style={{ ...Styles.mt4, ...Styles.textSm, ...Styles.italic }}>

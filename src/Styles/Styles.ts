@@ -31,6 +31,7 @@ const globalStyles = StyleSheet.create({
   flex1: { flex: 1 },
 
   flexRow: { flexDirection: 'row' },
+  flexWrap: { flexWrap: 'wrap' },
 
   fontSemibold: { fontWeight: '600' },
   fontBold: { fontWeight: 'bold' },
@@ -78,6 +79,7 @@ const globalStyles = StyleSheet.create({
 
   m0: { margin: 0 },
   m1: { margin: 4 },
+  m2: { margin: 8 },
 
   overflowHidden: { overflow: 'hidden' },
 
@@ -134,6 +136,7 @@ const globalStyles = StyleSheet.create({
 
   w20: { width: '20%' },
   w25: { width: '25%' },
+  w33: { width: '33%' },
   w80: { width: '80%' },
   w85: { width: '85%' },
   wFull: { width: '100%' },
