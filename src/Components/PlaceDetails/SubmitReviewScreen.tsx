@@ -37,10 +37,11 @@ export default function SubmitReviewScreen(props: Props) {
   const [starRating, setStarRating]: [StarReview, any] = useState(props.route.params.starRating);
   const [name, setName]: [string, any] = useState('');
   const [email, setEmail]: [string, any] = useState('');
-  const [foodRating, setFoodRating]: [FoodServiceRating | undefined, any] = useState();
-  const [serviceRating, setServiceRating]: [FoodServiceRating | undefined, any] = useState();
+  const [foodRating, setFoodRating]: [FoodServiceRating | '', any] = useState('');
+  const [serviceRating, setServiceRating]: [FoodServiceRating | '', any] = useState('');
   const [howExpensive, setHowExpensive]: [StarReview, any] = useState(0);
   const [review, setReview]: [string, any] = useState('');
+  const [images, setImages]: [string[], any] = useState([]);
 
   const selectOptions: FoodServiceRating[] = ['poor', 'good', 'excellent'];
   const expenseOptions: ExpenseOption[] = [
@@ -50,6 +51,10 @@ export default function SubmitReviewScreen(props: Props) {
     { value: 4, label: 'A Special Treat' },
     { value: 5, label: 'Expensive' },
   ];
+
+  const onImageChange = (imgs: { loading: boolean, id?: string }[]) => {
+    setImages(() => imgs.filter((img) => !img.loading).map((img) => img.id));
+  };
 
   const submitReview = () => {
     AnalyticsService.logEvent({ type: 'submit_review_attempt' }).then(() => {});
@@ -70,7 +75,7 @@ export default function SubmitReviewScreen(props: Props) {
       return;
     }
 
-    ApiService.submitFullReview({
+    console.log({
       eateryId: props.route.params.eateryId,
       rating: props.route.params.starRating,
       name,
@@ -79,13 +84,25 @@ export default function SubmitReviewScreen(props: Props) {
       serviceRating: serviceRating as FoodServiceRating,
       expense: howExpensive,
       comment: review,
-    }).then(() => {
-      Alert.alert('Thank you for your review, it will be verified by an admin before being approved');
-    }).catch(() => {
-      Alert.alert('There was an error submitting your review');
-    }).finally(() => {
-      props.navigation.goBack();
+      images,
     });
+
+    // ApiService.submitFullReview({
+    //   eateryId: props.route.params.eateryId,
+    //   rating: props.route.params.starRating,
+    //   name,
+    //   email,
+    //   foodRating: foodRating as FoodServiceRating,
+    //   serviceRating: serviceRating as FoodServiceRating,
+    //   expense: howExpensive,
+    //   comment: review,
+    // }).then(() => {
+    //   Alert.alert('Thank you for your review, it will be verified by an admin before being approved');
+    // }).catch(() => {
+    //   Alert.alert('There was an error submitting your review');
+    // }).finally(() => {
+    //   props.navigation.goBack();
+    // });
   };
 
   const stars: number[] = [1, 2, 3, 4, 5];
@@ -256,7 +273,7 @@ export default function SubmitReviewScreen(props: Props) {
           </View>
 
           <View style={{ ...Styles.mt4, flexGrow: 0 }}>
-            <UploadImages />
+            <UploadImages onChange={onImageChange} />
           </View>
 
           <Text style={{ ...Styles.mt4, ...Styles.textSm, ...Styles.italic }}>

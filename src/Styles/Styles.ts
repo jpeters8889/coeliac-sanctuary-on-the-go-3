@@ -16,6 +16,7 @@ const globalStyles = StyleSheet.create({
   bgWhite: { backgroundColor: WHITE },
   bgGreyOff: { backgroundColor: GREY_OFF },
 
+  bgOverlay: { backgroundColor: 'rgba(0,0,0,0.3)' },
   bgModal: { backgroundColor: 'rgba(0,0,0,0.8)' },
   borderGrey: { borderColor: GREY },
   borderGreyOff: { borderColor: GREY_OFF },
@@ -49,6 +50,7 @@ const globalStyles = StyleSheet.create({
   justifyAround: { justifyContent: 'space-around' },
   justifyBetween: { justifyContent: 'space-between' },
   justifyCenter: { justifyContent: 'center' },
+  justifyStart: { justifyContent: 'flex-start' },
 
   justifyEnd: { justifyContent: 'flex-end' },
 

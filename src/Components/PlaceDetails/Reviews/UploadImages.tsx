@@ -3,9 +3,10 @@ import {
   Platform, Text, TouchableOpacity, View,
 } from 'react-native';
 import React, { useEffect, useState } from 'react';
-import { Feather, FontAwesome } from '@expo/vector-icons';
+import { Feather, FontAwesome, FontAwesome5 } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 import { AxiosResponse } from 'axios';
+import { getInfoAsync } from 'expo-file-system';
 import Styles from '../../../Styles/Styles';
 import { BLUE, GREY, GREY_OFF } from '../../../constants';
 import { ApiService } from '../../../libs/ApiService';
@@ -17,58 +18,121 @@ type Image = {
   url?: string;
 };
 
-export default function UploadImages() {
+type Props = {
+  onChange: (images: Image[]) => void;
+};
+
+export default function UploadImages({ onChange }: Props) {
   const [images, setImages]: [Image[], any] = useState([]);
+  const [longPressedOn, setLongPressedOn]: [number | null, any] = useState(null);
+
+  const removeLastImage = (): void => {
+    setImages((img: Image[]) => {
+      if (img.length === 1) {
+        return [];
+      }
+
+      img.pop();
+
+      return img;
+    });
+  };
+
+  const isImageValid = async (image: string): Promise<boolean> => {
+    const info = await getInfoAsync(image);
+
+    console.log(info);
+
+    if (!info || !info.size) {
+      return true;
+    }
+
+    return info.size < 5000000;
+  };
+
+  const hasPermission = async (): Promise<boolean> => {
+    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+    if (status !== 'granted') {
+      alert('Sorry, we need camera roll permissions to make this work!');
+
+      return false;
+    }
+
+    return true;
+  };
 
   const selectImages = (): void => {
-    setImages((img: Image[]) => [
-      ...img,
-      { loading: true },
-    ]);
-
     (async () => {
-      const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-
-      if (status !== 'granted') {
-        alert('Sorry, we need camera roll permissions to make this work!');
-
+      if (!await hasPermission()) {
         return;
       }
 
-      ImagePicker.launchImageLibraryAsync({
+      const response = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
         quality: 0.8,
         base64: false,
         exif: false,
-      }).then(async (response) => {
-        if (response.cancelled) {
-          return;
+      });
+
+      if (response.cancelled) {
+        return;
+      }
+
+      if (!await isImageValid(response.uri)) {
+        alert('Sorry, this image is too large, please select an image below 5mb in size.');
+
+        return;
+      }
+
+      setImages((img: Image[]) => [
+        ...img,
+        { loading: true },
+      ]);
+
+      const upload: AxiosResponse = await ApiService.uploadPhoto(response);
+
+      if (upload.status === 422) {
+        console.log(upload.data);
+
+        let errorMessage = 'Sorry, there was an error uploading this image';
+
+        if (upload?.data?.errors['images.0'][0] === 'validation.max.file') {
+          errorMessage = 'Sorry, this image is too large, please select an image below 5mb in size.';
         }
 
-        const upload: AxiosResponse = await ApiService.uploadPhoto(response);
+        alert(errorMessage);
 
-        if (upload.status === 422) {
-          alert('Sorry, there was an error uploading this image');
-        }
+        removeLastImage();
 
-        setImages((img: Image[]) => {
-          const newImages: Image[] = img.map((image) => image);
+        return;
+      }
 
-          const lastIndex = newImages.length - 1;
+      setImages((img: Image[]) => {
+        const newImages: Image[] = img.map((image) => image);
 
-          newImages[lastIndex] = {
-            loading: false,
-            id: upload.data.images[0].id,
-            url: upload.data.images[0].path,
-          };
+        const lastIndex = newImages.length - 1;
 
-          return newImages;
-        });
+        newImages[lastIndex] = {
+          loading: false,
+          id: upload.data.images[0].id,
+          url: upload.data.images[0].path,
+        };
+
+        return newImages;
       });
     })();
   };
 
-  useEffect(() => console.log(images), [images]);
+  const deleteImage = (index: number): void => {
+    setLongPressedOn(null);
+
+    setImages((img: Image[]) => img.filter((iImg, iIndex) => index !== iIndex));
+  };
+
+  useEffect(() => {
+    onChange(images);
+  }, [images]);
 
   return (
     <View>
@@ -77,15 +141,24 @@ export default function UploadImages() {
       </Text>
 
       <View style={{
-        ...Styles.border, ...Styles.borderBlue, ...Styles.roundedSm, ...Styles.flexRow, ...Styles.flexWrap,
+        ...Styles.border,
+        ...Styles.borderBlue,
+        ...Styles.roundedSm,
+        ...Styles.flexRow,
+        ...Styles.flexWrap,
+        ...Styles.justifyStart,
       }}
       >
         {images.map((image, index) => (
-          <TouchableOpacity style={{ ...Styles.w33 }} key={index}>
+          <TouchableOpacity
+            style={{ ...Styles.w33, ...Styles.p2 }}
+            onLongPress={() => setLongPressedOn(index)}
+            key={index}
+          >
             <View style={{
               aspectRatio: 1,
               position: 'relative',
-              ...Styles.m2,
+              ...Styles.flex1,
               ...Styles.border,
               ...Styles.borderBlue,
               ...Styles.roundedSm,
@@ -94,16 +167,36 @@ export default function UploadImages() {
             }}
             >
               {image.loading && <ActivityIndicator size="large" color={BLUE} />}
-              {!image.loading && image.url && <ScaledImage image={image.url} constrain={1} />}
+              {!image.loading && image.url && (
+              <>
+                <ScaledImage image={image.url} constrain={1} />
+                {longPressedOn === index && (
+                <TouchableOpacity
+                  style={{
+                    ...Styles.absolute,
+                    ...Styles.justifyCenter,
+                    ...Styles.itemsCenter,
+                    ...Styles.bgOverlay,
+                    ...Styles.wFull,
+                    ...Styles.hFull,
+                    ...Styles.top0,
+                  }}
+                  onPress={() => deleteImage(index)}
+                >
+                  <FontAwesome5 name="times" size={60} color="red" />
+                </TouchableOpacity>
+                )}
+              </>
+              )}
             </View>
           </TouchableOpacity>
         ))}
 
-        <TouchableOpacity style={{ ...Styles.w33 }} onPress={selectImages}>
+        {images.length < 6 && (
+        <TouchableOpacity style={{ ...Styles.w33, ...Styles.p2 }} onPress={selectImages}>
           <View style={{
             aspectRatio: 1,
             position: 'relative',
-            ...Styles.m2,
             ...Styles.border,
             ...Styles.borderBlue,
             ...Styles.roundedSm,
@@ -115,6 +208,7 @@ export default function UploadImages() {
             <FontAwesome name="plus" size={40} color={GREY} style={Styles.absolute} />
           </View>
         </TouchableOpacity>
+        )}
       </View>
     </View>
   );
