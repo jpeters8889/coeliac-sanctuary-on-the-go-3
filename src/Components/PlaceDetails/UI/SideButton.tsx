@@ -1,11 +1,6 @@
-import React, { ReactComponentElement, ReactElement } from 'react';
-import {
-  View, Platform, Text, TouchableOpacity,
-} from 'react-native';
-import { AntDesign, FontAwesome } from '@expo/vector-icons';
-import { StackNavigationProp } from '@react-navigation/stack';
+import React, { ReactComponentElement } from 'react';
+import { Platform, Text, TouchableOpacity } from 'react-native';
 import Styles from '../../../Styles/Styles';
-import LinkService from '../../../libs/LinkService';
 import { notEmpty } from '../../../helpers';
 
 type Props = {

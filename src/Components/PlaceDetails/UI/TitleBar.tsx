@@ -1,10 +1,9 @@
-import React, { ReactElement } from 'react';
+import React from 'react';
 import {
   View, Platform, Text, TouchableOpacity,
 } from 'react-native';
-import { AntDesign, Ionicons } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { RouteProp } from '@react-navigation/native';
 import Styles from '../../../Styles/Styles';
 import { BLACK } from '../../../constants';
 

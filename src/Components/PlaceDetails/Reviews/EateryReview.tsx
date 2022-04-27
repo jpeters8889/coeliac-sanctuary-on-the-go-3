@@ -31,7 +31,7 @@ export default function EateryReview({ item }: { item: UserReview }) {
     return false;
   };
 
-  for (let x = 0; x < parseInt(item.rating, 10); x++) {
+  for (let x = 0; x < item.rating; x++) {
     stars.push(x.toString());
   }
 

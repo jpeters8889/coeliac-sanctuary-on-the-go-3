@@ -1,5 +1,5 @@
 import React from 'react';
-import { createDrawerNavigator, DrawerNavigationProp } from '@react-navigation/drawer';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import Styles from '../../Styles/Styles';
 import { BLACK } from '../../constants';
 import RecommendAPlace from '../../screens/RecommendAPlace';

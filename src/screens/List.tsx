@@ -6,9 +6,8 @@ import ListScreenContainer from '../Components/List/ListScreenContainer';
 import SubmitReviewScreen from '../Components/PlaceDetails/SubmitReviewScreen';
 import MainPlaceDetailsScreen from '../Components/PlaceDetails/MainPlaceDetailsScreen';
 import { BLUE } from '../constants';
-import Styles from '../Styles/Styles';
 
-export default function List({ route }: { route: RouteProp<any> }) {
+export default function List() {
   const stack = createStackNavigator();
 
   return (

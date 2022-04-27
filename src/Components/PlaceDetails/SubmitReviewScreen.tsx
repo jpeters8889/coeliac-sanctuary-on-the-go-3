@@ -8,6 +8,7 @@ import SelectDropdown from 'react-native-select-dropdown';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 import { FontAwesome } from '@expo/vector-icons';
+import { AxiosError } from 'axios';
 import { FoodServiceRating, StarReview } from '../../types';
 import AnalyticsService from '../../libs/AnalyticsService';
 import { ApiService } from '../../libs/ApiService';
@@ -75,7 +76,7 @@ export default function SubmitReviewScreen(props: Props) {
       return;
     }
 
-    console.log({
+    ApiService.submitFullReview({
       eateryId: props.route.params.eateryId,
       rating: props.route.params.starRating,
       name,
@@ -85,31 +86,21 @@ export default function SubmitReviewScreen(props: Props) {
       expense: howExpensive,
       comment: review,
       images,
-    });
+    }).then(() => {
+      Alert.alert('Thank you for your review, it will be verified by an admin before being approved');
 
-    // ApiService.submitFullReview({
-    //   eateryId: props.route.params.eateryId,
-    //   rating: props.route.params.starRating,
-    //   name,
-    //   email,
-    //   foodRating: foodRating as FoodServiceRating,
-    //   serviceRating: serviceRating as FoodServiceRating,
-    //   expense: howExpensive,
-    //   comment: review,
-    // }).then(() => {
-    //   Alert.alert('Thank you for your review, it will be verified by an admin before being approved');
-    // }).catch(() => {
-    //   Alert.alert('There was an error submitting your review');
-    // }).finally(() => {
-    //   props.navigation.goBack();
-    // });
+      props.navigation.goBack();
+    }).catch((e: AxiosError) => {
+      console.log(e.response);
+      Alert.alert('There was an error submitting your review');
+    });
   };
 
   const stars: number[] = [1, 2, 3, 4, 5];
 
   return (
     <ScrollView>
-      <KeyboardAvoidingView behavior="position" keyboardVerticalOffset={0}>
+      <KeyboardAvoidingView behavior="position">
 
         <TitleBar props={{
           isLoading: false,
@@ -271,44 +262,45 @@ export default function SubmitReviewScreen(props: Props) {
               onChangeText={setReview}
             />
           </View>
-
-          <View style={{ ...Styles.mt4, flexGrow: 0 }}>
-            <UploadImages onChange={onImageChange} />
-          </View>
-
-          <Text style={{ ...Styles.mt4, ...Styles.textSm, ...Styles.italic }}>
-            Please note, your email address is only required for validation purposes and will never be
-            shown to anyone on the app or website.
-          </Text>
-
-          <View style={{ ...Styles.flexRow, ...Styles.justifyBetween, ...Styles.mt4 }}>
-            <TouchableOpacity onPress={() => props.navigation.goBack()}>
-              <View style={{
-                ...Styles.p2,
-                ...Styles.px4,
-                ...Styles.bgBlue,
-                ...Styles.rounded,
-              }}
-              >
-                <Text>Cancel</Text>
-              </View>
-            </TouchableOpacity>
-
-            <TouchableOpacity onPress={() => submitReview()}>
-              <View style={{
-                ...Styles.p2,
-                ...Styles.px4,
-                ...Styles.bgYellow,
-                ...Styles.roundedSm,
-              }}
-              >
-                <Text>Submit</Text>
-              </View>
-            </TouchableOpacity>
-          </View>
         </View>
       </KeyboardAvoidingView>
 
+      <View style={{ ...Styles.p2 }}>
+        <View style={{ ...Styles.mt4, flexGrow: 0 }}>
+          <UploadImages onChange={onImageChange} />
+        </View>
+
+        <Text style={{ ...Styles.mt4, ...Styles.textSm, ...Styles.italic }}>
+          Please note, your email address is only required for validation purposes and will never be
+          shown to anyone on the app or website.
+        </Text>
+
+        <View style={{ ...Styles.flexRow, ...Styles.justifyBetween, ...Styles.mt4 }}>
+          <TouchableOpacity onPress={() => props.navigation.goBack()}>
+            <View style={{
+              ...Styles.p2,
+              ...Styles.px4,
+              ...Styles.bgBlue,
+              ...Styles.rounded,
+            }}
+            >
+              <Text>Cancel</Text>
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={() => submitReview()}>
+            <View style={{
+              ...Styles.p2,
+              ...Styles.px4,
+              ...Styles.bgYellow,
+              ...Styles.roundedSm,
+            }}
+            >
+              <Text>Submit</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+      </View>
     </ScrollView>
   );
 }

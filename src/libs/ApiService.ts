@@ -1,5 +1,4 @@
 import axios, { AxiosResponse } from 'axios';
-import { ExpandImagePickerResult, ImagePickerOptions } from 'expo-image-picker/build/ImagePicker.types';
 import { Platform } from 'react-native';
 import { ImageInfo } from 'expo-image-picker/src/ImagePicker.types';
 import { BASE_URL } from '../constants';
@@ -66,10 +65,6 @@ export class ApiService {
     return axios.get(`${BASE_URL}/api/recipes`);
   }
 
-  static latestReviews() {
-    return axios.get(`${BASE_URL}/api/reviews`);
-  }
-
   static summary() {
     return axios.get(`${BASE_URL}/api/wheretoeat/summary`);
   }
@@ -122,10 +117,11 @@ export class ApiService {
       rating: request.rating,
       name: request.name,
       email: request.email,
-      food: request.foodRating,
-      service: request.serviceRating,
-      expense: request.expense,
+      food: request.foodRating !== '' ? request.foodRating : null,
+      service: request.serviceRating !== '' ? request.serviceRating : null,
+      expense: request.expense > 0 ? request.expense : null,
       comment: request.comment,
+      images: request.images,
       method: 'app',
     }, {
       headers: {
@@ -171,6 +167,7 @@ export class ApiService {
     const fileName = photo.uri.split('/').reverse()[0];
 
     request.append('images[0]', {
+      // @ts-ignore
       uri: Platform.OS === 'ios' ? photo.uri.replace('file://', '') : photo.uri,
       name: fileName,
       type: 'image',

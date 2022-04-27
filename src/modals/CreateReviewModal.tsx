@@ -99,11 +99,11 @@ export default function CreateReviewModal({ props }: Props) {
 
           <View style={{ ...Styles.justifyBetween, ...Styles.mt4 }}>
             <TouchableOpacity
-              onPress={() => submitRating()}
+              onPress={() => (starRating > 0 ? submitRating() : null)}
               style={{
                 ...Styles.p2,
                 ...Styles.px4,
-                ...Styles.bgBlue,
+                ...(starRating > 0 ? Styles.bgBlue : Styles.bgBlueFaded),
                 ...Styles.rounded,
                 ...Styles.mb2,
               }}

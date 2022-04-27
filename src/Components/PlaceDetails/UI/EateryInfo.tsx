@@ -25,6 +25,17 @@ export default function EateryInfo({ props }: Props) {
 
   const phoneLink = (): string => `tel:${props.eatery.phone.replaceAll(' ', '')}`;
 
+  const averageExpenseArray = (): number[] => {
+    const rtr = [];
+
+    // @ts-ignore
+    for (let x = 0; x < parseInt(props.eatery.average_expense.value, 10); x++) {
+      rtr.push(x);
+    }
+
+    return rtr;
+  };
+
   return (
     <View style={{ ...Styles.p2, ...Styles.borderBottom, ...Styles.borderBlueLight }}>
       {props.eatery.type.type !== 'att' && (
@@ -52,6 +63,17 @@ export default function EateryInfo({ props }: Props) {
 
       <View style={{ ...Styles.flexRow, ...Styles.justifyBetween }}>
         <View>
+          {notEmpty(props.eatery.average_expense) && (
+          <View style={{ ...Styles.mb2, ...Styles.flexRow }}>
+            <Text style={{ ...Styles.textLg, ...Styles.fontSemibold }}>
+              {averageExpenseArray().map(() => '£')}
+              {' '}
+              -
+              {props.eatery.average_expense?.label}
+            </Text>
+          </View>
+          )}
+
           <Text>
             {formatAddress(props.eatery.address, '\n')}
           </Text>

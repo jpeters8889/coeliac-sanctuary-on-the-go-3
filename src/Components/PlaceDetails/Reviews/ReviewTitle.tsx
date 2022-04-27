@@ -12,7 +12,7 @@ dayjs.extend(advancedFormat);
 export default function ReviewTitle({ item }: { item: UserReview }) {
   const stars = [];
 
-  for (let x = 0; x < parseInt(item.rating, 10); x++) {
+  for (let x = 0; x < item.rating; x++) {
     stars.push(x.toString());
   }
 

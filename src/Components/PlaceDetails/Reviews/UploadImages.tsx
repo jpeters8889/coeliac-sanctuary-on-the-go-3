@@ -1,6 +1,5 @@
 import {
-  ActivityIndicator,
-  Platform, Text, TouchableOpacity, View,
+  ActivityIndicator, Text, TouchableOpacity, View,
 } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { Feather, FontAwesome, FontAwesome5 } from '@expo/vector-icons';
@@ -40,8 +39,6 @@ export default function UploadImages({ onChange }: Props) {
 
   const isImageValid = async (image: string): Promise<boolean> => {
     const info = await getInfoAsync(image);
-
-    console.log(info);
 
     if (!info || !info.size) {
       return true;
@@ -93,8 +90,6 @@ export default function UploadImages({ onChange }: Props) {
       const upload: AxiosResponse = await ApiService.uploadPhoto(response);
 
       if (upload.status === 422) {
-        console.log(upload.data);
-
         let errorMessage = 'Sorry, there was an error uploading this image';
 
         if (upload?.data?.errors['images.0'][0] === 'validation.max.file') {
@@ -129,6 +124,8 @@ export default function UploadImages({ onChange }: Props) {
 
     setImages((img: Image[]) => img.filter((iImg, iIndex) => index !== iIndex));
   };
+
+  const isLoading = (): boolean => images.filter((image) => image.loading).length > 0;
 
   useEffect(() => {
     onChange(images);
@@ -192,7 +189,7 @@ export default function UploadImages({ onChange }: Props) {
           </TouchableOpacity>
         ))}
 
-        {images.length < 6 && (
+        {images.length < 6 && !isLoading() && (
         <TouchableOpacity style={{ ...Styles.w33, ...Styles.p2 }} onPress={selectImages}>
           <View style={{
             aspectRatio: 1,

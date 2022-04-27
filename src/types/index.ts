@@ -16,6 +16,10 @@ type MainTab = {
 type Eatery = {
   address: string;
   average_rating: string;
+  average_expense: null | {
+    value: string;
+    label: string;
+  };
   created_at: string;
   county: {
     county: string;
@@ -41,7 +45,6 @@ type Eatery = {
   phone: string;
   user_reviews: UserReview[];
   restaurants: AttractionRestaurant[];
-  reviews: Review[];
   town: {
     id: number;
     town: string;
@@ -116,12 +119,6 @@ type ReviewImage = {
 
 type StarReview = 0 | 1 | 2 | 3 | 4 | 5;
 
-type Review = {
-  id: number,
-  created_at: string,
-  link: string,
-};
-
 type PlacesApiRequest = {
   searchTerm?: string;
   lat?: number;
@@ -179,10 +176,11 @@ type SubmitReviewSignature = {
   rating: StarReview;
   name?: string;
   email?: string;
-  foodRating: FoodServiceRating;
-  serviceRating: FoodServiceRating;
+  foodRating: FoodServiceRating | '';
+  serviceRating: FoodServiceRating | '';
   expense: StarReview;
   comment?: string;
+  images?: string[];
 };
 
 type RecommendAPlaceSignature = {
@@ -215,7 +213,7 @@ type WebsiteDataset = {
 
 type WebsiteDisplaySection = {
   title: string;
-  key: 'blogs' | 'recipes' | 'reviews';
+  key: 'blogs' | 'recipes';
   loading: boolean;
   items: WebsiteDataset[],
 };
@@ -262,7 +260,7 @@ type FoodServiceRating = 'excellent' | 'good' | 'poor';
 
 export {
   MainTab, Eatery, PlacesApiRequest, UserReview, EateryType, SearchRange, ModalProps,
-  VenueTypeFilterGroup, VenueTypeFilter, VenueTypeResponse, Review, SubmitReviewSignature,
+  VenueTypeFilterGroup, VenueTypeFilter, VenueTypeResponse, SubmitReviewSignature,
   PlacesMapApiRequest, WebsiteModuleData, WebsiteDataset, WebsiteDisplaySection, RecommendAPlaceSignature,
   WhereToEatSummary, WhereToEatSummarySection, LatestEateryRatings, LatestEateries, ShopCta, AnalyticsEvent,
   ReviewImage, OpeningTimes, StarReview, SubmitRatingSignature, FoodServiceRating,
