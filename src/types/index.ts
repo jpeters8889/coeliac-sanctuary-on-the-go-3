@@ -105,6 +105,7 @@ type UserReview = {
     value: string;
     label: string;
   };
+  branch_name?: string;
   food_rating: FoodServiceRating;
   service_rating: FoodServiceRating;
   wheretoeat_id: number;
@@ -180,6 +181,7 @@ type SubmitReviewSignature = {
   serviceRating: FoodServiceRating | '';
   expense: StarReview;
   comment?: string;
+  branchName?: string;
   images?: string[];
 };
 

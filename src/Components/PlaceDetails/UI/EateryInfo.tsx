@@ -64,7 +64,11 @@ export default function EateryInfo({ props }: Props) {
       <View style={{ ...Styles.flexRow, ...Styles.justifyBetween }}>
         <View>
           {notEmpty(props.eatery.average_expense) && (
-          <View style={{ ...Styles.mb2, ...Styles.flexRow }}>
+          <View style={{
+            ...(notEmpty(props.eatery.address) ? Styles.mb2 : null),
+            ...Styles.flexRow,
+          }}
+          >
             <Text style={{ ...Styles.textLg, ...Styles.fontSemibold }}>
               {averageExpenseArray().map(() => '£')}
               {' '}
@@ -74,9 +78,11 @@ export default function EateryInfo({ props }: Props) {
           </View>
           )}
 
+          {notEmpty(props.eatery.address) && (
           <Text>
             {formatAddress(props.eatery.address, '\n')}
           </Text>
+          )}
         </View>
 
         <View>

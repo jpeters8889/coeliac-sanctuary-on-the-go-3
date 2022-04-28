@@ -23,6 +23,7 @@ export default function PlaceDetailsFooter({ props }: Props) {
         style={{
           ...(Platform.OS === 'ios' ? Styles.fontSemibold : Styles.fontBold),
           ...Styles.pt2,
+          ...Styles.mb8,
         }}
         onPress={() => props.setShowReportProblemModal(true)}
       >

@@ -29,6 +29,8 @@ export class ApiService {
     url.searchParams.append('page', request.page.toString());
     url.searchParams.append('limit', request.limit.toString());
 
+    console.log(url.href);
+
     return axios.get(encodeURI(url.href), { validateStatus: () => true });
   }
 
@@ -113,7 +115,7 @@ export class ApiService {
   static async submitFullReview(request: SubmitReviewSignature) {
     const token = await this.getToken();
 
-    return axios.post(`${BASE_URL}/api/wheretoeat/${request.eateryId}/reviews`, {
+    const params = {
       rating: request.rating,
       name: request.name,
       email: request.email,
@@ -123,7 +125,14 @@ export class ApiService {
       comment: request.comment,
       images: request.images,
       method: 'app',
-    }, {
+    };
+
+    if (request.branchName) {
+      // @ts-ignore
+      params.branch_name = request.branchName;
+    }
+
+    return axios.post(`${BASE_URL}/api/wheretoeat/${request.eateryId}/reviews`, params, {
       headers: {
         'X-CSRF-TOKEN': token,
       },

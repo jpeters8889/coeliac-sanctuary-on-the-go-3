@@ -1,5 +1,5 @@
 import { Platform, Text, View } from 'react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import { UserReview } from '../../../types';
 import Styles from '../../../Styles/Styles';
@@ -10,7 +10,7 @@ import EateryImages from '../UI/EateryImages';
 
 export default function EateryReview({ item }: { item: UserReview }) {
   const [displayFullReview, setDisplayFullReview]: [boolean, any] = useState(false);
-  const [hasMoreText, setHasMoreText]: [boolean, any] = useState(true);
+  const [hasMoreText, setHasMoreText]: [boolean, any] = useState(false);
 
   const stars = [];
   const price = [];
@@ -39,7 +39,7 @@ export default function EateryReview({ item }: { item: UserReview }) {
     price.push(x.toString());
   }
 
-  useState(() => {
+  useEffect(() => {
     if (item.admin_review && item.body.length > 500 && !displayFullReview) {
       setHasMoreText(true);
     }
@@ -68,11 +68,22 @@ export default function EateryReview({ item }: { item: UserReview }) {
       <View style={{ ...Styles.p2, ...Styles.bgBlueLightFaded, ...Styles.borderBlue }}>
         <Text>{reviewText()}</Text>
 
+        {notEmpty(item.branch_name) && (
+        <Text style={Styles.mt2}>
+          Review from
+          {' '}
+          <Text style={Styles.fontSemibold}>{item.branch_name}</Text>
+          {' '}
+          branch.
+        </Text>
+        )}
+
         {hasMoreText && !displayFullReview && (
         <Text
           onPress={() => setDisplayFullReview(true)}
           style={{
             ...Styles.textLg,
+            ...Styles.mt2,
             ...(Platform.OS === 'ios' ? Styles.fontSemibold : Styles.fontBold),
           }}
         >

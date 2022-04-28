@@ -17,11 +17,13 @@ export default function EateryList(item: Eatery, index: number, navigation: Stac
   };
 
   return (
-    <View style={{
-      ...Styles.p2,
-      ...Styles.flexRow,
-      ...(index % 2 === 0 ? Styles.bgGreyLight : ''),
-    }}
+    <TouchableOpacity
+      style={{
+        ...Styles.p2,
+        ...Styles.flexRow,
+        ...(index % 2 === 0 ? Styles.bgGreyLight : ''),
+      }}
+      onPress={() => viewDetails(item.id)}
     >
       <View style={Styles.w80}>
         <Text style={{
@@ -94,6 +96,6 @@ export default function EateryList(item: Eatery, index: number, navigation: Stac
           </View>
         </TouchableOpacity>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }

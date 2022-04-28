@@ -26,6 +26,7 @@ type Props = {
     params: {
       eateryId: number,
       eateryName: string,
+      isNationwide: boolean,
       starRating: StarReview,
     }
   }>
@@ -42,6 +43,7 @@ export default function SubmitReviewScreen(props: Props) {
   const [serviceRating, setServiceRating]: [FoodServiceRating | '', any] = useState('');
   const [howExpensive, setHowExpensive]: [StarReview, any] = useState(0);
   const [review, setReview]: [string, any] = useState('');
+  const [branch, setBranch]: [string | undefined, any] = useState(props.route.params.isNationwide ? '' : undefined);
   const [images, setImages]: [string[], any] = useState([]);
 
   const selectOptions: FoodServiceRating[] = ['poor', 'good', 'excellent'];
@@ -85,6 +87,7 @@ export default function SubmitReviewScreen(props: Props) {
       serviceRating: serviceRating as FoodServiceRating,
       expense: howExpensive,
       comment: review,
+      branchName: branch,
       images,
     }).then(() => {
       Alert.alert('Thank you for your review, it will be verified by an admin before being approved');
@@ -262,6 +265,25 @@ export default function SubmitReviewScreen(props: Props) {
               onChangeText={setReview}
             />
           </View>
+
+          {props.route.params.isNationwide && (
+            <View style={Styles.mt4}>
+              <Text style={{ ...Styles.textBlueDark, ...Styles.fontSemibold, ...Styles.mb1 }}>
+                What branch did you eat at?
+              </Text>
+              <TextInput
+                value={branch}
+                style={{
+                  ...Styles.p2,
+                  ...Styles.border,
+                  ...Styles.borderBlue,
+                  ...Styles.bgBlueLightFaded,
+                  ...Styles.roundedSm,
+                }}
+                onChangeText={setBranch}
+              />
+            </View>
+          )}
         </View>
       </KeyboardAvoidingView>
 

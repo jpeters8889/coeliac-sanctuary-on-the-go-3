@@ -15,6 +15,7 @@ type Props = {
   props: ModalProps & {
     id: number,
     title: string,
+    isNationwide: boolean,
     navigation: StackNavigationProp<any>,
   }
 };
@@ -62,6 +63,7 @@ export default function CreateReviewModal({ props }: Props) {
     props.navigation.navigate('add-review', {
       eateryId: props.id,
       eateryName: props.title,
+      isNationwide: props.isNationwide,
       starRating,
     });
 

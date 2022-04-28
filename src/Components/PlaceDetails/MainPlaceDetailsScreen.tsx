@@ -109,6 +109,7 @@ export default function MainPlaceDetailsScreen({ route, navigation }: Props) {
         <CreateReviewModal props={{
           id: eatery.id,
           title: eatery.name,
+          isNationwide: eatery.country.country === 'nationwide',
           navigation,
           onClose: () => closeSubmitRatingModal(),
         }}

@@ -16,6 +16,7 @@ import List from './src/screens/List';
 import Website from './src/screens/Website';
 import NationwideScreenContainer from './src/Components/Nationwide/NationwideScreenContainer';
 import AnalyticsService from './src/libs/AnalyticsService';
+import Nationwide from './src/screens/Nationwide';
 
 export default function App() {
   const Tabs = createBottomTabNavigator();
@@ -57,7 +58,7 @@ export default function App() {
     },
     {
       name: 'nationwide',
-      component: NationwideScreenContainer,
+      component: Nationwide,
       label: 'Nationwide',
       showHeader: false,
       icon: ({ color, size }) => (
