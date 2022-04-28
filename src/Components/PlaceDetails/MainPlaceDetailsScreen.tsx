@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
-  View, ActivityIndicator, Alert, ScrollView, Platform,
+  View, ActivityIndicator, Alert, ScrollView, Platform, TouchableOpacity, Text,
 } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
@@ -63,6 +63,13 @@ export default function MainPlaceDetailsScreen({ route, navigation }: Props) {
     setShowSubmitRatingModal(false);
   };
 
+  const goToSuggestEditScreen = () => {
+    navigation.navigate('suggest-edit', {
+      eateryId: eatery.id,
+      eateryName: eatery.name,
+    });
+  };
+
   useEffect(() => loadEatery(), []);
 
   return (
@@ -85,6 +92,30 @@ export default function MainPlaceDetailsScreen({ route, navigation }: Props) {
       <>
         <ScrollView>
           <EateryInfo props={{ eatery, setShowOpeningTimesModal }} />
+
+          <TouchableOpacity
+            style={{
+              ...Styles.bgBlueFaded,
+              ...Styles.borderBlue,
+              ...Styles.border,
+              ...Styles.p2,
+              ...Styles.m2,
+              ...Styles.rounded,
+            }}
+            onPress={() => goToSuggestEditScreen()}
+          >
+            <Text style={{
+              ...Styles.textCenter,
+              ...Styles.fontSemibold,
+              ...Styles.textLg,
+            }}
+            >
+              Can you improve the information we hold for
+              {' '}
+              {eatery.name}
+              ?
+            </Text>
+          </TouchableOpacity>
 
           { notEmpty(adminReview()) && <PlaceAdminReview props={{ adminReview: adminReview() as UserReview }} />}
 

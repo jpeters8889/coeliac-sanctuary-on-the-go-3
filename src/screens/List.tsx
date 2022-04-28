@@ -6,6 +6,7 @@ import ListScreenContainer from '../Components/List/ListScreenContainer';
 import SubmitReviewScreen from '../Components/PlaceDetails/SubmitReviewScreen';
 import MainPlaceDetailsScreen from '../Components/PlaceDetails/MainPlaceDetailsScreen';
 import { BLUE } from '../constants';
+import SuggestEditScreen from '../Components/PlaceDetails/SuggestEditScreen';
 
 export default function List() {
   const stack = createStackNavigator();
@@ -35,6 +36,13 @@ export default function List() {
         <stack.Screen
           name="add-review"
           component={SubmitReviewScreen}
+          options={{ headerShown: true }}
+        />
+      </stack.Group>
+      <stack.Group>
+        <stack.Screen
+          name="suggest-edit"
+          component={SuggestEditScreen}
           options={{ headerShown: true }}
         />
       </stack.Group>

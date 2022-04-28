@@ -5,6 +5,7 @@ import SubmitReviewScreen from '../Components/PlaceDetails/SubmitReviewScreen';
 import MainPlaceDetailsScreen from '../Components/PlaceDetails/MainPlaceDetailsScreen';
 import { BLUE } from '../constants';
 import NationwideScreenContainer from '../Components/Nationwide/NationwideScreenContainer';
+import SuggestEditScreen from '../Components/PlaceDetails/SuggestEditScreen';
 
 export default function Nationwide() {
   const stack = createStackNavigator();
@@ -34,6 +35,13 @@ export default function Nationwide() {
         <stack.Screen
           name="add-review"
           component={SubmitReviewScreen}
+          options={{ headerShown: true }}
+        />
+      </stack.Group>
+      <stack.Group>
+        <stack.Screen
+          name="suggest-edit"
+          component={SuggestEditScreen}
           options={{ headerShown: true }}
         />
       </stack.Group>

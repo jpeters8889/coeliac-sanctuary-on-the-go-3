@@ -29,8 +29,6 @@ export class ApiService {
     url.searchParams.append('page', request.page.toString());
     url.searchParams.append('limit', request.limit.toString());
 
-    console.log(url.href);
-
     return axios.get(encodeURI(url.href), { validateStatus: () => true });
   }
 

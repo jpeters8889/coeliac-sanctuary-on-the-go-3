@@ -5,6 +5,7 @@ import MainPlaceDetailsScreen from '../Components/PlaceDetails/MainPlaceDetailsS
 import MapScreenContainer from '../Components/Map/MapScreenContainer';
 import SubmitReviewScreen from '../Components/PlaceDetails/SubmitReviewScreen';
 import { BLUE } from '../constants';
+import SuggestEditScreen from '../Components/PlaceDetails/SuggestEditScreen';
 
 export default function Map() {
   const stack = createStackNavigator();
@@ -34,6 +35,13 @@ export default function Map() {
         <stack.Screen
           name="add-review"
           component={SubmitReviewScreen}
+          options={{ headerShown: true }}
+        />
+      </stack.Group>
+      <stack.Group>
+        <stack.Screen
+          name="suggest-edit"
+          component={SuggestEditScreen}
           options={{ headerShown: true }}
         />
       </stack.Group>

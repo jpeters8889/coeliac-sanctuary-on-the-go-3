@@ -4,6 +4,7 @@ import AnalyticsService from '../../libs/AnalyticsService';
 import MainPlaceDetailsScreen from '../PlaceDetails/MainPlaceDetailsScreen';
 import HomeScreenContent from './HomeScreenContent';
 import SubmitReviewScreen from '../PlaceDetails/SubmitReviewScreen';
+import SuggestEditScreen from '../PlaceDetails/SuggestEditScreen';
 
 export default function MainHomeScreen() {
   AnalyticsService.logScreen('home-screen').then(() => {});
@@ -19,6 +20,13 @@ export default function MainHomeScreen() {
       </stack.Group>
       <stack.Group screenOptions={{ headerShown: false }}>
         <stack.Screen name="add-review" component={SubmitReviewScreen} options={{ headerShown: false }} />
+      </stack.Group>
+      <stack.Group>
+        <stack.Screen
+          name="suggest-edit"
+          component={SuggestEditScreen}
+          options={{ headerShown: true }}
+        />
       </stack.Group>
     </stack.Navigator>
   );
