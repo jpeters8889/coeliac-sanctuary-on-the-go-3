@@ -53,6 +53,10 @@ export class ApiService {
     return axios.get(`${BASE_URL}/api/wheretoeat/${id.toString()}`);
   }
 
+  static async getSuggestEditFields(id: number) {
+    return axios.get(`${BASE_URL}/api/wheretoeat/${id}/suggest-edit`);
+  }
+
   static getNationwideEateries(page: number = 1) {
     return axios.get(`${BASE_URL}/api/wheretoeat?page=${page}&filter[county]=1`);
   }

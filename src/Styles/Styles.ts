@@ -1,6 +1,17 @@
 import { StyleSheet } from 'react-native';
 import {
-  BLUE, BLUE_LIGHT, GREY_LIGHT, GREY_OFF, WHITE, YELLOW, YELLOW_FADED, GREY, BLUE_LIGHT_FADED, BLUE_FADED, BLUE_DARK,
+  BLUE,
+  BLUE_LIGHT,
+  GREY_LIGHT,
+  GREY_OFF,
+  WHITE,
+  YELLOW,
+  YELLOW_FADED,
+  GREY,
+  BLUE_LIGHT_FADED,
+  BLUE_FADED,
+  BLUE_DARK,
+  BLACK,
 } from '../constants';
 
 const globalStyles = StyleSheet.create({
@@ -129,10 +140,12 @@ const globalStyles = StyleSheet.create({
   text2Xl: { fontSize: 24 },
   text3Xl: { fontSize: 28 },
 
+  textBlack: { color: BLACK },
   textBlue: { color: BLUE },
   textBlueDark: { color: BLUE_DARK },
   textWhite: { color: WHITE },
   textYellow: { color: YELLOW },
+  textGrey: { color: GREY },
 
   top0: { top: 0 },
 

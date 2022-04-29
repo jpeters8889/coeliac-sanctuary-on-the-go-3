@@ -260,10 +260,73 @@ type AnalyticsEvent = {
 
 type FoodServiceRating = 'excellent' | 'good' | 'poor';
 
+type SuggestEateryResponse = {
+  address: string,
+  website: string,
+  gf_menu_link: string,
+  phone: string,
+  type_id: number,
+  venue_type: SuggestEditResponseSelectGroup,
+  cuisine: SuggestEditResponseSelectGroup
+  opening_times: {
+    [K in SuggestEditResponseOpeningTimeDays]: [string, string]
+  },
+  features: {
+    selected: {
+      id: number,
+      label: string
+    }[],
+    values: SuggestEditResponseSelectGroupFields[],
+  },
+  is_nationwide: boolean
+};
+
+type SuggestEditResponseSelectGroup = {
+  id: number,
+  label: string,
+  values: SuggestEditResponseSelectGroupFields[];
+};
+
+type SuggestEditResponseSelectGroupFields = {
+  value: number,
+  label: string,
+  selected: boolean
+};
+
+type SuggestEditResponseOpeningTimeDays = 'today' | 'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday' | 'sunday';
+
+type SuggestEditField = {
+  id: string,
+  label: string,
+  shouldDisplay: boolean,
+  getter: () => string | null,
+  isFormField: boolean,
+  formField?: SuggestEditFormField,
+  component?: SuggestEditComponent
+  capitalise?: boolean,
+  truncate?: boolean,
+  updated: boolean,
+};
+
+type SuggestEditFormField = {
+  component: string,
+  value: () => string | number,
+  props?: {
+    [K: string]: any
+  },
+};
+
+type SuggestEditComponent = {
+  name: string,
+  props: {
+    [K: string]: any
+  },
+};
+
 export {
   MainTab, Eatery, PlacesApiRequest, UserReview, EateryType, SearchRange, ModalProps,
   VenueTypeFilterGroup, VenueTypeFilter, VenueTypeResponse, SubmitReviewSignature,
   PlacesMapApiRequest, WebsiteModuleData, WebsiteDataset, WebsiteDisplaySection, RecommendAPlaceSignature,
   WhereToEatSummary, WhereToEatSummarySection, LatestEateryRatings, LatestEateries, ShopCta, AnalyticsEvent,
-  ReviewImage, OpeningTimes, StarReview, SubmitRatingSignature, FoodServiceRating,
+  ReviewImage, OpeningTimes, StarReview, SubmitRatingSignature, FoodServiceRating, SuggestEditField, SuggestEateryResponse,
 };
