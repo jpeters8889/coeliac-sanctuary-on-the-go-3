@@ -27,6 +27,11 @@ export default function SuggestEditScreen(props: Props) {
   const [isLoading, setIsLoading]: [boolean, any] = useState(true);
   const [eatery, setEatery]: [SuggestEateryResponse, any] = useState({} as SuggestEateryResponse);
   const [fields, setFields]: [SuggestEditField[], any] = useState([]);
+  const [currentlyEditing, setCurrentlyEditing]: [string | undefined, any] = useState();
+
+  const editField = (field: SuggestEditField): void => setCurrentlyEditing(field.id);
+
+  const cancelEdit = (): void => setCurrentlyEditing();
 
   useEffect(() => {
     if (Object.keys(eatery).length === 0) {
@@ -64,13 +69,20 @@ export default function SuggestEditScreen(props: Props) {
         {!isLoading && (
         <View style={{ ...Styles.p2, ...Styles.mt10 }}>
             {fields.map((field) => (
-              <View style={{
-                ...Styles.borderBottom,
-                ...Styles.borderBlue,
-                ...Styles.px2,
-              }}
+              <View
+                style={{
+                  ...Styles.borderBottom,
+                  ...Styles.borderBlue,
+                  ...Styles.px2,
+                }}
+                key={field.id}
               >
-                <SuggestEditItem field={field} key={field.id} isEditing={false} />
+                <SuggestEditItem
+                  field={field}
+                  isEditing={currentlyEditing === field.id}
+                  triggerEdit={editField}
+                  cancelEdit={cancelEdit}
+                />
               </View>
             ))}
         </View>

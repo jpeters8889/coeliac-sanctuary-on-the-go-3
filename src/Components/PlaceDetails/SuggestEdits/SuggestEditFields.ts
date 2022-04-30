@@ -8,10 +8,10 @@ export default (eatery: SuggestEateryResponse): SuggestEditField[] => [
     getter: () => eatery.address.split('<br />').join('\n'),
     isFormField: true,
     formField: {
-      component: 'form-textarea',
+      component: 'textarea',
       value: () => eatery.address.split('<br />').join('\n'),
       props: {
-        rows: 5,
+        rows: 6,
       },
     },
     updated: false,
@@ -23,8 +23,12 @@ export default (eatery: SuggestEateryResponse): SuggestEditField[] => [
     getter: () => eatery.website,
     isFormField: true,
     formField: {
-      component: 'form-input',
+      component: 'input',
       value: () => eatery.website,
+      componentProps: {
+        keyboardType: 'url',
+        textContentType: 'URL',
+      },
     },
     truncate: true,
     updated: false,
@@ -36,8 +40,12 @@ export default (eatery: SuggestEateryResponse): SuggestEditField[] => [
     getter: () => eatery.gf_menu_link,
     isFormField: true,
     formField: {
-      component: 'form-input',
+      component: 'input',
       value: () => eatery.gf_menu_link,
+      componentProps: {
+        keyboardType: 'url',
+        textContentType: 'URL',
+      },
     },
     truncate: true,
     updated: false,
@@ -99,7 +107,6 @@ export default (eatery: SuggestEateryResponse): SuggestEditField[] => [
 
       return eatery.opening_times.today.join(' - ');
     },
-    capitalise: true,
     isFormField: false,
     component: {
       name: 'eatery-opening-times',

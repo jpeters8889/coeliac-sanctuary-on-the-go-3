@@ -314,6 +314,7 @@ type SuggestEditFormField = {
   props?: {
     [K: string]: any
   },
+  componentProps?: { [K:string]: any }
 };
 
 type SuggestEditComponent = {
