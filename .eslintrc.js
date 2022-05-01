@@ -34,6 +34,7 @@ module.exports = {
     "no-param-reassign": ["error", { "props": false }],
     "no-plusplus": "off",
     "react/destructuring-assignment": "off",
-    "react/no-unescaped-entities": "off"
+    "react/no-unescaped-entities": "off",
+    "react/jsx-props-no-spreading": "off",
   },
 };

@@ -282,7 +282,8 @@ type SuggestEateryResponse = {
 };
 
 type SuggestEditResponseSelectGroup = {
-  id: number,
+  id?: number,
+  value?: number | string,
   label: string,
   values: SuggestEditResponseSelectGroupFields[];
 };
@@ -300,9 +301,7 @@ type SuggestEditField = {
   label: string,
   shouldDisplay: boolean,
   getter: () => string | null,
-  isFormField: boolean,
-  formField?: SuggestEditFormField,
-  component?: SuggestEditComponent
+  component: SuggestEditFormField | SuggestEditSelectField | SuggestEditFeaturesField,
   capitalise?: boolean,
   truncate?: boolean,
   updated: boolean,
@@ -310,17 +309,29 @@ type SuggestEditField = {
 
 type SuggestEditFormField = {
   component: string,
-  value: () => string | number,
+  value?: () => string | number,
   props?: {
     [K: string]: any
   },
   componentProps?: { [K:string]: any }
 };
 
-type SuggestEditComponent = {
-  name: string,
+type SuggestEditSelectField = SuggestEditFormField & {
+  component: 'select',
+  props?: {
+    [K: string]: any,
+    options: any[],
+  }
+};
+
+type SuggestEditFeaturesField = SuggestEditFormField & {
+  component: 'features',
   props: {
-    [K: string]: any
+    currentFeatures: {
+      id: number,
+      label: string,
+      selected: boolean
+    }[],
   },
 };
 
@@ -329,5 +340,6 @@ export {
   VenueTypeFilterGroup, VenueTypeFilter, VenueTypeResponse, SubmitReviewSignature,
   PlacesMapApiRequest, WebsiteModuleData, WebsiteDataset, WebsiteDisplaySection, RecommendAPlaceSignature,
   WhereToEatSummary, WhereToEatSummarySection, LatestEateryRatings, LatestEateries, ShopCta, AnalyticsEvent,
-  ReviewImage, OpeningTimes, StarReview, SubmitRatingSignature, FoodServiceRating, SuggestEditField, SuggestEateryResponse,
+  ReviewImage, OpeningTimes, StarReview, SubmitRatingSignature, FoodServiceRating, SuggestEditField,
+  SuggestEateryResponse, SuggestEditResponseSelectGroup, SuggestEditSelectField, SuggestEditFeaturesField,
 };

@@ -170,6 +170,18 @@ export class ApiService {
     });
   }
 
+  static async submitPlaceSuggestion(eateryId: number, field: string, value: string | number | object) {
+    const token = await this.getToken();
+
+    return axios.post(`${BASE_URL}/api/wheretoeat/${eateryId.toString()}/suggest-edit`, {
+      field, value,
+    }, {
+      headers: {
+        'X-CSRF-TOKEN': token,
+      },
+    });
+  }
+
   static async uploadPhoto(photo: ImageInfo) {
     const token = await this.getToken();
 

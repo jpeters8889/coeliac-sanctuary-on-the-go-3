@@ -1,19 +1,31 @@
 import {
   Text, TextInput, TouchableOpacity, View,
 } from 'react-native';
-import React, { Component, ReactElement, useState } from 'react';
-import { SuggestEditField } from '../../../types';
+import React, {
+  ReactElement, useEffect, useState,
+} from 'react';
+import SelectDropdown from 'react-native-select-dropdown';
+import { SuggestEditFeaturesField, SuggestEditField, SuggestEditResponseSelectGroup } from '../../../types';
 import Styles from '../../../Styles/Styles';
+import EditFeature from './EditFeature';
 
 type Props = {
+  index: number,
   field: SuggestEditField
   isEditing: boolean,
   triggerEdit: (field: SuggestEditField) => void,
   cancelEdit: () => void,
+  submitFieldUpdate: (fieldIndex: number, value: string | number | object | null) => void,
 };
 
 export default function SuggestEditItem(props: Props) {
-  const [value, setValue]: [string | number | null, any] = useState(props.field.getter());
+  const [value, setValue]: [string | number | null, any] = useState(null);
+
+  useEffect(() => {
+    if (props.field.component && props.field.component.value) {
+      setValue(props.field.component.value());
+    }
+  }, []);
 
   const {
     field, isEditing, triggerEdit, cancelEdit,
@@ -24,23 +36,20 @@ export default function SuggestEditItem(props: Props) {
   }
 
   const editableComponent = (): ReactElement | null => {
-    if (!field.formField) {
-      return null;
-    }
-
-    switch (field.formField.component) {
+    switch (field.component.component) {
       case 'textarea':
         return (
           <TextInput
             multiline
-            numberOfLines={field.formField?.props && field.formField.props.rows ? field.formField.props.rows : 4}
-            value={value as string}
+            numberOfLines={field.component?.props && field.component.props.rows ? field.component.props.rows : 4}
+            value={value ? value as string : ''}
             style={{
               ...Styles.p2,
               ...Styles.border,
               ...Styles.borderGreyOff,
               ...Styles.bgGreyLight,
               ...Styles.mb2,
+              height: (field.component?.props && field.component.props.rows ? field.component.props.rows : 4) * 15,
             }}
             onChangeText={setValue}
           />
@@ -48,7 +57,7 @@ export default function SuggestEditItem(props: Props) {
       case 'input':
         return (
           <TextInput
-            value={value as string}
+            value={value ? value as string : ''}
             style={{
               ...Styles.p2,
               ...Styles.border,
@@ -57,9 +66,35 @@ export default function SuggestEditItem(props: Props) {
               ...Styles.mb2,
             }}
             onChangeText={setValue}
-            {...field.formField.componentProps}
+            {...field.component.componentProps}
           />
         );
+      case 'select':
+        return (
+          <SelectDropdown
+            // @ts-ignore
+            data={field.component.props.options as SuggestEditResponseSelectGroup[]}
+            defaultValueByIndex={value || undefined}
+            buttonStyle={{
+              ...Styles.border,
+              ...Styles.borderGreyOff,
+              ...Styles.bgGreyLight,
+              ...Styles.wFull,
+              ...Styles.p0,
+              ...Styles.mb2,
+              height: undefined,
+            }}
+            buttonTextStyle={{
+              ...Styles.py2,
+              ...Styles.textMd,
+            }}
+            onSelect={(option: SuggestEditResponseSelectGroup) => setValue(option.value)}
+            buttonTextAfterSelection={(option: SuggestEditResponseSelectGroup) => option.label}
+            rowTextForSelection={(option: SuggestEditResponseSelectGroup) => option.label}
+          />
+        );
+      case 'features':
+        return <EditFeature field={field.component as SuggestEditFeaturesField} setValue={setValue} />;
       default:
         return null;
     }
@@ -67,7 +102,13 @@ export default function SuggestEditItem(props: Props) {
 
   return (
     <View>
-      {field.updated && (<View><Text>Thanks for your suggestion!</Text></View>)}
+      {field.updated && (
+      <View style={{ ...Styles.wFull, ...Styles.py2 }}>
+        <Text style={{ ...Styles.textLg, ...Styles.fontSemibold, ...Styles.textCenter }}>
+          Thanks for your suggestion!
+        </Text>
+      </View>
+      )}
 
       {!field.updated && (
       <View style={{
@@ -101,7 +142,7 @@ export default function SuggestEditItem(props: Props) {
                   ...Styles.p2,
                   ...Styles.rounded,
                 }}
-                onPress={cancelEdit}
+                onPress={() => props.submitFieldUpdate(props.index, value)}
               >
                 <Text style={Styles.fontSemibold}>Submit</Text>
               </TouchableOpacity>

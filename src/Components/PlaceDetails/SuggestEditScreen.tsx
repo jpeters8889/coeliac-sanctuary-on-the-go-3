@@ -12,6 +12,7 @@ import SuggestEditFields from './SuggestEdits/SuggestEditFields';
 import { ApiService } from '../../libs/ApiService';
 import { BLUE_LIGHT } from '../../constants';
 import SuggestEditItem from './SuggestEdits/SuggestEditItem';
+import { notEmpty } from '../../helpers';
 
 type Props = {
   route: RouteProp<{
@@ -53,6 +54,32 @@ export default function SuggestEditScreen(props: Props) {
     });
   }, []);
 
+  const submitFieldUpdate = (fieldIndex: number, value: string | number | object | null): void => {
+    console.log(value);
+
+    if (!value || !notEmpty(value)) {
+      alert('Please complete the form before submitting!');
+
+      return;
+    }
+
+    const field = fields[fieldIndex];
+
+    ApiService.submitPlaceSuggestion(props.route.params.eateryId, field.id, value).then(() => {
+      setFields((currentFields: SuggestEditField[]) => {
+        currentFields[fieldIndex].updated = true;
+
+        return [...currentFields];
+      });
+
+      cancelEdit();
+
+      alert('Thanks for suggesting an improvement to this location!');
+    }).catch(() => {
+      alert('Sorry, we were unable to save your suggested edit, please try again...');
+    });
+  };
+
   return (
     <ScrollView style={Styles.bgWhite}>
       <KeyboardAvoidingView behavior="position">
@@ -68,7 +95,7 @@ export default function SuggestEditScreen(props: Props) {
 
         {!isLoading && (
         <View style={{ ...Styles.p2, ...Styles.mt10 }}>
-            {fields.map((field) => (
+            {fields.map((field, index) => (
               <View
                 style={{
                   ...Styles.borderBottom,
@@ -79,9 +106,11 @@ export default function SuggestEditScreen(props: Props) {
               >
                 <SuggestEditItem
                   field={field}
+                  index={index}
                   isEditing={currentlyEditing === field.id}
                   triggerEdit={editField}
                   cancelEdit={cancelEdit}
+                  submitFieldUpdate={submitFieldUpdate}
                 />
               </View>
             ))}

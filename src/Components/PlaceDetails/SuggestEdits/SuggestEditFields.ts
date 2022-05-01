@@ -6,8 +6,7 @@ export default (eatery: SuggestEateryResponse): SuggestEditField[] => [
     label: 'Address',
     shouldDisplay: !eatery.is_nationwide,
     getter: () => eatery.address.split('<br />').join('\n'),
-    isFormField: true,
-    formField: {
+    component: {
       component: 'textarea',
       value: () => eatery.address.split('<br />').join('\n'),
       props: {
@@ -21,8 +20,7 @@ export default (eatery: SuggestEateryResponse): SuggestEditField[] => [
     label: 'Website',
     shouldDisplay: true,
     getter: () => eatery.website,
-    isFormField: true,
-    formField: {
+    component: {
       component: 'input',
       value: () => eatery.website,
       componentProps: {
@@ -38,8 +36,7 @@ export default (eatery: SuggestEateryResponse): SuggestEditField[] => [
     label: 'Gluten Free Menu Link',
     shouldDisplay: true,
     getter: () => eatery.gf_menu_link,
-    isFormField: true,
-    formField: {
+    component: {
       component: 'input',
       value: () => eatery.gf_menu_link,
       componentProps: {
@@ -55,10 +52,13 @@ export default (eatery: SuggestEateryResponse): SuggestEditField[] => [
     label: 'Phone Number',
     shouldDisplay: !eatery.is_nationwide,
     getter: () => eatery.phone,
-    isFormField: true,
-    formField: {
-      component: 'form-input',
+    component: {
+      component: 'input',
       value: () => eatery.phone,
+      componentProps: {
+        keyboardType: 'phone-pad',
+        textContentType: 'telephoneNumber',
+      },
     },
     updated: false,
   },
@@ -67,10 +67,9 @@ export default (eatery: SuggestEateryResponse): SuggestEditField[] => [
     label: 'Venue Type',
     shouldDisplay: true,
     getter: () => eatery.venue_type.label,
-    isFormField: true,
-    formField: {
-      component: 'form-select',
-      value: () => eatery.venue_type.id,
+    component: {
+      component: 'select',
+      value: () => eatery.venue_type.values.map((option) => option.value).indexOf(eatery.venue_type.id),
       props: {
         options: eatery.venue_type.values,
       },
@@ -82,10 +81,9 @@ export default (eatery: SuggestEateryResponse): SuggestEditField[] => [
     label: 'Cuisine',
     shouldDisplay: eatery.type_id === 1,
     getter: () => eatery.cuisine.label,
-    isFormField: true,
-    formField: {
-      component: 'form-select',
-      value: () => eatery.cuisine.id,
+    component: {
+      component: 'select',
+      value: () => eatery.cuisine.values.map((option) => option.value).indexOf(eatery.cuisine.id),
       props: {
         options: eatery.cuisine.values,
       },
@@ -107,9 +105,8 @@ export default (eatery: SuggestEateryResponse): SuggestEditField[] => [
 
       return eatery.opening_times.today.join(' - ');
     },
-    isFormField: false,
     component: {
-      name: 'eatery-opening-times',
+      component: 'eatery-opening-times',
       props: {
         currentOpeningTimes: eatery.opening_times,
       },
@@ -121,9 +118,8 @@ export default (eatery: SuggestEateryResponse): SuggestEditField[] => [
     label: 'Features',
     shouldDisplay: true,
     getter: () => eatery.features.selected.map((feature) => feature.label).join(', '),
-    isFormField: false,
     component: {
-      name: 'eatery-features',
+      component: 'features',
       props: {
         currentFeatures: eatery.features.values,
       },
@@ -136,9 +132,8 @@ export default (eatery: SuggestEateryResponse): SuggestEditField[] => [
     shouldDisplay: true,
     getter: () => 'Is there anything else we should know about this location?',
     truncate: false,
-    isFormField: true,
-    formField: {
-      component: 'form-textarea',
+    component: {
+      component: 'textarea',
       value: () => '',
     },
     updated: false,
