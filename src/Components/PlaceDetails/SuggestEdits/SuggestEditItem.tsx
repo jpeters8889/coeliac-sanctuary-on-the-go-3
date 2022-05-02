@@ -5,9 +5,15 @@ import React, {
   ReactElement, useEffect, useState,
 } from 'react';
 import SelectDropdown from 'react-native-select-dropdown';
-import { SuggestEditFeaturesField, SuggestEditField, SuggestEditResponseSelectGroup } from '../../../types';
+import {
+  SuggestEditFeaturesField,
+  SuggestEditField,
+  SuggestEditOpeningTimesField,
+  SuggestEditResponseSelectGroup,
+} from '../../../types';
 import Styles from '../../../Styles/Styles';
 import EditFeature from './EditFeature';
+import EditOpeningTimes from './EditOpeningTimes';
 
 type Props = {
   index: number,
@@ -88,6 +94,7 @@ export default function SuggestEditItem(props: Props) {
               ...Styles.py2,
               ...Styles.textMd,
             }}
+            dropdownStyle={{ ...Styles.wFull, ...Styles.borderRed }}
             onSelect={(option: SuggestEditResponseSelectGroup) => setValue(option.value)}
             buttonTextAfterSelection={(option: SuggestEditResponseSelectGroup) => option.label}
             rowTextForSelection={(option: SuggestEditResponseSelectGroup) => option.label}
@@ -95,6 +102,8 @@ export default function SuggestEditItem(props: Props) {
         );
       case 'features':
         return <EditFeature field={field.component as SuggestEditFeaturesField} setValue={setValue} />;
+      case 'opening-times':
+        return <EditOpeningTimes field={field.component as SuggestEditOpeningTimesField} setValue={setValue} />;
       default:
         return null;
     }

@@ -268,9 +268,7 @@ type SuggestEateryResponse = {
   type_id: number,
   venue_type: SuggestEditResponseSelectGroup,
   cuisine: SuggestEditResponseSelectGroup
-  opening_times: {
-    [K in SuggestEditResponseOpeningTimeDays]: [string, string]
-  },
+  opening_times: SuggestEditOpeningTime,
   features: {
     selected: {
       id: number,
@@ -301,14 +299,14 @@ type SuggestEditField = {
   label: string,
   shouldDisplay: boolean,
   getter: () => string | null,
-  component: SuggestEditFormField | SuggestEditSelectField | SuggestEditFeaturesField,
+  component: SuggestEditFormField | SuggestEditSelectField | SuggestEditFeaturesField | SuggestEditOpeningTimesField,
   capitalise?: boolean,
   truncate?: boolean,
   updated: boolean,
 };
 
 type SuggestEditFormField = {
-  component: string,
+  component: 'input' | 'textarea' | 'select' | 'features' | 'opening-times',
   value?: () => string | number,
   props?: {
     [K: string]: any
@@ -335,6 +333,17 @@ type SuggestEditFeaturesField = SuggestEditFormField & {
   },
 };
 
+type SuggestEditOpeningTimesField = SuggestEditFormField & {
+  component: 'opening-times',
+  props: {
+    currentOpeningTimes: SuggestEditOpeningTime,
+  },
+};
+
+type SuggestEditOpeningTime = {
+  [K in SuggestEditResponseOpeningTimeDays]: [string, string]
+};
+
 export {
   MainTab, Eatery, PlacesApiRequest, UserReview, EateryType, SearchRange, ModalProps,
   VenueTypeFilterGroup, VenueTypeFilter, VenueTypeResponse, SubmitReviewSignature,
@@ -342,4 +351,5 @@ export {
   WhereToEatSummary, WhereToEatSummarySection, LatestEateryRatings, LatestEateries, ShopCta, AnalyticsEvent,
   ReviewImage, OpeningTimes, StarReview, SubmitRatingSignature, FoodServiceRating, SuggestEditField,
   SuggestEateryResponse, SuggestEditResponseSelectGroup, SuggestEditSelectField, SuggestEditFeaturesField,
+  SuggestEditOpeningTimesField, SuggestEditResponseOpeningTimeDays, SuggestEditOpeningTime,
 };

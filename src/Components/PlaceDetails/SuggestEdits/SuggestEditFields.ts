@@ -69,7 +69,7 @@ export default (eatery: SuggestEateryResponse): SuggestEditField[] => [
     getter: () => eatery.venue_type.label,
     component: {
       component: 'select',
-      value: () => eatery.venue_type.values.map((option) => option.value).indexOf(eatery.venue_type.id),
+      value: () => eatery.venue_type.values.map((option) => option.value).indexOf(eatery.venue_type.id as number),
       props: {
         options: eatery.venue_type.values,
       },
@@ -83,7 +83,7 @@ export default (eatery: SuggestEateryResponse): SuggestEditField[] => [
     getter: () => eatery.cuisine.label,
     component: {
       component: 'select',
-      value: () => eatery.cuisine.values.map((option) => option.value).indexOf(eatery.cuisine.id),
+      value: () => eatery.cuisine.values.map((option) => option.value).indexOf(eatery.cuisine.id as number),
       props: {
         options: eatery.cuisine.values,
       },
@@ -106,7 +106,7 @@ export default (eatery: SuggestEateryResponse): SuggestEditField[] => [
       return eatery.opening_times.today.join(' - ');
     },
     component: {
-      component: 'eatery-opening-times',
+      component: 'opening-times',
       props: {
         currentOpeningTimes: eatery.opening_times,
       },
