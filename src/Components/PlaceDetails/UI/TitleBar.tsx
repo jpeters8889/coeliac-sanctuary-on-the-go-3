@@ -28,7 +28,6 @@ export default function TitleBar({ props }: Props) {
       ...(Platform.OS === 'android' ? {
         ...Styles.borderTop,
         ...Styles.borderGrey,
-        ...Styles.mt10,
       } : ''),
     }}
     >

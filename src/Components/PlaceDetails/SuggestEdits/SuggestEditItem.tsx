@@ -1,4 +1,5 @@
 import {
+  Platform,
   Text, TextInput, TouchableOpacity, View,
 } from 'react-native';
 import React, {
@@ -129,7 +130,14 @@ export default function SuggestEditItem(props: Props) {
       >
           {isEditing && (
           <View style={{ ...Styles.wFull, ...Styles.py2 }}>
-            <Text style={{ ...Styles.fontSemibold, ...Styles.textBlueDark, ...Styles.mb1 }}>{field.label}</Text>
+            <Text style={{
+              ...Styles.textBlueDark,
+              ...Styles.mb1,
+              ...(Platform.OS === 'ios' ? Styles.fontSemibold : Styles.fontBold),
+            }}
+            >
+              {field.label}
+            </Text>
 
             {editableComponent()}
 
@@ -142,7 +150,7 @@ export default function SuggestEditItem(props: Props) {
                 }}
                 onPress={cancelEdit}
               >
-                <Text style={Styles.fontSemibold}>Cancel</Text>
+                <Text style={Platform.OS === 'ios' ? Styles.fontSemibold : Styles.fontBold}>Cancel</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
@@ -153,7 +161,7 @@ export default function SuggestEditItem(props: Props) {
                 }}
                 onPress={() => props.submitFieldUpdate(props.index, value)}
               >
-                <Text style={Styles.fontSemibold}>Submit</Text>
+                <Text style={Platform.OS === 'ios' ? Styles.fontSemibold : Styles.fontBold}>Submit</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -182,7 +190,13 @@ export default function SuggestEditItem(props: Props) {
                 }}
                 onPress={() => triggerEdit(field)}
               >
-                <Text style={{ ...Styles.textBlack, ...Styles.fontSemibold }}>Update</Text>
+                <Text style={{
+                  ...Styles.textBlack,
+                  ...(Platform.OS === 'ios' ? Styles.fontSemibold : Styles.fontBold),
+                }}
+                >
+                  Update
+                </Text>
               </TouchableOpacity>
             </View>
           </>

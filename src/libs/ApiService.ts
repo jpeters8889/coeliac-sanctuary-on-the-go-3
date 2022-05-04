@@ -193,7 +193,7 @@ export class ApiService {
       // @ts-ignore
       uri: Platform.OS === 'ios' ? photo.uri.replace('file://', '') : photo.uri,
       name: fileName,
-      type: 'image',
+      type: 'image/jpeg',
     });
 
     return axios.post(`${BASE_URL}/api/wheretoeat/review/image-upload`, request, {

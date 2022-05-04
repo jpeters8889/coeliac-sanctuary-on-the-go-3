@@ -23,7 +23,7 @@ export default function EateryInfo({ props }: Props) {
     return 'Currently Closed';
   };
 
-  const phoneLink = (): string => `tel:${props.eatery.phone.replaceAll(' ', '')}`;
+  const phoneLink = (): string => `tel:${props.eatery.phone.replace(/ /g, '')}`;
 
   const averageExpenseArray = (): number[] => {
     const rtr = [];
@@ -69,7 +69,7 @@ export default function EateryInfo({ props }: Props) {
             ...Styles.flexRow,
           }}
           >
-            <Text style={{ ...Styles.textLg, ...Styles.fontSemibold }}>
+            <Text style={{ ...Styles.textLg, ...(Platform.OS === 'android' ? Styles.fontBold : Styles.fontSemibold) }}>
               {averageExpenseArray().map(() => '£')}
               {' '}
               -

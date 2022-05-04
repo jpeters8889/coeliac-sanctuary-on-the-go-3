@@ -1,5 +1,5 @@
 import {
-  Alert, KeyboardAvoidingView, ScrollView, Text, TextInput, TouchableOpacity, View,
+  Alert, KeyboardAvoidingView, Platform, ScrollView, Text, TextInput, TouchableOpacity, View,
 } from 'react-native';
 import React, { useState } from 'react';
 import dayjs from 'dayjs';
@@ -123,7 +123,10 @@ export default function SubmitReviewScreen(props: Props) {
           <ItemSeparator />
 
           <Text style={{
-            ...Styles.textBlueDark, ...Styles.fontSemibold, ...Styles.mb1, ...Styles.mt4,
+            ...Styles.textBlueDark,
+            ...Styles.mb1,
+            ...Styles.mt4,
+            ...(Platform.OS === 'ios' ? Styles.fontSemibold : Styles.fontBold),
           }}
           >
             Your Rating
@@ -138,7 +141,14 @@ export default function SubmitReviewScreen(props: Props) {
           </View>
 
           <View style={Styles.mt4}>
-            <Text style={{ ...Styles.textBlueDark, ...Styles.fontSemibold, ...Styles.mb1 }}>Your Name</Text>
+            <Text style={{
+              ...Styles.textBlueDark,
+              ...Styles.mb1,
+              ...(Platform.OS === 'ios' ? Styles.fontSemibold : Styles.fontBold),
+            }}
+            >
+              Your Name
+            </Text>
             <TextInput
               value={name}
               style={{
@@ -153,7 +163,14 @@ export default function SubmitReviewScreen(props: Props) {
           </View>
 
           <View style={Styles.mt4}>
-            <Text style={{ ...Styles.textBlueDark, ...Styles.fontSemibold, ...Styles.mb1 }}>Your Email</Text>
+            <Text style={{
+              ...Styles.textBlueDark,
+              ...Styles.mb1,
+              ...(Platform.OS === 'ios' ? Styles.fontSemibold : Styles.fontBold),
+            }}
+            >
+              Your Email
+            </Text>
             <TextInput
               value={email}
               autoCompleteType="email"
@@ -170,7 +187,12 @@ export default function SubmitReviewScreen(props: Props) {
           </View>
 
           <View style={Styles.mt4}>
-            <Text style={{ ...Styles.textBlueDark, ...Styles.fontSemibold, ...Styles.mb1 }}>
+            <Text style={{
+              ...Styles.textBlueDark,
+              ...Styles.mb1,
+              ...(Platform.OS === 'ios' ? Styles.fontSemibold : Styles.fontBold),
+            }}
+            >
               How would you rate your food?
             </Text>
 
@@ -196,7 +218,12 @@ export default function SubmitReviewScreen(props: Props) {
           </View>
 
           <View style={Styles.mt4}>
-            <Text style={{ ...Styles.textBlueDark, ...Styles.fontSemibold, ...Styles.mb1 }}>
+            <Text style={{
+              ...Styles.textBlueDark,
+              ...Styles.mb1,
+              ...(Platform.OS === 'ios' ? Styles.fontSemibold : Styles.fontBold),
+            }}
+            >
               How would you rate the service?
             </Text>
 
@@ -222,7 +249,12 @@ export default function SubmitReviewScreen(props: Props) {
           </View>
 
           <View style={Styles.mt4}>
-            <Text style={{ ...Styles.textBlueDark, ...Styles.fontSemibold, ...Styles.mb1 }}>
+            <Text style={{
+              ...Styles.textBlueDark,
+              ...Styles.mb1,
+              ...(Platform.OS === 'ios' ? Styles.fontSemibold : Styles.fontBold),
+            }}
+            >
               How expensive is it to eat here?
             </Text>
 
@@ -248,7 +280,14 @@ export default function SubmitReviewScreen(props: Props) {
           </View>
 
           <View style={{ ...Styles.mt4, flexGrow: 0 }}>
-            <Text style={{ ...Styles.textBlueDark, ...Styles.fontSemibold, ...Styles.mb1 }}>Your Review</Text>
+            <Text style={{
+              ...Styles.textBlueDark,
+              ...Styles.mb1,
+              ...(Platform.OS === 'ios' ? Styles.fontSemibold : Styles.fontBold),
+            }}
+            >
+              Your Review
+            </Text>
 
             <TextInput
               multiline
@@ -268,7 +307,12 @@ export default function SubmitReviewScreen(props: Props) {
 
           {props.route.params.isNationwide && (
             <View style={Styles.mt4}>
-              <Text style={{ ...Styles.textBlueDark, ...Styles.fontSemibold, ...Styles.mb1 }}>
+              <Text style={{
+                ...Styles.textBlueDark,
+                ...Styles.mb1,
+                ...(Platform.OS === 'ios' ? Styles.fontSemibold : Styles.fontBold),
+              }}
+              >
                 What branch did you eat at?
               </Text>
               <TextInput

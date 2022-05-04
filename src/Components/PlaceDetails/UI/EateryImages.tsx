@@ -6,6 +6,7 @@ import Styles from '../../../Styles/Styles';
 import { ReviewImage } from '../../../types';
 import ScaledImage from '../../UI/ScaledImage';
 import ModalContainer from '../../UI/ModalContainer';
+import Swipeable from '../../UI/Swipeable';
 
 type Props = {
   props: {
@@ -15,9 +16,29 @@ type Props = {
 };
 
 export default function EateryImages({ props }: Props) {
-  const [viewImage, setViewImage]: [string | false, any] = useState(false);
+  const [viewImage, setViewImage]: [number | false, any] = useState(false);
   const [hasMoreImages, setHasMoreImages]: [boolean, any] = useState(false);
   const [showAllImages, setShowAllImages]: [boolean, any] = useState(true);
+
+  const goToNextImage = (): void => {
+    if (viewImage !== false) {
+      if (viewImage + 1 >= props.images.length) {
+        return;
+      }
+
+      setViewImage(viewImage + 1);
+    }
+  };
+
+  const goToPreviousImage = (): void => {
+    if (viewImage !== false) {
+      if (viewImage === 0) {
+        return;
+      }
+
+      setViewImage(viewImage - 1);
+    }
+  };
 
   useEffect(() => {
     if (props.limit && props.images.length > props.limit - 1) {
@@ -38,7 +59,7 @@ export default function EateryImages({ props }: Props) {
               return (
                 <TouchableOpacity
                   style={{ width: '20%', ...Styles.m1 }}
-                  onPress={() => setViewImage(image.path)}
+                  onPress={() => setViewImage(index)}
                   key={image.id}
                 >
                   <ScaledImage image={image.thumb} constrain={1} />
@@ -67,7 +88,13 @@ export default function EateryImages({ props }: Props) {
           wide: true,
         }}
         >
-          <ScaledImage image={viewImage} />
+          <Swipeable
+            style={{ ...Styles.border }}
+            onSwipeLeft={() => goToNextImage()}
+            onSwipeRight={() => goToPreviousImage()}
+          >
+            <ScaledImage image={props.images[viewImage].path} />
+          </Swipeable>
         </ModalContainer>
       )}
     </>

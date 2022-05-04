@@ -6,6 +6,7 @@ import HomeSummary from './HomeSummary';
 import LatestRatings from './LatestRatings';
 import LatestLocations from './LatestLocations';
 import ShopCtaComponent from '../UI/ShopCtaComponent';
+import LeaveAppReview from '../UI/LeaveAppReview';
 
 export default function HomeScreenContent({ navigation }: { navigation: StackNavigationProp<any> }) {
   return (
@@ -23,6 +24,8 @@ export default function HomeScreenContent({ navigation }: { navigation: StackNav
       </Text>
 
       <HomeSummary />
+
+      <LeaveAppReview />
 
       <ShopCtaComponent />
 

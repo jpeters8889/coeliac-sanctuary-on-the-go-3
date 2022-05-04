@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {
-  Alert, Keyboard, Text, TouchableOpacity, TouchableWithoutFeedback, View,
+  Alert, Keyboard, Platform, Text, TouchableOpacity, TouchableWithoutFeedback, View,
 } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -122,7 +122,12 @@ export default function CreateReviewModal({ props }: Props) {
                 ...Styles.roundedSm,
               }}
             >
-              <Text style={{ ...Styles.textCenter, ...Styles.fontSemibold, ...Styles.textLg }}>
+              <Text style={{
+                ...Styles.textCenter,
+                ...Styles.textLg,
+                ...(Platform.OS === 'ios' ? Styles.fontSemibold : Styles.fontBold),
+              }}
+              >
                 Yes, I'd like to write a review
               </Text>
             </TouchableOpacity>

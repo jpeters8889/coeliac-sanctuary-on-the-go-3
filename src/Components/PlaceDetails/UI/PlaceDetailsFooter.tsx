@@ -13,7 +13,7 @@ type Props = {
 
 export default function PlaceDetailsFooter({ props }: Props) {
   return (
-    <View style={Styles.p2}>
+    <View style={{ ...Styles.p2, ...Styles.pb6 }}>
       <Text style={Styles.italic}>
         This location was added to our database on
         {' '}

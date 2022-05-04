@@ -106,7 +106,7 @@ export default function MainPlaceDetailsScreen({ route, navigation }: Props) {
           >
             <Text style={{
               ...Styles.textCenter,
-              ...Styles.fontSemibold,
+              ...(Platform.OS === 'android' ? Styles.fontBold : Styles.fontSemibold),
               ...Styles.textLg,
             }}
             >
