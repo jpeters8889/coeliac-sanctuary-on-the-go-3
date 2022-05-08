@@ -23,7 +23,15 @@ export default function OpeningTimeDropDown({
     ...Styles.textSm,
     ...(marginRight ? Styles.mr1 : null),
     height: undefined,
-    width: 40,
+    width: 35,
+  });
+
+  const textStyles = () => ({
+    ...Styles.py1,
+    ...Styles.textMd,
+    ...(disabled ? Styles.textGreyOff : Styles.textBlack),
+    flex: 0,
+    width: 35,
   });
 
   return (
@@ -31,11 +39,15 @@ export default function OpeningTimeDropDown({
       data={data}
       defaultValueByIndex={value}
       buttonStyle={selectStyles()}
-      buttonTextStyle={{ ...Styles.py2, ...Styles.textMd, ...(disabled ? Styles.textGrey : null) }}
+      buttonTextStyle={textStyles()}
+      rowTextStyle={{ ...Styles.textMd }}
+      rowStyle={{ height: 30 }}
+      dropdownStyle={{ width: 50 }}
       defaultButtonText="--"
       onSelect={(option: SelectOption) => onUpdate(option.value)}
       buttonTextAfterSelection={(option: SelectOption) => option.label}
       rowTextForSelection={(option: SelectOption) => option.label}
+      disableAutoScroll
       disabled={disabled}
     />
 

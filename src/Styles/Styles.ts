@@ -111,6 +111,7 @@ const globalStyles = StyleSheet.create({
   px16: { paddingLeft: 64, paddingRight: 64 },
 
   py0: { paddingTop: 0, paddingBottom: 0 },
+  py1: { paddingTop: 4, paddingBottom: 4 },
   py2: { paddingTop: 8, paddingBottom: 8 },
   py4: { paddingTop: 16, paddingBottom: 16 },
   py8: { paddingTop: 32, paddingBottom: 32 },
@@ -146,6 +147,8 @@ const globalStyles = StyleSheet.create({
   textWhite: { color: WHITE },
   textYellow: { color: YELLOW },
   textGrey: { color: GREY },
+  textGreyLight: { color: GREY_LIGHT },
+  textGreyOff: { color: GREY_OFF },
 
   top0: { top: 0 },
 

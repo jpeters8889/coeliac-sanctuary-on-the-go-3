@@ -64,18 +64,16 @@ export default function EditOpeningTimes({ field, setValue }: Props) {
     return [parseInt(split[0], 10), parseInt(split[1], 10)];
   };
 
-  const constructDay = (day: SuggestEditResponseOpeningTimeDays, isClosed: null | boolean = null): OpeningTime => ({
-    key: day,
-    label: day.charAt(0).toUpperCase() + day.slice(1),
-    closed: isClosed === null ? currentOpeningTimes[day][0] === null : isClosed,
-    start: isClosed ? [null, null] : splitTime(currentOpeningTimes[day][0]),
-    end: isClosed ? [null, null] : splitTime(currentOpeningTimes[day][1]),
-  });
+  const constructDay = (day: SuggestEditResponseOpeningTimeDays, isClosed: null | boolean = null): OpeningTime => {
+    const thisDay = currentOpeningTimes ? currentOpeningTimes[day] : null;
 
-  const getCurrentDayIndex = (day: SuggestEditResponseOpeningTimeDays) => {
-    const currentDay = openingTimes.filter((openingTime) => openingTime.key === day);
-
-    return openingTimes.indexOf(currentDay[0]);
+    return ({
+      key: day,
+      label: day.charAt(0).toUpperCase() + day.slice(1),
+      closed: isClosed === null ? (thisDay !== null && thisDay[0] === null) : isClosed,
+      start: isClosed ? [null, null] : splitTime(thisDay ? thisDay[0] : null),
+      end: isClosed ? [null, null] : splitTime(thisDay ? thisDay[1] : null),
+    });
   };
 
   useEffect(() => {

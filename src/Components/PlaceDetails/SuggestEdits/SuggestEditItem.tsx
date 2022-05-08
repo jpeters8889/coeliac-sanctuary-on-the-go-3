@@ -42,6 +42,16 @@ export default function SuggestEditItem(props: Props) {
     return null;
   }
 
+  const selectValue = (): number | undefined => {
+    if (!field.component.props || !value) {
+      return undefined;
+    }
+
+    return field.component.props.options
+      .map((option: SuggestEditResponseSelectGroup) => option.value)
+      .indexOf(value as number);
+  };
+
   const editableComponent = (): ReactElement | null => {
     switch (field.component.component) {
       case 'textarea':
@@ -81,7 +91,7 @@ export default function SuggestEditItem(props: Props) {
           <SelectDropdown
             // @ts-ignore
             data={field.component.props.options as SuggestEditResponseSelectGroup[]}
-            defaultValueByIndex={value || undefined}
+            defaultValueByIndex={selectValue()}
             buttonStyle={{
               ...Styles.border,
               ...Styles.borderGreyOff,

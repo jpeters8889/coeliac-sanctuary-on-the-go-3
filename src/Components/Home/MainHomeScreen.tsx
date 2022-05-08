@@ -25,7 +25,7 @@ export default function MainHomeScreen() {
         <stack.Screen
           name="suggest-edit"
           component={SuggestEditScreen}
-          options={{ headerShown: true }}
+          options={{ headerShown: false }}
         />
       </stack.Group>
     </stack.Navigator>
