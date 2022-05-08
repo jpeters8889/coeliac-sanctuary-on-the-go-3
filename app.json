@@ -2,7 +2,7 @@
   "expo": {
     "name": "Coeliac Sanctuary - On the Go",
     "slug": "coeliac-sanctuary-on-the-go-3",
-    "version": "3.1.0",
+    "version": "3.1.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "backgroundColor": "#80ccfc",
@@ -33,7 +33,7 @@
       ]
     ],
     "ios": {
-      "buildNumber": "30104",
+      "buildNumber": "30112",
       "supportsTablet": false,
       "bundleIdentifier": "com.coeliacsanctuary.onthego",
       "googleServicesFile": "./GoogleService-Info.plist",
@@ -47,7 +47,7 @@
       }
     },
     "android": {
-      "versionCode": 30104,
+      "versionCode": 30112,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#80ccfc"
