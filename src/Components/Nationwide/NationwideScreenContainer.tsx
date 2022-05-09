@@ -11,7 +11,7 @@ export default function NationwideScreenContainer() {
   return (
     <Drawer.Navigator
       detachInactiveScreens
-      initialRouteName="nationwide-screen"
+      initialRouteName="nationwide-list-screen"
       screenOptions={{
         headerStyle: {
           ...Styles.bgBlueLight,
@@ -20,7 +20,7 @@ export default function NationwideScreenContainer() {
       }}
     >
       <Drawer.Screen
-        name="nationwide-screen"
+        name="nationwide-list-screen"
         component={NationwideChainsScreen}
         options={{
           drawerLabel: 'Nationwide Chains',

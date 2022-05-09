@@ -13,12 +13,15 @@ type Props = {
     title?: string;
     fullScreen?: boolean;
     closable?: boolean;
+    wide?: boolean;
   },
   children: Element | ReactElement | Element[] | ReactElement[],
 };
 
 export default function ModalContainer({ props, children }: Props) {
   const isFullscreen = (): boolean => props?.fullScreen ?? false;
+
+  const isWide = (): boolean => props?.wide ?? false;
 
   const isClosable = (): boolean => props?.closable ?? true;
 
@@ -64,6 +67,7 @@ export default function ModalContainer({ props, children }: Props) {
       ...Styles.justifyCenter,
       width: 300,
     }),
+    ...(isWide() ? { width: '90%' } : {}),
   };
 
   const headerStyles = {
@@ -79,6 +83,7 @@ export default function ModalContainer({ props, children }: Props) {
     } : {
       width: 300,
     }),
+    ...(isWide() ? { width: '100%' } : {}),
   };
 
   // @ts-ignore

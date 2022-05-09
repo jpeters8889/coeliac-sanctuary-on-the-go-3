@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import {
-  View, Text, ActivityIndicator, Platform,
+  View, Text, ActivityIndicator, Platform, TouchableOpacity,
 } from 'react-native';
-import { FontAwesome } from '@expo/vector-icons';
+import { StackNavigationProp } from '@react-navigation/stack';
 import Styles from '../../Styles/Styles';
-import { BLUE_LIGHT, YELLOW } from '../../constants';
+import { BLUE_LIGHT } from '../../constants';
 import { LatestEateries } from '../../types';
 import { ApiService } from '../../libs/ApiService';
 
-export default function LatestLocations() {
+export default function LatestLocations({ navigation }: { navigation: StackNavigationProp<any> }) {
   const [loading, setLoading]: [boolean, any] = useState(true);
   const [locations, setLocations]: [LatestEateries[], any] = useState([]);
 
@@ -17,6 +17,10 @@ export default function LatestLocations() {
       setLocations(response.data);
       setLoading(false);
     });
+  };
+
+  const openLocation = (id: number) => {
+    navigation.navigate('details', { id });
   };
 
   useEffect(() => {
@@ -53,8 +57,9 @@ export default function LatestLocations() {
       {!loading && (
       <View>
         {locations.map((location, index) => (
-          <View
+          <TouchableOpacity
             key={location.id.toString()}
+            onPress={() => openLocation(location.id)}
             style={{
               ...Styles.wFull,
               ...Styles.justifyBetween,
@@ -71,7 +76,7 @@ export default function LatestLocations() {
             <Text style={Styles.mb2}>{location.location}</Text>
 
             <Text style={Styles.textSm}>{location.created_at}</Text>
-          </View>
+          </TouchableOpacity>
         ))}
       </View>
       )}

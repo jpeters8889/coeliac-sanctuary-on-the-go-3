@@ -16,6 +16,10 @@ type MainTab = {
 type Eatery = {
   address: string;
   average_rating: string;
+  average_expense: null | {
+    value: string;
+    label: string;
+  };
   created_at: string;
   county: {
     county: string;
@@ -30,16 +34,17 @@ type Eatery = {
     id: number;
   }
   features: [],
+  gf_menu_link: string;
   icon: string;
   id: number;
   info: string;
   lat: number;
   lng: number;
   name: string;
+  opening_times: null | OpeningTimes;
   phone: string;
-  ratings: Rating[];
+  user_reviews: UserReview[];
   restaurants: AttractionRestaurant[];
-  reviews: Review[];
   town: {
     id: number;
     town: string;
@@ -49,6 +54,7 @@ type Eatery = {
     name: string;
     type: EateryType;
   };
+  user_images: ReviewImage[],
   venue_type: {
     id: number;
     venue_type: string;
@@ -58,28 +64,61 @@ type Eatery = {
 
 type EateryType = 'att' | 'hotel' | 'wte';
 
+type OpeningTimes = {
+  [K: string]: string | boolean;
+  monday_start: string;
+  monday_end: string;
+  tuesday_start: string;
+  tuesday_end: string;
+  wednesday_start: string;
+  wednesday_end: string;
+  thursday_start: string;
+  thursday_end: string;
+  friday_start: string;
+  friday_end: string;
+  saturday_start: string;
+  saturday_end: string;
+  sunday_start: string;
+  sunday_end: string;
+  is_open_now: false;
+  opens_at: string;
+  closes_at: string;
+};
+
 type AttractionRestaurant = {
   id: number,
   restaurant_name: string,
   info: string,
 };
 
-type Rating = {
+type UserReview = {
+  human_date: string;
+  admin_review: boolean;
   average_rating: number;
   body: string;
   id: number;
   name?: string;
   number_of_ratings: number;
-  rating: '1' | '2' | '3' | '4' | '5',
+  rating: StarReview,
+  images: ReviewImage[],
+  price: {
+    value: string;
+    label: string;
+  };
+  branch_name?: string;
+  food_rating: FoodServiceRating;
+  service_rating: FoodServiceRating;
   wheretoeat_id: number;
   created_at: string;
 };
 
-type Review = {
-  id: number,
-  created_at: string,
-  link: string,
+type ReviewImage = {
+  id: string;
+  thumb: string;
+  path: string;
 };
+
+type StarReview = 0 | 1 | 2 | 3 | 4 | 5;
 
 type PlacesApiRequest = {
   searchTerm?: string;
@@ -130,10 +169,20 @@ type VenueTypeResponse = {
 
 type SubmitRatingSignature = {
   eateryId: number;
-  rating: 1 | 2 | 3 | 4 | 5;
+  rating: StarReview;
+};
+
+type SubmitReviewSignature = {
+  eateryId: number;
+  rating: StarReview;
   name?: string;
   email?: string;
-  comment?: string,
+  foodRating: FoodServiceRating | '';
+  serviceRating: FoodServiceRating | '';
+  expense: StarReview;
+  comment?: string;
+  branchName?: string;
+  images?: string[];
 };
 
 type RecommendAPlaceSignature = {
@@ -166,7 +215,7 @@ type WebsiteDataset = {
 
 type WebsiteDisplaySection = {
   title: string;
-  key: 'blogs' | 'recipes' | 'reviews';
+  key: 'blogs' | 'recipes';
   loading: boolean;
   items: WebsiteDataset[],
 };
@@ -185,6 +234,7 @@ type WhereToEatSummarySection = {
 
 type LatestEateryRatings = {
   id: number,
+  eatery_id: number,
   location: string,
   rating: string,
   created_at: string,
@@ -208,9 +258,98 @@ type AnalyticsEvent = {
   metaData?: { [K: string]: any }
 };
 
+type FoodServiceRating = 'excellent' | 'good' | 'poor';
+
+type SuggestEateryResponse = {
+  address: string,
+  website: string,
+  gf_menu_link: string,
+  phone: string,
+  type_id: number,
+  venue_type: SuggestEditResponseSelectGroup,
+  cuisine: SuggestEditResponseSelectGroup
+  opening_times: SuggestEditOpeningTime,
+  features: {
+    selected: {
+      id: number,
+      label: string
+    }[],
+    values: SuggestEditResponseSelectGroupFields[],
+  },
+  is_nationwide: boolean
+};
+
+type SuggestEditResponseSelectGroup = {
+  id?: number,
+  value?: number | string,
+  label: string,
+  values: SuggestEditResponseSelectGroupFields[];
+};
+
+type SuggestEditResponseSelectGroupFields = {
+  value: number,
+  label: string,
+  selected: boolean
+};
+
+type SuggestEditResponseOpeningTimeDays = 'today' | 'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday' | 'sunday';
+
+type SuggestEditField = {
+  id: string,
+  label: string,
+  shouldDisplay: boolean,
+  getter: () => string | null,
+  component: SuggestEditFormField | SuggestEditSelectField | SuggestEditFeaturesField | SuggestEditOpeningTimesField,
+  capitalise?: boolean,
+  truncate?: boolean,
+  updated: boolean,
+};
+
+type SuggestEditFormField = {
+  component: 'input' | 'textarea' | 'select' | 'features' | 'opening-times',
+  value?: () => string | number,
+  props?: {
+    [K: string]: any
+  },
+  componentProps?: { [K:string]: any }
+};
+
+type SuggestEditSelectField = SuggestEditFormField & {
+  component: 'select',
+  props?: {
+    [K: string]: any,
+    options: any[],
+  }
+};
+
+type SuggestEditFeaturesField = SuggestEditFormField & {
+  component: 'features',
+  props: {
+    currentFeatures: {
+      id: number,
+      label: string,
+      selected: boolean
+    }[],
+  },
+};
+
+type SuggestEditOpeningTimesField = SuggestEditFormField & {
+  component: 'opening-times',
+  props: {
+    currentOpeningTimes: SuggestEditOpeningTime,
+  },
+};
+
+type SuggestEditOpeningTime = {
+  [K in SuggestEditResponseOpeningTimeDays]: [string, string]
+};
+
 export {
-  MainTab, Eatery, PlacesApiRequest, Rating, EateryType, SearchRange, ModalProps,
-  VenueTypeFilterGroup, VenueTypeFilter, VenueTypeResponse, Review, SubmitRatingSignature,
+  MainTab, Eatery, PlacesApiRequest, UserReview, EateryType, SearchRange, ModalProps,
+  VenueTypeFilterGroup, VenueTypeFilter, VenueTypeResponse, SubmitReviewSignature,
   PlacesMapApiRequest, WebsiteModuleData, WebsiteDataset, WebsiteDisplaySection, RecommendAPlaceSignature,
   WhereToEatSummary, WhereToEatSummarySection, LatestEateryRatings, LatestEateries, ShopCta, AnalyticsEvent,
+  ReviewImage, OpeningTimes, StarReview, SubmitRatingSignature, FoodServiceRating, SuggestEditField,
+  SuggestEateryResponse, SuggestEditResponseSelectGroup, SuggestEditSelectField, SuggestEditFeaturesField,
+  SuggestEditOpeningTimesField, SuggestEditResponseOpeningTimeDays, SuggestEditOpeningTime,
 };

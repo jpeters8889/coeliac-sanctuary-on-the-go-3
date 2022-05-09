@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {
   View, Text, ActivityIndicator, FlatList,
 } from 'react-native';
+import { StackNavigationProp } from '@react-navigation/stack';
 import Styles from '../../Styles/Styles';
 import Accordion from '../UI/Accordion';
 import { Eatery } from '../../types';
@@ -11,7 +12,7 @@ import Location from './Location';
 import AnalyticsService from '../../libs/AnalyticsService';
 import { YELLOW } from '../../constants';
 
-export default function NationwideChainsScreen() {
+export default function NationwideChainsScreen({ navigation }: { navigation: StackNavigationProp<any> }) {
   AnalyticsService.logScreen('nationwide-screen').then(() => {});
 
   const [isLoading, setIsLoading]: [boolean, any] = useState(true);
@@ -78,7 +79,7 @@ export default function NationwideChainsScreen() {
       <View style={Styles.flex1}>
         <FlatList
           data={places}
-          renderItem={({ item, index }) => Location(item, index)}
+          renderItem={({ item, index }) => Location(item, index, navigation)}
           keyExtractor={(item) => item.id.toString()}
           ItemSeparatorComponent={ItemSeparator}
           onEndReached={() => updateList()}

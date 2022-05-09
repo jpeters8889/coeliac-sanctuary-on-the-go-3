@@ -41,7 +41,7 @@ export default function ReportEateryModal({ props }: Props) {
 
     ApiService.reportPlace(props.id, details).then(() => {
       Alert.alert('Thank you for your report, we\'ll check it out!');
-    }).catch(() => {
+    }).catch((e) => {
       Alert.alert('There was an error submitting your report');
     }).finally(() => {
       closeModal();

@@ -1,13 +1,13 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { View } from 'react-native';
-import MainPlaceDetailsScreen from '../Components/PlaceDetails/MainPlaceDetailsScreen';
-import MapScreenContainer from '../Components/Map/MapScreenContainer';
 import SubmitReviewScreen from '../Components/PlaceDetails/SubmitReviewScreen';
+import MainPlaceDetailsScreen from '../Components/PlaceDetails/MainPlaceDetailsScreen';
 import { BLUE } from '../constants';
+import NationwideScreenContainer from '../Components/Nationwide/NationwideScreenContainer';
 import SuggestEditScreen from '../Components/PlaceDetails/SuggestEditScreen';
 
-export default function Map() {
+export default function Nationwide() {
   const stack = createStackNavigator();
 
   return (
@@ -22,7 +22,7 @@ export default function Map() {
     }}
     >
       <stack.Group>
-        <stack.Screen name="map-screen" component={MapScreenContainer} />
+        <stack.Screen name="nationwide-screen" component={NationwideScreenContainer} />
       </stack.Group>
       <stack.Group>
         <stack.Screen

@@ -1,5 +1,5 @@
 import {
-  Linking, Platform, Text, TouchableOpacity, View,
+  Platform, Text, TouchableOpacity, View,
 } from 'react-native';
 import React from 'react';
 import dayjs from 'dayjs';

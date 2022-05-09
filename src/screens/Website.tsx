@@ -17,13 +17,10 @@ export default function Website() {
   const [blogs, setBlogs]: [WebsiteDataset[], any] = useState([]);
   const [loadingRecipes, setLoadingRecipes]: [boolean, any] = useState(true);
   const [recipes, setRecipes]: [WebsiteDataset[], any] = useState([]);
-  const [loadingReviews, setLoadingReviews]: [boolean, any] = useState(true);
-  const [reviews, setReviews]: [WebsiteDataset[], any] = useState([]);
 
   const [activeItems, setActiveItems]: [{ [K: string]: number }, any] = useState(() => ({
     blogs: 0,
     recipes: 0,
-    reviews: 0,
   }));
 
   const sections: WebsiteDisplaySection[] = [
@@ -37,11 +34,6 @@ export default function Website() {
       key: 'recipes',
       loading: loadingRecipes,
       items: recipes,
-    }, {
-      title: 'Latest Reviews',
-      key: 'reviews',
-      loading: loadingReviews,
-      items: reviews,
     },
   ];
 
@@ -75,22 +67,7 @@ export default function Website() {
     });
   };
 
-  const loadReviews = () => {
-    ApiService.latestReviews().then((response) => {
-      setReviews(response.data.data.data.map((review: WebsiteModuleData) => ({
-        id: review.id,
-        title: review.architect_title,
-        description: review.meta_description,
-        image: review.main_image,
-        createdAt: review.created_at,
-        link: `${BASE_URL}${review.link}`,
-      })));
-
-      setLoadingReviews(false);
-    });
-  };
-
-  const scrollEnded = (key: 'blogs' | 'recipes' | 'reviews', event: NativeSyntheticEvent<NativeScrollEvent>) => {
+  const scrollEnded = (key: 'blogs' | 'recipes', event: NativeSyntheticEvent<NativeScrollEvent>) => {
     const itemWidth = event.nativeEvent.contentSize.width / 12;
     const itemIndex = Math.round(event.nativeEvent.contentOffset.x / itemWidth);
 
@@ -111,7 +88,6 @@ export default function Website() {
   useEffect(() => {
     loadBlogs();
     loadRecipes();
-    loadReviews();
   }, []);
 
   return (
@@ -119,7 +95,7 @@ export default function Website() {
 
       <Text style={{ ...Styles.textLg, ...Styles.mb4 }}>
         Coeliac Sanctuary is more than our eating out guide, over on the main Coeliac Sanctuary
-        website we're regularly posting new blogs, recipes and reviews, why not check out our
+        website we're regularly posting new blogs and recipes, why not check out our
         newest ones below!
       </Text>
 

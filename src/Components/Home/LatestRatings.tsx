@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import {
-  View, Text, ActivityIndicator, Platform,
+  View, Text, ActivityIndicator, Platform, TouchableOpacity,
 } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
+import { StackNavigationProp } from '@react-navigation/stack';
 import Styles from '../../Styles/Styles';
 import { BLUE_LIGHT, YELLOW } from '../../constants';
 import { LatestEateryRatings } from '../../types';
 import { ApiService } from '../../libs/ApiService';
 
-export default function LatestRatings() {
+export default function LatestRatings({ navigation }: { navigation: StackNavigationProp<any> }) {
   const [loading, setLoading]: [boolean, any] = useState(true);
   const [ratings, setRatings]: [LatestEateryRatings[], any] = useState([]);
 
@@ -27,6 +28,10 @@ export default function LatestRatings() {
     }
 
     return rtr;
+  };
+
+  const openLocation = (id: number) => {
+    navigation.navigate('details', { id });
   };
 
   useEffect(() => {
@@ -61,33 +66,34 @@ export default function LatestRatings() {
       {loading && <ActivityIndicator size="large" style={Styles.mb4} color={BLUE_LIGHT} />}
 
       {!loading && (
-      <View>
-        {ratings.map((rating, index) => (
-          <View
-            key={rating.id.toString()}
-            style={{
-              ...Styles.wFull,
-              ...Styles.justifyBetween,
-              ...Styles.p1,
-              ...Styles.borderTop,
-              ...Styles.borderBlue,
-              ...(index % 2 === 0 ? Styles.bgBlueLightFaded : ''),
-            }}
-          >
-            <Text style={Platform.OS === 'ios' ? Styles.fontSemibold : Styles.fontBold}>
-              {rating.location}
-            </Text>
+        <View>
+          {ratings.map((rating, index) => (
+            <TouchableOpacity
+              key={rating.id.toString()}
+              onPress={() => openLocation(rating.eatery_id)}
+              style={{
+                ...Styles.wFull,
+                ...Styles.justifyBetween,
+                ...Styles.p1,
+                ...Styles.borderTop,
+                ...Styles.borderBlue,
+                ...(index % 2 === 0 ? Styles.bgBlueLightFaded : ''),
+              }}
+            >
+              <Text style={Platform.OS === 'ios' ? Styles.fontSemibold : Styles.fontBold}>
+                {rating.location}
+              </Text>
 
-            <View style={{ ...Styles.flexRow, ...Styles.my2 }}>
-              {starArray(rating.rating).map((star) => (
-                <FontAwesome key={star.toString()} name="star" size={20} color={YELLOW} />
-              ))}
-            </View>
+              <View style={{ ...Styles.flexRow, ...Styles.my2 }}>
+                {starArray(rating.rating).map((star) => (
+                  <FontAwesome key={star.toString()} name="star" size={20} color={YELLOW} />
+                ))}
+              </View>
 
-            <Text style={Styles.textSm}>{rating.created_at}</Text>
-          </View>
-        ))}
-      </View>
+              <Text style={Styles.textSm}>{rating.created_at}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
       )}
     </View>
   );
