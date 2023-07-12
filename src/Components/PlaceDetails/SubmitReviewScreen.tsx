@@ -103,7 +103,7 @@ export default function SubmitReviewScreen(props: Props) {
 
   return (
     <ScrollView>
-      <KeyboardAvoidingView behavior="position">
+      <View>
 
         <TitleBar props={{
           isLoading: false,
@@ -140,51 +140,53 @@ export default function SubmitReviewScreen(props: Props) {
             ))}
           </View>
 
-          <View style={Styles.mt4}>
-            <Text style={{
-              ...Styles.textBlueDark,
-              ...Styles.mb1,
-              ...(Platform.OS === 'ios' ? Styles.fontSemibold : Styles.fontBold),
-            }}
-            >
-              Your Name
-            </Text>
-            <TextInput
-              value={name}
-              style={{
-                ...Styles.p2,
-                ...Styles.border,
-                ...Styles.borderBlue,
-                ...Styles.bgBlueLightFaded,
-                ...Styles.roundedSm,
+          <KeyboardAvoidingView behavior="position">
+            <View style={Styles.mt4}>
+              <Text style={{
+                ...Styles.textBlueDark,
+                ...Styles.mb1,
+                ...(Platform.OS === 'ios' ? Styles.fontSemibold : Styles.fontBold),
               }}
-              onChangeText={setName}
-            />
-          </View>
+              >
+                Your Name
+              </Text>
+              <TextInput
+                value={name}
+                style={{
+                  ...Styles.p2,
+                  ...Styles.border,
+                  ...Styles.borderBlue,
+                  ...Styles.bgBlueLightFaded,
+                  ...Styles.roundedSm,
+                }}
+                onChangeText={setName}
+              />
+            </View>
 
-          <View style={Styles.mt4}>
-            <Text style={{
-              ...Styles.textBlueDark,
-              ...Styles.mb1,
-              ...(Platform.OS === 'ios' ? Styles.fontSemibold : Styles.fontBold),
-            }}
-            >
-              Your Email
-            </Text>
-            <TextInput
-              value={email}
-              autoCompleteType="email"
-              keyboardType="email-address"
-              style={{
-                ...Styles.p2,
-                ...Styles.border,
-                ...Styles.borderBlue,
-                ...Styles.bgBlueLightFaded,
-                ...Styles.roundedSm,
+            <View style={Styles.mt4}>
+              <Text style={{
+                ...Styles.textBlueDark,
+                ...Styles.mb1,
+                ...(Platform.OS === 'ios' ? Styles.fontSemibold : Styles.fontBold),
               }}
-              onChangeText={setEmail}
-            />
-          </View>
+              >
+                Your Email
+              </Text>
+              <TextInput
+                value={email}
+                autoCompleteType="email"
+                keyboardType="email-address"
+                style={{
+                  ...Styles.p2,
+                  ...Styles.border,
+                  ...Styles.borderBlue,
+                  ...Styles.bgBlueLightFaded,
+                  ...Styles.roundedSm,
+                }}
+                onChangeText={setEmail}
+              />
+            </View>
+          </KeyboardAvoidingView>
 
           <View style={Styles.mt4}>
             <Text style={{
@@ -329,7 +331,7 @@ export default function SubmitReviewScreen(props: Props) {
             </View>
           )}
         </View>
-      </KeyboardAvoidingView>
+      </View>
 
       <View style={{ ...Styles.p2 }}>
         <View style={{ ...Styles.mt4, flexGrow: 0 }}>

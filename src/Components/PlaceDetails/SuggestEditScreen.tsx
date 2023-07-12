@@ -55,8 +55,6 @@ export default function SuggestEditScreen(props: Props) {
   }, []);
 
   const submitFieldUpdate = (fieldIndex: number, value: string | number | object | null): void => {
-    console.log(value);
-
     if (!value || !notEmpty(value)) {
       alert('Please complete the form before submitting!');
 
