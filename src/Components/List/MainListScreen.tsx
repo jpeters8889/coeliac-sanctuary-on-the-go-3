@@ -70,7 +70,8 @@ export default function MainListScreen({ navigation }: { navigation: StackNaviga
       );
       setHasMorePages(!!response.data.data.next_page_url);
       setIsLoading(false);
-    }).catch(() => {
+    }).catch((e) => {
+      console.log(e);
       setPlaces([]);
       setHasMorePages(false);
       setIsLoading(false);
