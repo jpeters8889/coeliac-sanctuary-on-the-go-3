@@ -14,7 +14,7 @@ const GREY_LIGHT = '#f7f7f7';
 const GREY_OFF = '#ccc';
 const GREY = '#666';
 
-const BASE_URL = 'https://develop.coeliacsanctuary.co.uk';
+const BASE_URL = 'https://www.coeliacsanctuary.co.uk';
 
 export {
   BLUE, BLUE_FADED, BLUE_LIGHT, BLUE_LIGHT_FADED, YELLOW, YELLOW_FADED,

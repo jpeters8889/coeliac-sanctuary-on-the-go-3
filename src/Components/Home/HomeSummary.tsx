@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {
   View, Text, ActivityIndicator, Platform,
 } from 'react-native';
+import { AxiosResponse } from 'axios';
 import Styles from '../../Styles/Styles';
 import { WHITE } from '../../constants';
 import { ApiService } from '../../libs/ApiService';
@@ -27,7 +28,7 @@ export default function HomeSummary() {
   ];
 
   const loadSummary = () => {
-    ApiService.summary().then((response) => {
+    ApiService.summary().then((response: AxiosResponse<WhereToEatSummary>) => {
       setSummaryStats((summary: WhereToEatSummary) => ({
         ...summary,
         eateries: response.data.eateries,

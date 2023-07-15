@@ -10,9 +10,10 @@ import { Eatery } from '../../types';
 import { formatAddress, placeIcon } from '../../helpers';
 
 export default function EateryList(item: Eatery, index: number, navigation: StackNavigationProp<any>) {
-  const viewDetails = (id: number) => {
+  const viewDetails = (id: number, branchId?: number) => {
     navigation.navigate('details', {
       id,
+      branchId,
     });
   };
 
@@ -24,7 +25,7 @@ export default function EateryList(item: Eatery, index: number, navigation: Stac
           ...Styles.flexRow,
           ...(index % 2 === 0 ? Styles.bgGreyLight : ''),
         }}
-        onPress={() => viewDetails(item.id)}
+        onPress={() => viewDetails(item.id, item.branch?.id)}
       >
         <View style={Styles.w80}>
           <Text style={{
@@ -33,7 +34,7 @@ export default function EateryList(item: Eatery, index: number, navigation: Stac
             ...(Platform.OS === 'ios' ? Styles.fontSemibold : Styles.fontBold),
           }}
           >
-            {item.name}
+            {item.branch && item.branch.name ? `${item.branch.name} (${item.name})` : item.name}
           </Text>
 
           {item.type.type !== 'att' && (
@@ -64,7 +65,7 @@ export default function EateryList(item: Eatery, index: number, navigation: Stac
             </Text>
           )}
 
-          <Text>{formatAddress(item.address)}</Text>
+          <Text>{formatAddress(item.branch ? item.branch.address : item.address)}</Text>
         </View>
         <View style={{ ...Styles.w20, ...Styles.itemsEnd, ...Styles.hFull }}>
           <View style={{ ...Styles.mb2, ...Styles.flex1 }}>
@@ -88,7 +89,7 @@ export default function EateryList(item: Eatery, index: number, navigation: Stac
               </Text>
             </View>
           ) : null}
-          <TouchableOpacity onPress={() => viewDetails(item.id)}>
+          <TouchableOpacity onPress={() => viewDetails(item.id, item.branch?.id)}>
             <View style={{
               ...Styles.bgYellow, ...Styles.p2, ...Styles.rounded, ...Styles.itemsEnd,
             }}
@@ -118,7 +119,7 @@ export default function EateryList(item: Eatery, index: number, navigation: Stac
           >
             Did you know, there might be more places to eat in
             {' '}
-            {item.town.town}
+            {item.branch ? item.branch.town.town : item.town.town}
             {' '}
             listed in our Nationwide eating out guide!
           </Text>

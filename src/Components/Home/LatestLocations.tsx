@@ -3,6 +3,7 @@ import {
   View, Text, ActivityIndicator, Platform, TouchableOpacity,
 } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { AxiosResponse } from 'axios';
 import Styles from '../../Styles/Styles';
 import { BLUE_LIGHT } from '../../constants';
 import { LatestEateries } from '../../types';
@@ -13,7 +14,7 @@ export default function LatestLocations({ navigation }: { navigation: StackNavig
   const [locations, setLocations]: [LatestEateries[], any] = useState([]);
 
   const loadEateries = () => {
-    ApiService.latestLocations().then((response) => {
+    ApiService.latestLocations().then((response: AxiosResponse<LatestEateries[]>) => {
       setLocations(response.data);
       setLoading(false);
     });

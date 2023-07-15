@@ -1,6 +1,15 @@
 import { ComponentType, ReactNode } from 'react';
 
-type MainTab = {
+export type ApiDataResponse<T> = {
+  data: T
+};
+
+export type PaginatedResponse<T> = {
+  data: T[],
+  next_page_url?: string
+};
+
+export type MainTab = {
   showHeader?: boolean;
   name: string,
   label: string,
@@ -13,7 +22,15 @@ type MainTab = {
   }) => ReactNode;
 };
 
-type Eatery = {
+export type MapEatery = {
+  id: number;
+  branch_id: number;
+  lat: number;
+  lng: number;
+  name: number;
+};
+
+export type Eatery = {
   address: string;
   average_rating: string;
   average_expense: null | {
@@ -60,11 +77,37 @@ type Eatery = {
     venue_type: string;
   };
   website: string;
+  branch?: EateryBranch;
+  unique_key: string;
 };
 
-type EateryType = 'att' | 'hotel' | 'wte';
+export type EateryBranch = {
+  id: number;
+  name?: string;
+  live: boolean;
+  slug: string;
+  lat: number;
+  lng: number;
+  address: string;
+  formatted_address: string;
+  full_location: string;
+  county: {
+    county: string;
+    id: number;
+  };
+  country: {
+    country: string;
+    id: number;
+  };
+  town: {
+    id: number;
+    town: string;
+  };
+};
 
-type OpeningTimes = {
+export type EateryType = 'att' | 'hotel' | 'wte';
+
+export type OpeningTimes = {
   [K: string]: string | boolean;
   monday_start: string;
   monday_end: string;
@@ -85,13 +128,13 @@ type OpeningTimes = {
   closes_at: string;
 };
 
-type AttractionRestaurant = {
+export type AttractionRestaurant = {
   id: number,
   restaurant_name: string,
   info: string,
 };
 
-type UserReview = {
+export type UserReview = {
   human_date: string;
   admin_review: boolean;
   average_rating: number;
@@ -112,15 +155,15 @@ type UserReview = {
   created_at: string;
 };
 
-type ReviewImage = {
+export type ReviewImage = {
   id: string;
   thumb: string;
   path: string;
 };
 
-type StarReview = 0 | 1 | 2 | 3 | 4 | 5;
+export type StarReview = 0 | 1 | 2 | 3 | 4 | 5;
 
-type PlacesApiRequest = {
+export type PlacesApiRequest = {
   searchTerm?: string;
   lat?: number;
   lng?: number;
@@ -132,7 +175,7 @@ type PlacesApiRequest = {
   limit: number,
 };
 
-type PlacesMapApiRequest = {
+export type PlacesMapApiRequest = {
   lat: number;
   lng: number;
   range: number;
@@ -141,38 +184,38 @@ type PlacesMapApiRequest = {
   }
 };
 
-type SearchRange = 1 | 2 | 5 | 10 | 20;
+export type SearchRange = 1 | 2 | 5 | 10 | 20;
 
-type ModalProps = {
+export type ModalProps = {
   visible?: boolean,
   onClose: () => void,
 };
 
-type VenueTypeFilterGroup = {
+export type VenueTypeFilterGroup = {
   label: string;
   id: number;
   filters: VenueTypeFilter[];
 };
 
-type VenueTypeFilter = {
+export type VenueTypeFilter = {
   id: number;
   label: string;
   selected: boolean,
 };
 
-type VenueTypeResponse = {
+export type VenueTypeResponse = {
   id: number;
   type_id: number;
   label: string;
   count: number;
 };
 
-type SubmitRatingSignature = {
+export type SubmitRatingSignature = {
   eateryId: number;
   rating: StarReview;
 };
 
-type SubmitReviewSignature = {
+export type SubmitReviewSignature = {
   eateryId: number;
   rating: StarReview;
   name?: string;
@@ -185,7 +228,7 @@ type SubmitReviewSignature = {
   images?: string[];
 };
 
-type RecommendAPlaceSignature = {
+export type RecommendAPlaceSignature = {
   name: string;
   email: string;
   placeName: string;
@@ -194,7 +237,7 @@ type RecommendAPlaceSignature = {
   placeDetails: string;
 };
 
-type WebsiteModuleData = {
+export type WebsiteModuleData = {
   architect_title: string;
   id: number,
   title: string;
@@ -204,7 +247,7 @@ type WebsiteModuleData = {
   link: string;
 };
 
-type WebsiteDataset = {
+export type WebsiteDataset = {
   id: number,
   title: string;
   description: string;
@@ -213,26 +256,26 @@ type WebsiteDataset = {
   link: string;
 };
 
-type WebsiteDisplaySection = {
+export type WebsiteDisplaySection = {
   title: string;
   key: 'blogs' | 'recipes';
   loading: boolean;
   items: WebsiteDataset[],
 };
 
-type WhereToEatSummary = {
+export type WhereToEatSummary = {
   [K: string]: number,
   eateries: number;
   attractions: number;
   hotels: number;
 };
 
-type WhereToEatSummarySection = {
+export type WhereToEatSummarySection = {
   title: string;
   key: string;
 };
 
-type LatestEateryRatings = {
+export type LatestEateryRatings = {
   id: number,
   eatery_id: number,
   location: string,
@@ -240,27 +283,27 @@ type LatestEateryRatings = {
   created_at: string,
 };
 
-type LatestEateries = {
+export type LatestEateries = {
   id: number,
   name: string,
   location: string,
   created_at: string,
 };
 
-type ShopCta = {
+export type ShopCta = {
   text: string,
   link: string,
   image: string,
 };
 
-type AnalyticsEvent = {
+export type AnalyticsEvent = {
   type: string;
   metaData?: { [K: string]: any }
 };
 
-type FoodServiceRating = 'excellent' | 'good' | 'poor';
+export type FoodServiceRating = 'excellent' | 'good' | 'poor';
 
-type SuggestEateryResponse = {
+export type SuggestEateryResponse = {
   address: string,
   website: string,
   gf_menu_link: string,
@@ -279,22 +322,23 @@ type SuggestEateryResponse = {
   is_nationwide: boolean
 };
 
-type SuggestEditResponseSelectGroup = {
+export type SuggestEditResponseSelectGroup = {
   id?: number,
   value?: number | string,
   label: string,
   values: SuggestEditResponseSelectGroupFields[];
 };
 
-type SuggestEditResponseSelectGroupFields = {
+export type SuggestEditResponseSelectGroupFields = {
   value: number,
   label: string,
   selected: boolean
 };
 
-type SuggestEditResponseOpeningTimeDays = 'today' | 'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday' | 'sunday';
+// eslint-disable-next-line max-len
+export type SuggestEditResponseOpeningTimeDays = 'today' | 'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday' | 'sunday';
 
-type SuggestEditField = {
+export type SuggestEditField = {
   id: string,
   label: string,
   shouldDisplay: boolean,
@@ -305,7 +349,7 @@ type SuggestEditField = {
   updated: boolean,
 };
 
-type SuggestEditFormField = {
+export type SuggestEditFormField = {
   component: 'input' | 'textarea' | 'select' | 'features' | 'opening-times',
   value?: () => string | number,
   props?: {
@@ -314,7 +358,7 @@ type SuggestEditFormField = {
   componentProps?: { [K:string]: any }
 };
 
-type SuggestEditSelectField = SuggestEditFormField & {
+export type SuggestEditSelectField = SuggestEditFormField & {
   component: 'select',
   props?: {
     [K: string]: any,
@@ -322,7 +366,7 @@ type SuggestEditSelectField = SuggestEditFormField & {
   }
 };
 
-type SuggestEditFeaturesField = SuggestEditFormField & {
+export type SuggestEditFeaturesField = SuggestEditFormField & {
   component: 'features',
   props: {
     currentFeatures: {
@@ -333,23 +377,13 @@ type SuggestEditFeaturesField = SuggestEditFormField & {
   },
 };
 
-type SuggestEditOpeningTimesField = SuggestEditFormField & {
+export type SuggestEditOpeningTimesField = SuggestEditFormField & {
   component: 'opening-times',
   props: {
     currentOpeningTimes: SuggestEditOpeningTime,
   },
 };
 
-type SuggestEditOpeningTime = {
+export type SuggestEditOpeningTime = {
   [K in SuggestEditResponseOpeningTimeDays]: [string, string]
-};
-
-export {
-  MainTab, Eatery, PlacesApiRequest, UserReview, EateryType, SearchRange, ModalProps,
-  VenueTypeFilterGroup, VenueTypeFilter, VenueTypeResponse, SubmitReviewSignature,
-  PlacesMapApiRequest, WebsiteModuleData, WebsiteDataset, WebsiteDisplaySection, RecommendAPlaceSignature,
-  WhereToEatSummary, WhereToEatSummarySection, LatestEateryRatings, LatestEateries, ShopCta, AnalyticsEvent,
-  ReviewImage, OpeningTimes, StarReview, SubmitRatingSignature, FoodServiceRating, SuggestEditField,
-  SuggestEateryResponse, SuggestEditResponseSelectGroup, SuggestEditSelectField, SuggestEditFeaturesField,
-  SuggestEditOpeningTimesField, SuggestEditResponseOpeningTimeDays, SuggestEditOpeningTime,
 };

@@ -4,10 +4,9 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Feather, FontAwesome5, Ionicons } from '@expo/vector-icons';
 import { BottomTabNavigationOptions } from '@react-navigation/bottom-tabs/lib/typescript/src/types';
 import { Platform } from 'react-native';
-import { AdMobBanner } from 'expo-ads-admob';
 import * as Device from 'expo-device';
 import { requestTrackingPermissionsAsync } from 'expo-tracking-transparency';
-// import mobileAds, { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
+import mobileAds, { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
 import Styles from './src/Styles/Styles';
 import { WHITE, YELLOW } from './src/constants';
 import { MainTab } from './src/types';
@@ -21,23 +20,23 @@ import Nationwide from './src/screens/Nationwide';
 export default function App() {
   const Tabs = createBottomTabNavigator();
 
-  // mobileAds()
-  //   .initialize()
-  //   .then((adapterStatuses) => {
-  //     // Initialization complete!
-  //   });
-  //
-  // const adId = (): string => {
-  //   if (Device.isDevice) {
-  //     if (Platform.OS === 'android') {
-  //       return 'ca-app-pub-1063051842575021/7584775669';
-  //     }
-  //
-  //     return 'ca-app-pub-1063051842575021/8005756608';
-  //   }
-  //
-  //   return TestIds.BANNER;
-  // };
+  mobileAds()
+    .initialize()
+    .then((adapterStatuses) => {
+      // Initialization complete!
+    });
+
+  const adId = (): string => {
+    if (Device.isDevice) {
+      if (Platform.OS === 'android') {
+        return 'ca-app-pub-1063051842575021/7584775669';
+      }
+
+      return 'ca-app-pub-1063051842575021/8005756608';
+    }
+
+    return TestIds.BANNER;
+  };
 
   const availableTabs: MainTab[] = [
     {
@@ -146,13 +145,13 @@ export default function App() {
         </Tabs.Navigator>
       </NavigationContainer>
 
-      {/*<BannerAd*/}
-      {/*  unitId={adId()}*/}
-      {/*  size={BannerAdSize.BANNER}*/}
-      {/*  requestOptions={{*/}
-      {/*    requestNonPersonalizedAdsOnly: true,*/}
-      {/*  }}*/}
-      {/*/>*/}
+      <BannerAd
+        unitId={adId()}
+        size={BannerAdSize.BANNER}
+        requestOptions={{
+          requestNonPersonalizedAdsOnly: true,
+        }}
+      />
     </>
   );
 }

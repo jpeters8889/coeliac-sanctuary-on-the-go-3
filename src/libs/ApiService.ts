@@ -29,7 +29,7 @@ export class ApiService {
     url.searchParams.append('page', request.page.toString());
     url.searchParams.append('limit', request.limit.toString());
 
-    return axios.get(encodeURI(url.href), { validateStatus: () => true });
+    return axios.get(url.href, { validateStatus: () => true });
   }
 
   static getMapPlaces(request: PlacesMapApiRequest) {
@@ -49,8 +49,16 @@ export class ApiService {
     return axios.get(encodeURI(url.href), { validateStatus: () => true });
   }
 
-  static async getPlaceDetails(id: number) {
-    return axios.get(`${BASE_URL}/api/wheretoeat/${id.toString()}`);
+  static async getPlaceDetails(id: number, branchId?: number) {
+    let url = `${BASE_URL}/api/wheretoeat/${id.toString()}`;
+
+    if (branchId) {
+      url += `?branch=${branchId}`;
+    }
+
+    console.log(url);
+
+    return axios.get(url);
   }
 
   static async getSuggestEditFields(id: number) {
@@ -133,7 +141,6 @@ export class ApiService {
       // @ts-ignore
       params.branch_name = request.branchName;
     }
-
     return axios.post(`${BASE_URL}/api/wheretoeat/${request.eateryId}/reviews`, params, {
       headers: {
         'X-CSRF-TOKEN': token,

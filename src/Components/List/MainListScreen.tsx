@@ -4,13 +4,16 @@ import {
 } from 'react-native';
 import { AntDesign, MaterialIcons } from '@expo/vector-icons';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { AxiosResponse } from 'axios';
 import Styles from '../../Styles/Styles';
 import EateryList from './EateryList';
 import ItemSeparator from '../UI/ItemSeparator';
 import RangeSelectModal from '../../modals/RangeSelectModal';
 import FilterSelectModal from '../../modals/FilterSelectModal';
 import { FilterService } from '../../libs/FilterService';
-import { Eatery, SearchRange } from '../../types';
+import {
+  ApiDataResponse, Eatery, PaginatedResponse, SearchRange,
+} from '../../types';
 import LocationService from '../../libs/LocationService';
 import { ApiService } from '../../libs/ApiService';
 import AnalyticsService from '../../libs/AnalyticsService';
@@ -62,7 +65,7 @@ export default function MainListScreen({ navigation }: { navigation: StackNaviga
       },
       page: currentPage,
       limit: 20,
-    }).then((response) => {
+    }).then((response: AxiosResponse<ApiDataResponse<PaginatedResponse<Eatery>>>) => {
       setPlaces(
         currentPage === 1
           ? response.data.data.data
@@ -70,8 +73,7 @@ export default function MainListScreen({ navigation }: { navigation: StackNaviga
       );
       setHasMorePages(!!response.data.data.next_page_url);
       setIsLoading(false);
-    }).catch((e) => {
-      console.log(e);
+    }).catch(() => {
       setPlaces([]);
       setHasMorePages(false);
       setIsLoading(false);
@@ -219,7 +221,7 @@ export default function MainListScreen({ navigation }: { navigation: StackNaviga
           <FlatList
             data={places}
             renderItem={({ item, index }) => EateryList(item, index, navigation)}
-            keyExtractor={(item) => item.id.toString()}
+            keyExtractor={(item: Eatery) => item.unique_key.toString()}
             ItemSeparatorComponent={ItemSeparator}
             onEndReached={() => updateList()}
             onEndReachedThreshold={0.9}
