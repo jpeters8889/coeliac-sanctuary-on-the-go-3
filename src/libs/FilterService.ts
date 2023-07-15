@@ -51,7 +51,7 @@ export class FilterService {
 
         return venueType;
       });
-    }).catch((e: AxiosError) => console.log(e.request));
+    }).catch((e: AxiosError) => null);
   }
 
   toggleFilter(groupId: number, filterId: number): void {

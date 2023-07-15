@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import * as Analytics from 'expo-firebase-analytics';
+import analytics from '@react-native-firebase/analytics';
 import { AnalyticsEvent } from '../types';
 
 export default class AnalyticsService {
@@ -10,7 +10,8 @@ export default class AnalyticsService {
       this.hasConsent = hasConsent;
     });
 
-    Analytics.setClientId('53299243-1');
+    // analytics()
+    // .analytics().setClientId('53299243-1');
   }
 
   static logEvent(event: AnalyticsEvent) {
@@ -36,7 +37,7 @@ export default class AnalyticsService {
       return Promise.resolve();
     }
 
-    return Analytics.logEvent(event.type, event.metaData);
+    return analytics().logEvent(event.type, event.metaData);
   }
 
   static async hasConsented(): Promise<boolean> {
@@ -56,7 +57,7 @@ export default class AnalyticsService {
   static async toggleAnalytics(value: boolean) {
     try {
       await AsyncStorage.setItem('@allow-analytics', value ? 'true' : 'false');
-      await Analytics.setAnalyticsCollectionEnabled(value);
+      await analytics().setAnalyticsCollectionEnabled(value);
     } catch (e) {
       // saving error
     }

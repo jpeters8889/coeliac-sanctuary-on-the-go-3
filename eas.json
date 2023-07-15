@@ -1,11 +1,19 @@
 {
   "cli": {
-    "version": ">= 0.46.0"
+    "version": ">= 0.49.0",
+    "promptToConfigurePushNotifications": false
   },
   "build": {
     "development": {
       "developmentClient": true,
       "distribution": "internal"
+    },
+    "development-simulator": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "ios": {
+        "simulator": true
+      }
     },
     "preview": {
       "distribution": "internal"

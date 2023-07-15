@@ -5,7 +5,7 @@ import {
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 import Styles from '../../Styles/Styles';
-import { Eatery, UserReview } from '../../types';
+import { ApiDataResponse, Eatery, UserReview } from '../../types';
 import { ApiService } from '../../libs/ApiService';
 import { BLUE } from '../../constants';
 import CreateReviewModal from '../../modals/CreateReviewModal';
@@ -23,7 +23,8 @@ import OpeningTimesModal from '../../modals/OpeningTimesModal';
 type Props = {
   route: RouteProp<{
     params: {
-      id: number
+      id: number,
+      branchId?: number
     }
   }>
   navigation: StackNavigationProp<any>
@@ -41,8 +42,8 @@ export default function MainPlaceDetailsScreen({ route, navigation }: Props) {
   const [showOpeningTimesModal, setShowOpeningTimesModal]: [boolean, any] = useState(false);
 
   const loadEatery = () => {
-    ApiService.getPlaceDetails(route.params.id)
-      .then((response: { data: Eatery }) => {
+    ApiService.getPlaceDetails(route.params.id, route.params.branchId)
+      .then((response: ApiDataResponse<Eatery>) => {
         setEatery(response.data);
         setIsLoading(false);
       })
@@ -74,7 +75,12 @@ export default function MainPlaceDetailsScreen({ route, navigation }: Props) {
 
   return (
     <View>
-      <TitleBar props={{ isLoading, placeName: eatery.name, navigation }} />
+      <TitleBar props={{
+        isLoading,
+        placeName: eatery.branch && eatery.branch.name ? `${eatery.branch.name} - ${eatery.name}` : eatery.name,
+        navigation,
+      }}
+      />
 
       <View style={Styles.mt10} />
 
@@ -140,7 +146,8 @@ export default function MainPlaceDetailsScreen({ route, navigation }: Props) {
         <CreateReviewModal props={{
           id: eatery.id,
           title: eatery.name,
-          isNationwide: eatery.country.country === 'nationwide',
+          branch: eatery.branch && eatery.branch.name ? eatery.branch.name : (eatery.branch ? eatery.branch.town.town : undefined),
+          isNationwide: eatery.county.county === 'Nationwide' && !eatery.branch,
           navigation,
           onClose: () => closeSubmitRatingModal(),
         }}

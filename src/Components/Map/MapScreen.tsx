@@ -8,12 +8,13 @@ import { Marker, Region } from 'react-native-maps';
 import MapView from 'react-native-map-clustering';
 import { AntDesign, Ionicons } from '@expo/vector-icons';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { AxiosResponse } from 'axios';
 import Styles from '../../Styles/Styles';
 import LocationService from '../../libs/LocationService';
 import { BLACK, BLUE, YELLOW } from '../../constants';
 import { FilterService } from '../../libs/FilterService';
 import FilterSelectModal from '../../modals/FilterSelectModal';
-import { Eatery } from '../../types';
+import { ApiDataResponse, Eatery, MapEatery } from '../../types';
 import { ApiService } from '../../libs/ApiService';
 import AnalyticsService from '../../libs/AnalyticsService';
 
@@ -25,7 +26,7 @@ export default function MapScreen({ navigation }: { navigation: StackNavigationP
     longitude: -0.1277583,
   };
 
-  const [places, setPlaces]: [Eatery[], any] = useState([] as Eatery[]);
+  const [places, setPlaces]: [MapEatery[], any] = useState([] as MapEatery[]);
   const [searchTerm, setSearchTerm]: [string, any] = useState('');
   const [latLng, setLatLng]: [{ latitude: number; longitude: number }, any] = useState(initialLatLng);
   const [locationService]: [LocationService, any] = useState(() => new LocationService());
@@ -46,7 +47,7 @@ export default function MapScreen({ navigation }: { navigation: StackNavigationP
       filters: {
         venueType: filterService.selectedFilters(),
       },
-    }).then((response) => {
+    }).then((response: AxiosResponse<ApiDataResponse<MapEatery>>) => {
       setPlaces(response.data.data);
     }).catch((e) => {
       console.log(e);
@@ -89,9 +90,10 @@ export default function MapScreen({ navigation }: { navigation: StackNavigationP
     setRange((region.latitudeDelta * 111) / 1.609);
   };
 
-  const openDetails = (eatery: Eatery) => {
+  const openDetails = (eatery: MapEatery) => {
     navigation.navigate('details', {
       id: eatery.id,
+      branchId: eatery.branch_id,
     });
   };
 
@@ -208,7 +210,7 @@ export default function MapScreen({ navigation }: { navigation: StackNavigationP
       >
         {places.map((eatery) => (
           <Marker
-            key={eatery.id}
+            key={eatery.id + (eatery.branch_id ? eatery.branch_id : 0)}
             coordinate={{
               latitude: eatery.lat,
               longitude: eatery.lng,

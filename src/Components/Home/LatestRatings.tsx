@@ -4,6 +4,7 @@ import {
 } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { AxiosResponse } from 'axios';
 import Styles from '../../Styles/Styles';
 import { BLUE_LIGHT, YELLOW } from '../../constants';
 import { LatestEateryRatings } from '../../types';
@@ -14,7 +15,7 @@ export default function LatestRatings({ navigation }: { navigation: StackNavigat
   const [ratings, setRatings]: [LatestEateryRatings[], any] = useState([]);
 
   const loadRatings = () => {
-    ApiService.latestRatings().then((response) => {
+    ApiService.latestRatings().then((response: AxiosResponse<LatestEateryRatings[]>) => {
       setRatings(response.data);
       setLoading(false);
     });

@@ -78,9 +78,9 @@ export default function EateryInfo({ props }: Props) {
           </View>
           )}
 
-          {notEmpty(props.eatery.address) && (
+          {(notEmpty(props.eatery.address) || notEmpty(props.eatery.branch?.address)) && (
           <Text>
-            {formatAddress(props.eatery.address, '\n')}
+            {formatAddress(props.eatery.branch ? props.eatery.branch.address : props.eatery.address, '\n')}
           </Text>
           )}
         </View>

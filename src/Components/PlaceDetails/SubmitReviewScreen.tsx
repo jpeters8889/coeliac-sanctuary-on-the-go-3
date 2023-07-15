@@ -8,7 +8,6 @@ import SelectDropdown from 'react-native-select-dropdown';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 import { FontAwesome } from '@expo/vector-icons';
-import { AxiosError } from 'axios';
 import { FoodServiceRating, StarReview } from '../../types';
 import AnalyticsService from '../../libs/AnalyticsService';
 import { ApiService } from '../../libs/ApiService';
@@ -26,6 +25,7 @@ type Props = {
     params: {
       eateryId: number,
       eateryName: string,
+      eateryBranch?: string,
       isNationwide: boolean,
       starRating: StarReview,
     }
@@ -45,6 +45,10 @@ export default function SubmitReviewScreen(props: Props) {
   const [review, setReview]: [string, any] = useState('');
   const [branch, setBranch]: [string | undefined, any] = useState(props.route.params.isNationwide ? '' : undefined);
   const [images, setImages]: [string[], any] = useState([]);
+
+  if (props.route.params.eateryBranch && !branch) {
+    setBranch(() => props.route.params.eateryBranch);
+  }
 
   const selectOptions: FoodServiceRating[] = ['poor', 'good', 'excellent'];
   const expenseOptions: ExpenseOption[] = [
@@ -93,8 +97,7 @@ export default function SubmitReviewScreen(props: Props) {
       Alert.alert('Thank you for your review, it will be verified by an admin before being approved');
 
       props.navigation.goBack();
-    }).catch((e: AxiosError) => {
-      console.log(e.response);
+    }).catch(() => {
       Alert.alert('There was an error submitting your review');
     });
   };
@@ -103,7 +106,7 @@ export default function SubmitReviewScreen(props: Props) {
 
   return (
     <ScrollView>
-      <KeyboardAvoidingView behavior="position">
+      <View>
 
         <TitleBar props={{
           isLoading: false,
@@ -140,51 +143,53 @@ export default function SubmitReviewScreen(props: Props) {
             ))}
           </View>
 
-          <View style={Styles.mt4}>
-            <Text style={{
-              ...Styles.textBlueDark,
-              ...Styles.mb1,
-              ...(Platform.OS === 'ios' ? Styles.fontSemibold : Styles.fontBold),
-            }}
-            >
-              Your Name
-            </Text>
-            <TextInput
-              value={name}
-              style={{
-                ...Styles.p2,
-                ...Styles.border,
-                ...Styles.borderBlue,
-                ...Styles.bgBlueLightFaded,
-                ...Styles.roundedSm,
+          <KeyboardAvoidingView behavior="position">
+            <View style={Styles.mt4}>
+              <Text style={{
+                ...Styles.textBlueDark,
+                ...Styles.mb1,
+                ...(Platform.OS === 'ios' ? Styles.fontSemibold : Styles.fontBold),
               }}
-              onChangeText={setName}
-            />
-          </View>
+              >
+                Your Name
+              </Text>
+              <TextInput
+                value={name}
+                style={{
+                  ...Styles.p2,
+                  ...Styles.border,
+                  ...Styles.borderBlue,
+                  ...Styles.bgBlueLightFaded,
+                  ...Styles.roundedSm,
+                }}
+                onChangeText={setName}
+              />
+            </View>
 
-          <View style={Styles.mt4}>
-            <Text style={{
-              ...Styles.textBlueDark,
-              ...Styles.mb1,
-              ...(Platform.OS === 'ios' ? Styles.fontSemibold : Styles.fontBold),
-            }}
-            >
-              Your Email
-            </Text>
-            <TextInput
-              value={email}
-              autoCompleteType="email"
-              keyboardType="email-address"
-              style={{
-                ...Styles.p2,
-                ...Styles.border,
-                ...Styles.borderBlue,
-                ...Styles.bgBlueLightFaded,
-                ...Styles.roundedSm,
+            <View style={Styles.mt4}>
+              <Text style={{
+                ...Styles.textBlueDark,
+                ...Styles.mb1,
+                ...(Platform.OS === 'ios' ? Styles.fontSemibold : Styles.fontBold),
               }}
-              onChangeText={setEmail}
-            />
-          </View>
+              >
+                Your Email
+              </Text>
+              <TextInput
+                value={email}
+                autoCompleteType="email"
+                keyboardType="email-address"
+                style={{
+                  ...Styles.p2,
+                  ...Styles.border,
+                  ...Styles.borderBlue,
+                  ...Styles.bgBlueLightFaded,
+                  ...Styles.roundedSm,
+                }}
+                onChangeText={setEmail}
+              />
+            </View>
+          </KeyboardAvoidingView>
 
           <View style={Styles.mt4}>
             <Text style={{
@@ -305,7 +310,7 @@ export default function SubmitReviewScreen(props: Props) {
             />
           </View>
 
-          {props.route.params.isNationwide && (
+          {props.route.params.isNationwide && !props.route.params.eateryBranch && (
             <View style={Styles.mt4}>
               <Text style={{
                 ...Styles.textBlueDark,
@@ -329,7 +334,7 @@ export default function SubmitReviewScreen(props: Props) {
             </View>
           )}
         </View>
-      </KeyboardAvoidingView>
+      </View>
 
       <View style={{ ...Styles.p2 }}>
         <View style={{ ...Styles.mt4, flexGrow: 0 }}>

@@ -3,6 +3,7 @@ import React from 'react';
 import { YELLOW } from '../constants';
 import { EateryType } from '../types';
 
+// eslint-disable-next-line max-len
 const formatAddress = (address: string, joiner: string = ', ') => address.split('<br />').filter(() => true).join(joiner);
 
 const placeIcon = (icon: EateryType) => {
